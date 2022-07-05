@@ -1,0 +1,147 @@
+﻿@model IEnumerable<Occupancy.Models.Ordenes>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FolioRecibo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaEmision)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ImporteTotal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Corriente)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Adicional)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Recargo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rezago)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AdicionalRezago)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RecargoRezago)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Multa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Honorarios)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ejecucion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Redondeo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Observaciones)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Estatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ArbitriosMov.Arbitrio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Departamentos.Departamento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Movimientos.FolioRecibo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Users.IDASPNETUSER)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Personas.Nombre)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FolioRecibo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaEmision)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ImporteTotal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Corriente)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Adicional)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Recargo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rezago)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AdicionalRezago)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RecargoRezago)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Multa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Honorarios)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ejecucion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Redondeo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Observaciones)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Estatus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ArbitriosMov.Arbitrio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Departamentos.Departamento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Movimientos.FolioRecibo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Users.IDASPNETUSER)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Personas.Nombre)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IDOrden }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IDOrden }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IDOrden })
+        </td>
+    </tr>
+}
+
+</table>

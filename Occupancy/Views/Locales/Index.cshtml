@@ -1,0 +1,218 @@
+﻿@model IEnumerable<Occupancy.Models.Locales>
+
+@{
+    ViewBag.Title = "IndexLocales";
+}
+<head>    
+
+</head>
+<body>
+    <br />
+    <br />
+    <div class="container">
+        <!--  -->
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <div class="panel-title"><span class="glyphicon glyphicon-home" aria-hidden="true" style="font-size: 25px"></span> <strong>   Locales de : @ViewBag.nombreEspacio</strong></div>
+                    </div>
+                    <div class="panel-body">
+                        <p>Revise, edite, agregue los datos asociados a los Locales, Stands o Piso que se asignarán en los Contratos, Permisos o Concesiones. </p>
+                        <p>Cada local puede registrarlo con el nombre que ya maneja (para reconocerlo fácilmente), bien sea letras combinadas con número o sólo números.</p>
+                        <p></p>
+                        <p></p>
+                        <hr />
+                        <div class="col-md-offset-4 col-md-12">
+                            @using (Html.BeginForm("Create", "Locales", FormMethod.Get))
+                            {
+                                @Html.AntiForgeryToken()
+                                <input type="submit" value="Agregar Local" class="btn btn-primary" />
+                                <br>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <br />
+        <table id="miTabla" class="table table-striped table-bordered" style="width:100%">
+            @*<table id="miTabla" class="display nowrap" style="" width:100%">*@
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IDLocal)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Local)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Espacios.Espacio)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Ocupado)
+                    </th>
+                    <!-- -->
+                    <th>
+                        @Html.DisplayNameFor(model => model.ImporteRenta)
+                    </th>
+                    <!-- -->
+                    <th>
+                        @Html.DisplayNameFor(model => model.Naves.Nave)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Secciones.Seccion)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TipoCuotas.TipoCuota)
+                    </th>
+                    <!-- -->
+                    
+                    <th>
+                        @Html.DisplayNameFor(model => model.MFrente)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MFondo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MCuadTotales)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NumLocParaCobro)
+                    </th>
+
+
+
+                    <th>Acciones</th>
+                </tr>
+
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IDLocal)
+                        </td>
+                        <td>
+                            <p style="text-align:center;"><strong>@Html.DisplayFor(modelItem => item.Local)</strong></p>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Espacios.Espacio)
+                        </td>                        
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Ocupado)
+                            @{ if (item.Ocupado)
+                              {
+                                <strong>Ocupado</strong> 
+                              }
+                              else
+                              {
+                                <strong>Disponible</strong>
+                              } 
+                              }
+                        </td>
+                        <td>
+                            <p style="text-align:center;"><strong>@Html.DisplayFor(modelItem => item.ImporteRenta)</strong></p>
+                        </td>
+                        <!-- -->
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Naves.Nave)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Secciones.Seccion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TipoCuotas.TipoCuota)
+                        </td>
+
+                        <!-- -->
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MFrente)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MFondo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MCuadTotales)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NumLocParaCobro)
+                        </td>                                               
+                        
+                        <td>
+                            @*@Html.ActionLink("Editar", "Edit", new { id = item.IDLocal }, new { @class = "btn btn-info glyphicon glyphicon-edit" })*@
+                            @Html.ActionLink(" ", "Edit", new { id = item.IDLocal }, new { @class = "glyphicon glyphicon-edit" })
+                        </td>
+                    </tr>
+                 }
+            </tbody>
+        </table>
+
+    </div>
+
+    @section scripts{
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.24/r-2.2.7/datatables.min.css" />
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css">
+        <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.24/r-2.2.7/datatables.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.bootstrap.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.colVis.min.js"></script>
+
+        <script>
+            $(document).ready(function () {
+                $('#miTabla').DataTable({
+                    dom: 'lfrtip',
+                    lengthMenu: [
+                        [10, 25, 50, -1],
+                        ['Ver 10 Filas', 'Ver 25 Filas', 'Ver 50 Filas', 'Ver Todo']
+                    ],
+                    "order": [[1, "desc"]],
+                    responsive: true,
+                    "language": {
+                        "sProcessing": "Procesando...",
+                        "sLengthMenu": " _MENU_ ",
+                        "sZeroRecords": "No se encontraron resultados",
+                        "sEmptyTable": "Ningún dato disponible en esta tabla =(",
+                        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                        "sInfoPostFix": "",
+                        "sSearch": "Buscar:",
+                        "sUrl": "",
+                        "sInfoThousands": ",",
+                        "sLoadingRecords": "Cargando...",
+                        "oPaginate": {
+                            "sFirst": "Primero",
+                            "sLast": "Último",
+                            "sNext": "Siguiente",
+                            "sPrevious": "Anterior"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                        },
+                        "buttons": {
+                            "copy": "Copiar",
+                            "colvis": "Visibilidad"
+                        }
+                    },
+                    "pageLength": 10
+                });
+                table.buttons().container()
+                    .appendTo('.btn-default');
+            });
+
+        </script>
+    }
+</body>
+

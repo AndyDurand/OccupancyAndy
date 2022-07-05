@@ -1,0 +1,58 @@
+﻿@model Occupancy.Models.Espacios
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Espacios</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Espacio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Espacio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IDDepto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IDDepto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Direccion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Direccion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumLocales)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumLocales)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IDEspacio }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

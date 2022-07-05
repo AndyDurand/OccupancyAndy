@@ -1,0 +1,2243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="OccupancyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ArbitriosMov">
+          <Key>
+            <PropertyRef Name="IDArbitrioMov" />
+          </Key>
+          <Property Name="IDArbitrioMov" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDEspacio" Type="int" Nullable="false" />
+          <Property Name="IDDepto" Type="int" Nullable="false" />
+          <Property Name="Arbitrio" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="NaturalezaArbitrio" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="NombreCorto" Type="nvarchar" MaxLength="100" />
+          <Property Name="EsCorriente" Type="bit" Nullable="false" />
+          <Property Name="TieneAdcional" Type="bit" Nullable="false" />
+          <Property Name="TieneRecargos" Type="bit" Nullable="false" />
+          <Property Name="EsRezago" Type="bit" Nullable="false" />
+          <Property Name="TieneAdicionalRezago" Type="bit" Nullable="false" />
+          <Property Name="TieneRecargosRezago" Type="bit" Nullable="false" />
+          <Property Name="TieneMulta" Type="bit" Nullable="false" />
+          <Property Name="TieneHonorarios" Type="bit" Nullable="false" />
+          <Property Name="TieneEjecucion" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Contratos">
+          <Key>
+            <PropertyRef Name="IDContrato" />
+          </Key>
+          <Property Name="IDContrato" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDPersona" Type="int" Nullable="false" />
+          <Property Name="IDLocal" Type="int" Nullable="false" />
+          <Property Name="IDGiro" Type="int" Nullable="false" />
+          <Property Name="IDTipoOcupacionUso" Type="int" Nullable="false" />
+          <Property Name="NombreComercial" Type="nvarchar" MaxLength="50" />
+          <Property Name="EsContrato" Type="bit" Nullable="false" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="FechaContrato" Type="date" Nullable="false" />
+          <Property Name="FechaInicio" Type="date" />
+          <Property Name="FechaVencim" Type="date" />
+          <Property Name="NombreFiador" Type="nvarchar" MaxLength="50" />
+          <Property Name="DiaFijoPago" Type="int" />
+          <Property Name="NumYearsVigencia" Type="int" />
+          <Property Name="IDUser" Type="int" Nullable="false" />
+          <Property Name="Observaciones" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="CruceOrden">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDEspacio" Type="int" Nullable="false" />
+          <Property Name="IDTipoMov" Type="int" Nullable="false" />
+          <Property Name="IDArbitrioMov" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Departamentos">
+          <Key>
+            <PropertyRef Name="IDDepto" />
+          </Key>
+          <Property Name="IDDepto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Departamento" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NombreJefe" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Espacios">
+          <Key>
+            <PropertyRef Name="IDEspacio" />
+          </Key>
+          <Property Name="IDEspacio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Espacio" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IDDepto" Type="int" Nullable="false" />
+          <Property Name="Direccion" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CP" Type="nvarchar" MaxLength="50" />
+          <Property Name="NumLocales" Type="int" />
+        </EntityType>
+        <EntityType Name="GiroInformal">
+          <Key>
+            <PropertyRef Name="IDGiroInformal" />
+          </Key>
+          <Property Name="IDGiroInformal" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GiroInformal" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Giros">
+          <Key>
+            <PropertyRef Name="IDGiro" />
+          </Key>
+          <Property Name="IDGiro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Giro" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Locales">
+          <Key>
+            <PropertyRef Name="IDLocal" />
+          </Key>
+          <Property Name="IDLocal" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDEspacio" Type="int" Nullable="false" />
+          <Property Name="IDNave" Type="int" />
+          <Property Name="IDSeccion" Type="int" />
+          <Property Name="IDTipoCuota" Type="int" Nullable="false" />
+          <Property Name="Ocupado" Type="bit" Nullable="false" />
+          <Property Name="Local" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MFrente" Type="real" Nullable="false" />
+          <Property Name="MFondo" Type="real" Nullable="false" />
+          <Property Name="MCuadTotales" Type="real" Nullable="false" />
+          <Property Name="NumLocParaCobro" Type="int" />
+          <Property Name="ImporteRenta" Type="real" Nullable="false" />
+          <Property Name="PorMetraje" Type="bit" />
+        </EntityType>
+        <EntityType Name="Movimientos">
+          <Key>
+            <PropertyRef Name="IDMovimiento" />
+          </Key>
+          <Property Name="IDMovimiento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDContrato" Type="int" Nullable="false" />
+          <Property Name="IDPermiso" Type="int" />
+          <Property Name="IDTipoMovimiento" Type="int" Nullable="false" />
+          <Property Name="IDUser" Type="int" Nullable="false" />
+          <Property Name="IDOrden" Type="int" />
+          <Property Name="ImporteTotal" Type="real" Nullable="false" />
+          <Property Name="FolioRecibo" Type="nvarchar" MaxLength="20" />
+          <Property Name="FechaEmision" Type="date" />
+          <Property Name="FechaVencimiento" Type="date" />
+          <Property Name="Pagado" Type="bit" />
+          <Property Name="FechaPago" Type="date" />
+          <Property Name="Corriente" Type="real" />
+          <Property Name="Adicional" Type="real" />
+          <Property Name="Recargos" Type="real" />
+          <Property Name="Rezago" Type="real" />
+          <Property Name="AdicionalRezago" Type="real" />
+          <Property Name="RecargoRezago" Type="real" />
+          <Property Name="Multa" Type="real" />
+          <Property Name="Honorarios" Type="real" />
+          <Property Name="Ejecucion" Type="real" />
+          <Property Name="Redondeo" Type="real" />
+          <Property Name="Observaciones" Type="nvarchar(max)" />
+          <Property Name="Estatus" Type="nvarchar" MaxLength="10" />
+          <Property Name="Periodo" Type="nvarchar" MaxLength="6" />
+        </EntityType>
+        <EntityType Name="Naves">
+          <Key>
+            <PropertyRef Name="IDNave" />
+          </Key>
+          <Property Name="IDNave" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nave" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IDEspacio" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ordenes">
+          <Key>
+            <PropertyRef Name="IDOrden" />
+          </Key>
+          <Property Name="IDOrden" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDUser" Type="int" Nullable="false" />
+          <Property Name="IDArbitrioMov" Type="int" Nullable="false" />
+          <Property Name="IDDepto" Type="int" Nullable="false" />
+          <Property Name="FolioRecibo" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="FechaEmision" Type="datetime" Nullable="false" />
+          <Property Name="ImporteTotal" Type="real" Nullable="false" />
+          <Property Name="Corriente" Type="real" Nullable="false" />
+          <Property Name="Adicional" Type="real" Nullable="false" />
+          <Property Name="Recargo" Type="real" Nullable="false" />
+          <Property Name="Rezago" Type="real" Nullable="false" />
+          <Property Name="AdicionalRezago" Type="real" Nullable="false" />
+          <Property Name="RecargoRezago" Type="real" Nullable="false" />
+          <Property Name="Multa" Type="real" Nullable="false" />
+          <Property Name="Honorarios" Type="real" Nullable="false" />
+          <Property Name="Ejecucion" Type="real" Nullable="false" />
+          <Property Name="Redondeo" Type="real" />
+          <Property Name="Observaciones" Type="nvarchar(max)" />
+          <Property Name="Estatus" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Parametros">
+          <Key>
+            <PropertyRef Name="IDParametro" />
+          </Key>
+          <Property Name="IDParametro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Year" Type="int" Nullable="false" />
+          <Property Name="UMAProrrateada" Type="float" />
+          <Property Name="FechaLimiteProrrateada" Type="date" />
+          <Property Name="UMANormal" Type="float" />
+          <Property Name="FechaLimiteNormal" Type="date" />
+        </EntityType>
+        <EntityType Name="Permisos">
+          <Key>
+            <PropertyRef Name="IDPermiso" />
+          </Key>
+          <Property Name="IDPermiso" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDPersona" Type="int" Nullable="false" />
+          <Property Name="IDEspacio" Type="int" Nullable="false" />
+          <Property Name="IDTipoOcupacionUso" Type="int" Nullable="false" />
+          <Property Name="IDGiroInformal" Type="int" Nullable="false" />
+          <Property Name="IDTipoMedioInformal" Type="int" />
+          <Property Name="IDTipoPermisoInformal" Type="int" Nullable="false" />
+          <Property Name="NombreComercial" Type="int" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="DiaFijoPago" Type="int" />
+          <Property Name="FechaPermiso" Type="date" Nullable="false" />
+          <Property Name="FechaHrInicio" Type="datetime2" Precision="7" />
+          <Property Name="FechaHrFin" Type="datetime2" Precision="7" />
+          <Property Name="IDUser" Type="int" Nullable="false" />
+          <Property Name="Observaciones" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Personas">
+          <Key>
+            <PropertyRef Name="IDPersona" />
+          </Key>
+          <Property Name="IDPersona" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="APaterno" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AMaterno" Type="nvarchar" MaxLength="50" />
+          <Property Name="Direccion" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="EsPersonaFisica" Type="bit" />
+          <Property Name="RFC" Type="nvarchar" MaxLength="15" />
+          <Property Name="Movil" Type="nvarchar" MaxLength="10" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="10" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="IDDepto" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Secciones">
+          <Key>
+            <PropertyRef Name="IDSeccion" />
+          </Key>
+          <Property Name="IDSeccion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Seccion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IDEspacio" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TipoCuotas">
+          <Key>
+            <PropertyRef Name="IDTipoCuota" />
+          </Key>
+          <Property Name="IDTipoCuota" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDEspacio" Type="int" Nullable="false" />
+          <Property Name="IDNave" Type="int" Nullable="false" />
+          <Property Name="TipoCuota" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ImporteRenta" Type="real" Nullable="false" />
+          <Property Name="PorcentajeAdicional" Type="real" />
+          <Property Name="FactorAdicional" Type="real" />
+          <Property Name="FactorUMADiario" Type="real" Nullable="false" />
+          <Property Name="FactorUMAMensual" Type="real" />
+          <Property Name="FactorUMARecargoDiario" Type="real" />
+          <Property Name="FactorUMARecargoMensual" Type="real" />
+          <Property Name="PorcentajeRecargoMensual" Type="real" />
+          <Property Name="Year" Type="int" Nullable="false" />
+          <Property Name="FechaAplicaInicial" Type="date" Nullable="false" />
+          <Property Name="FechaAplicaFinal" Type="date" Nullable="false" />
+          <Property Name="PorMetraje" Type="bit" />
+        </EntityType>
+        <EntityType Name="TipoMedioInformal">
+          <Key>
+            <PropertyRef Name="IDTipoMedioInformal" />
+          </Key>
+          <Property Name="IDTipoMedioInformal" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Medio" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Placas" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="TipoMovimiento">
+          <Key>
+            <PropertyRef Name="IDTipoMovimiento" />
+          </Key>
+          <Property Name="IDTipoMovimiento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TipoMovimiento" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="NombreCorto" Type="nchar" MaxLength="30" Nullable="false" />
+          <Property Name="Naturaleza" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="EmitirOrden" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TipoOcupacionUso">
+          <Key>
+            <PropertyRef Name="IDTipoOcupacionUso" />
+          </Key>
+          <Property Name="IDTipoOcupacionUso" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OcupacionUso" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="GeneraContrato" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TipoPermisoInformal">
+          <Key>
+            <PropertyRef Name="IDTipoPermisoInformal" />
+          </Key>
+          <Property Name="IDTipoPermisoInformal" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PermisoInformal" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="IDUser" />
+          </Key>
+          <Property Name="IDUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDDepto" Type="int" Nullable="false" />
+          <Property Name="IDASPNETUSER" Type="nvarchar" MaxLength="128" />
+          <Property Name="Nombre_User" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="EMail" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Vendedores">
+          <Key>
+            <PropertyRef Name="IDVendedor" />
+          </Key>
+          <Property Name="IDVendedor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDPermiso" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ArbitriosMov_Departamentos">
+          <End Role="Departamentos" Type="Self.Departamentos" Multiplicity="1" />
+          <End Role="ArbitriosMov" Type="Self.ArbitriosMov" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamentos">
+              <PropertyRef Name="IDDepto" />
+            </Principal>
+            <Dependent Role="ArbitriosMov">
+              <PropertyRef Name="IDDepto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ArbitriosMov_Espacios">
+          <End Role="Espacios" Type="Self.Espacios" Multiplicity="1" />
+          <End Role="ArbitriosMov" Type="Self.ArbitriosMov" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Espacios">
+              <PropertyRef Name="IDEspacio" />
+            </Principal>
+            <Dependent Role="ArbitriosMov">
+              <PropertyRef Name="IDEspacio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contratos_Gros">
+          <End Role="Giros" Type="Self.Giros" Multiplicity="1" />
+          <End Role="Contratos" Type="Self.Contratos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Giros">
+              <PropertyRef Name="IDGiro" />
+            </Principal>
+            <Dependent Role="Contratos">
+              <PropertyRef Name="IDGiro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contratos_Locales">
+          <End Role="Locales" Type="Self.Locales" Multiplicity="1" />
+          <End Role="Contratos" Type="Self.Contratos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Locales">
+              <PropertyRef Name="IDLocal" />
+            </Principal>
+            <Dependent Role="Contratos">
+              <PropertyRef Name="IDLocal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contratos_Personas">
+          <End Role="Personas" Type="Self.Personas" Multiplicity="1" />
+          <End Role="Contratos" Type="Self.Contratos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personas">
+              <PropertyRef Name="IDPersona" />
+            </Principal>
+            <Dependent Role="Contratos">
+              <PropertyRef Name="IDPersona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contratos_TipoOcupacionUso">
+          <End Role="TipoOcupacionUso" Type="Self.TipoOcupacionUso" Multiplicity="1" />
+          <End Role="Contratos" Type="Self.Contratos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoOcupacionUso">
+              <PropertyRef Name="IDTipoOcupacionUso" />
+            </Principal>
+            <Dependent Role="Contratos">
+              <PropertyRef Name="IDTipoOcupacionUso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CruceOrden_ArbitriosMov">
+          <End Role="ArbitriosMov" Type="Self.ArbitriosMov" Multiplicity="1" />
+          <End Role="CruceOrden" Type="Self.CruceOrden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ArbitriosMov">
+              <PropertyRef Name="IDArbitrioMov" />
+            </Principal>
+            <Dependent Role="CruceOrden">
+              <PropertyRef Name="IDArbitrioMov" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CruceOrden_Espacio">
+          <End Role="Espacios" Type="Self.Espacios" Multiplicity="1" />
+          <End Role="CruceOrden" Type="Self.CruceOrden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Espacios">
+              <PropertyRef Name="IDEspacio" />
+            </Principal>
+            <Dependent Role="CruceOrden">
+              <PropertyRef Name="IDEspacio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CruceOrden_TipoMovimiento">
+          <End Role="TipoMovimiento" Type="Self.TipoMovimiento" Multiplicity="1" />
+          <End Role="CruceOrden" Type="Self.CruceOrden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoMovimiento">
+              <PropertyRef Name="IDTipoMovimiento" />
+            </Principal>
+            <Dependent Role="CruceOrden">
+              <PropertyRef Name="IDTipoMov" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Espacios_Deptos">
+          <End Role="Departamentos" Type="Self.Departamentos" Multiplicity="1" />
+          <End Role="Espacios" Type="Self.Espacios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamentos">
+              <PropertyRef Name="IDDepto" />
+            </Principal>
+            <Dependent Role="Espacios">
+              <PropertyRef Name="IDDepto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Locales_Espacios">
+          <End Role="Espacios" Type="Self.Espacios" Multiplicity="1" />
+          <End Role="Locales" Type="Self.Locales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Espacios">
+              <PropertyRef Name="IDEspacio" />
+            </Principal>
+            <Dependent Role="Locales">
+              <PropertyRef Name="IDEspacio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Locales_Naves">
+          <End Role="Naves" Type="Self.Naves" Multiplicity="0..1" />
+          <End Role="Locales" Type="Self.Locales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Naves">
+              <PropertyRef Name="IDNave" />
+            </Principal>
+            <Dependent Role="Locales">
+              <PropertyRef Name="IDNave" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Locales_Secciones">
+          <End Role="Secciones" Type="Self.Secciones" Multiplicity="0..1" />
+          <End Role="Locales" Type="Self.Locales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Secciones">
+              <PropertyRef Name="IDSeccion" />
+            </Principal>
+            <Dependent Role="Locales">
+              <PropertyRef Name="IDSeccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Locales_TipoCuotas">
+          <End Role="TipoCuotas" Type="Self.TipoCuotas" Multiplicity="1" />
+          <End Role="Locales" Type="Self.Locales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoCuotas">
+              <PropertyRef Name="IDTipoCuota" />
+            </Principal>
+            <Dependent Role="Locales">
+              <PropertyRef Name="IDTipoCuota" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Movimientos_Contratos">
+          <End Role="Contratos" Type="Self.Contratos" Multiplicity="1" />
+          <End Role="Movimientos" Type="Self.Movimientos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contratos">
+              <PropertyRef Name="IDContrato" />
+            </Principal>
+            <Dependent Role="Movimientos">
+              <PropertyRef Name="IDContrato" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Movimientos_Ordenes">
+          <End Role="Ordenes" Type="Self.Ordenes" Multiplicity="0..1" />
+          <End Role="Movimientos" Type="Self.Movimientos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ordenes">
+              <PropertyRef Name="IDOrden" />
+            </Principal>
+            <Dependent Role="Movimientos">
+              <PropertyRef Name="IDOrden" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Movimientos_Permisos">
+          <End Role="Permisos" Type="Self.Permisos" Multiplicity="0..1" />
+          <End Role="Movimientos" Type="Self.Movimientos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permisos">
+              <PropertyRef Name="IDPermiso" />
+            </Principal>
+            <Dependent Role="Movimientos">
+              <PropertyRef Name="IDPermiso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Movimientos_TipoMovimientos">
+          <End Role="TipoMovimiento" Type="Self.TipoMovimiento" Multiplicity="1" />
+          <End Role="Movimientos" Type="Self.Movimientos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoMovimiento">
+              <PropertyRef Name="IDTipoMovimiento" />
+            </Principal>
+            <Dependent Role="Movimientos">
+              <PropertyRef Name="IDTipoMovimiento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Movimientos_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Movimientos" Type="Self.Movimientos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="Movimientos">
+              <PropertyRef Name="IDUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Naves_Espacios">
+          <End Role="Espacios" Type="Self.Espacios" Multiplicity="1" />
+          <End Role="Naves" Type="Self.Naves" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Espacios">
+              <PropertyRef Name="IDEspacio" />
+            </Principal>
+            <Dependent Role="Naves">
+              <PropertyRef Name="IDEspacio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ordenes_ArbitriosMov">
+          <End Role="ArbitriosMov" Type="Self.ArbitriosMov" Multiplicity="1" />
+          <End Role="Ordenes" Type="Self.Ordenes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ArbitriosMov">
+              <PropertyRef Name="IDArbitrioMov" />
+            </Principal>
+            <Dependent Role="Ordenes">
+              <PropertyRef Name="IDArbitrioMov" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ordenes_Deptos">
+          <End Role="Departamentos" Type="Self.Departamentos" Multiplicity="1" />
+          <End Role="Ordenes" Type="Self.Ordenes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamentos">
+              <PropertyRef Name="IDDepto" />
+            </Principal>
+            <Dependent Role="Ordenes">
+              <PropertyRef Name="IDDepto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ordenes_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Ordenes" Type="Self.Ordenes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="Ordenes">
+              <PropertyRef Name="IDUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permisos_Espacios">
+          <End Role="Espacios" Type="Self.Espacios" Multiplicity="1" />
+          <End Role="Permisos" Type="Self.Permisos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Espacios">
+              <PropertyRef Name="IDEspacio" />
+            </Principal>
+            <Dependent Role="Permisos">
+              <PropertyRef Name="IDEspacio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permisos_GiroInformal">
+          <End Role="GiroInformal" Type="Self.GiroInformal" Multiplicity="1" />
+          <End Role="Permisos" Type="Self.Permisos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GiroInformal">
+              <PropertyRef Name="IDGiroInformal" />
+            </Principal>
+            <Dependent Role="Permisos">
+              <PropertyRef Name="IDGiroInformal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permisos_Permisos">
+          <End Role="Permisos" Type="Self.Permisos" Multiplicity="1" />
+          <End Role="Permisos1" Type="Self.Permisos" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Permisos">
+              <PropertyRef Name="IDPermiso" />
+            </Principal>
+            <Dependent Role="Permisos1">
+              <PropertyRef Name="IDPermiso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permisos_Personas">
+          <End Role="Personas" Type="Self.Personas" Multiplicity="1" />
+          <End Role="Permisos" Type="Self.Permisos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personas">
+              <PropertyRef Name="IDPersona" />
+            </Principal>
+            <Dependent Role="Permisos">
+              <PropertyRef Name="IDPersona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permisos_TipoMedioInformal">
+          <End Role="TipoMedioInformal" Type="Self.TipoMedioInformal" Multiplicity="0..1" />
+          <End Role="Permisos" Type="Self.Permisos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoMedioInformal">
+              <PropertyRef Name="IDTipoMedioInformal" />
+            </Principal>
+            <Dependent Role="Permisos">
+              <PropertyRef Name="IDTipoMedioInformal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permisos_TipoOcupacionUso">
+          <End Role="TipoOcupacionUso" Type="Self.TipoOcupacionUso" Multiplicity="1" />
+          <End Role="Permisos" Type="Self.Permisos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoOcupacionUso">
+              <PropertyRef Name="IDTipoOcupacionUso" />
+            </Principal>
+            <Dependent Role="Permisos">
+              <PropertyRef Name="IDTipoOcupacionUso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permisos_TipoPermisoInformal">
+          <End Role="TipoPermisoInformal" Type="Self.TipoPermisoInformal" Multiplicity="1" />
+          <End Role="Permisos" Type="Self.Permisos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoPermisoInformal">
+              <PropertyRef Name="IDTipoPermisoInformal" />
+            </Principal>
+            <Dependent Role="Permisos">
+              <PropertyRef Name="IDTipoPermisoInformal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permisos_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Permisos" Type="Self.Permisos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="Permisos">
+              <PropertyRef Name="IDUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Personas_Deptos">
+          <End Role="Departamentos" Type="Self.Departamentos" Multiplicity="1" />
+          <End Role="Personas" Type="Self.Personas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamentos">
+              <PropertyRef Name="IDDepto" />
+            </Principal>
+            <Dependent Role="Personas">
+              <PropertyRef Name="IDDepto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Secciones_Espacios">
+          <End Role="Espacios" Type="Self.Espacios" Multiplicity="1" />
+          <End Role="Secciones" Type="Self.Secciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Espacios">
+              <PropertyRef Name="IDEspacio" />
+            </Principal>
+            <Dependent Role="Secciones">
+              <PropertyRef Name="IDEspacio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TipoCuotas_Espacios">
+          <End Role="Espacios" Type="Self.Espacios" Multiplicity="1" />
+          <End Role="TipoCuotas" Type="Self.TipoCuotas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Espacios">
+              <PropertyRef Name="IDEspacio" />
+            </Principal>
+            <Dependent Role="TipoCuotas">
+              <PropertyRef Name="IDEspacio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TipoCuotas_Naves">
+          <End Role="Naves" Type="Self.Naves" Multiplicity="1" />
+          <End Role="TipoCuotas" Type="Self.TipoCuotas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Naves">
+              <PropertyRef Name="IDNave" />
+            </Principal>
+            <Dependent Role="TipoCuotas">
+              <PropertyRef Name="IDNave" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Deptos">
+          <End Role="Departamentos" Type="Self.Departamentos" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamentos">
+              <PropertyRef Name="IDDepto" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="IDDepto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vendedores_Permisos">
+          <End Role="Permisos" Type="Self.Permisos" Multiplicity="1" />
+          <End Role="Vendedores" Type="Self.Vendedores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permisos">
+              <PropertyRef Name="IDPermiso" />
+            </Principal>
+            <Dependent Role="Vendedores">
+              <PropertyRef Name="IDPermiso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OccupancyModelStoreContainer">
+          <EntitySet Name="ArbitriosMov" EntityType="Self.ArbitriosMov" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Contratos" EntityType="Self.Contratos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CruceOrden" EntityType="Self.CruceOrden" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Departamentos" EntityType="Self.Departamentos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Espacios" EntityType="Self.Espacios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GiroInformal" EntityType="Self.GiroInformal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Giros" EntityType="Self.Giros" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Locales" EntityType="Self.Locales" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Movimientos" EntityType="Self.Movimientos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Naves" EntityType="Self.Naves" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ordenes" EntityType="Self.Ordenes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Parametros" EntityType="Self.Parametros" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Permisos" EntityType="Self.Permisos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Personas" EntityType="Self.Personas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Secciones" EntityType="Self.Secciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoCuotas" EntityType="Self.TipoCuotas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoMedioInformal" EntityType="Self.TipoMedioInformal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoMovimiento" EntityType="Self.TipoMovimiento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoOcupacionUso" EntityType="Self.TipoOcupacionUso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoPermisoInformal" EntityType="Self.TipoPermisoInformal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vendedores" EntityType="Self.Vendedores" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ArbitriosMov_Departamentos" Association="Self.FK_ArbitriosMov_Departamentos">
+            <End Role="Departamentos" EntitySet="Departamentos" />
+            <End Role="ArbitriosMov" EntitySet="ArbitriosMov" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ArbitriosMov_Espacios" Association="Self.FK_ArbitriosMov_Espacios">
+            <End Role="Espacios" EntitySet="Espacios" />
+            <End Role="ArbitriosMov" EntitySet="ArbitriosMov" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contratos_Gros" Association="Self.FK_Contratos_Gros">
+            <End Role="Giros" EntitySet="Giros" />
+            <End Role="Contratos" EntitySet="Contratos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contratos_Locales" Association="Self.FK_Contratos_Locales">
+            <End Role="Locales" EntitySet="Locales" />
+            <End Role="Contratos" EntitySet="Contratos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contratos_Personas" Association="Self.FK_Contratos_Personas">
+            <End Role="Personas" EntitySet="Personas" />
+            <End Role="Contratos" EntitySet="Contratos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contratos_TipoOcupacionUso" Association="Self.FK_Contratos_TipoOcupacionUso">
+            <End Role="TipoOcupacionUso" EntitySet="TipoOcupacionUso" />
+            <End Role="Contratos" EntitySet="Contratos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CruceOrden_ArbitriosMov" Association="Self.FK_CruceOrden_ArbitriosMov">
+            <End Role="ArbitriosMov" EntitySet="ArbitriosMov" />
+            <End Role="CruceOrden" EntitySet="CruceOrden" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CruceOrden_Espacio" Association="Self.FK_CruceOrden_Espacio">
+            <End Role="Espacios" EntitySet="Espacios" />
+            <End Role="CruceOrden" EntitySet="CruceOrden" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CruceOrden_TipoMovimiento" Association="Self.FK_CruceOrden_TipoMovimiento">
+            <End Role="TipoMovimiento" EntitySet="TipoMovimiento" />
+            <End Role="CruceOrden" EntitySet="CruceOrden" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Espacios_Deptos" Association="Self.FK_Espacios_Deptos">
+            <End Role="Departamentos" EntitySet="Departamentos" />
+            <End Role="Espacios" EntitySet="Espacios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Locales_Espacios" Association="Self.FK_Locales_Espacios">
+            <End Role="Espacios" EntitySet="Espacios" />
+            <End Role="Locales" EntitySet="Locales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Locales_Naves" Association="Self.FK_Locales_Naves">
+            <End Role="Naves" EntitySet="Naves" />
+            <End Role="Locales" EntitySet="Locales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Locales_Secciones" Association="Self.FK_Locales_Secciones">
+            <End Role="Secciones" EntitySet="Secciones" />
+            <End Role="Locales" EntitySet="Locales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Locales_TipoCuotas" Association="Self.FK_Locales_TipoCuotas">
+            <End Role="TipoCuotas" EntitySet="TipoCuotas" />
+            <End Role="Locales" EntitySet="Locales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Movimientos_Contratos" Association="Self.FK_Movimientos_Contratos">
+            <End Role="Contratos" EntitySet="Contratos" />
+            <End Role="Movimientos" EntitySet="Movimientos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Movimientos_Ordenes" Association="Self.FK_Movimientos_Ordenes">
+            <End Role="Ordenes" EntitySet="Ordenes" />
+            <End Role="Movimientos" EntitySet="Movimientos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Movimientos_Permisos" Association="Self.FK_Movimientos_Permisos">
+            <End Role="Permisos" EntitySet="Permisos" />
+            <End Role="Movimientos" EntitySet="Movimientos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Movimientos_TipoMovimientos" Association="Self.FK_Movimientos_TipoMovimientos">
+            <End Role="TipoMovimiento" EntitySet="TipoMovimiento" />
+            <End Role="Movimientos" EntitySet="Movimientos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Movimientos_Users" Association="Self.FK_Movimientos_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Movimientos" EntitySet="Movimientos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Naves_Espacios" Association="Self.FK_Naves_Espacios">
+            <End Role="Espacios" EntitySet="Espacios" />
+            <End Role="Naves" EntitySet="Naves" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ordenes_ArbitriosMov" Association="Self.FK_Ordenes_ArbitriosMov">
+            <End Role="ArbitriosMov" EntitySet="ArbitriosMov" />
+            <End Role="Ordenes" EntitySet="Ordenes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ordenes_Deptos" Association="Self.FK_Ordenes_Deptos">
+            <End Role="Departamentos" EntitySet="Departamentos" />
+            <End Role="Ordenes" EntitySet="Ordenes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ordenes_Users" Association="Self.FK_Ordenes_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Ordenes" EntitySet="Ordenes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permisos_Espacios" Association="Self.FK_Permisos_Espacios">
+            <End Role="Espacios" EntitySet="Espacios" />
+            <End Role="Permisos" EntitySet="Permisos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permisos_GiroInformal" Association="Self.FK_Permisos_GiroInformal">
+            <End Role="GiroInformal" EntitySet="GiroInformal" />
+            <End Role="Permisos" EntitySet="Permisos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permisos_Permisos" Association="Self.FK_Permisos_Permisos">
+            <End Role="Permisos" EntitySet="Permisos" />
+            <End Role="Permisos1" EntitySet="Permisos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permisos_Personas" Association="Self.FK_Permisos_Personas">
+            <End Role="Personas" EntitySet="Personas" />
+            <End Role="Permisos" EntitySet="Permisos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permisos_TipoMedioInformal" Association="Self.FK_Permisos_TipoMedioInformal">
+            <End Role="TipoMedioInformal" EntitySet="TipoMedioInformal" />
+            <End Role="Permisos" EntitySet="Permisos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permisos_TipoOcupacionUso" Association="Self.FK_Permisos_TipoOcupacionUso">
+            <End Role="TipoOcupacionUso" EntitySet="TipoOcupacionUso" />
+            <End Role="Permisos" EntitySet="Permisos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permisos_TipoPermisoInformal" Association="Self.FK_Permisos_TipoPermisoInformal">
+            <End Role="TipoPermisoInformal" EntitySet="TipoPermisoInformal" />
+            <End Role="Permisos" EntitySet="Permisos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permisos_Users" Association="Self.FK_Permisos_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Permisos" EntitySet="Permisos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Personas_Deptos" Association="Self.FK_Personas_Deptos">
+            <End Role="Departamentos" EntitySet="Departamentos" />
+            <End Role="Personas" EntitySet="Personas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Secciones_Espacios" Association="Self.FK_Secciones_Espacios">
+            <End Role="Espacios" EntitySet="Espacios" />
+            <End Role="Secciones" EntitySet="Secciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TipoCuotas_Espacios" Association="Self.FK_TipoCuotas_Espacios">
+            <End Role="Espacios" EntitySet="Espacios" />
+            <End Role="TipoCuotas" EntitySet="TipoCuotas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TipoCuotas_Naves" Association="Self.FK_TipoCuotas_Naves">
+            <End Role="Naves" EntitySet="Naves" />
+            <End Role="TipoCuotas" EntitySet="TipoCuotas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Deptos" Association="Self.FK_Users_Deptos">
+            <End Role="Departamentos" EntitySet="Departamentos" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vendedores_Permisos" Association="Self.FK_Vendedores_Permisos">
+            <End Role="Permisos" EntitySet="Permisos" />
+            <End Role="Vendedores" EntitySet="Vendedores" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OccupancyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ArbitriosMov">
+          <Key>
+            <PropertyRef Name="IDArbitrioMov" />
+          </Key>
+          <Property Name="IDArbitrioMov" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDEspacio" Type="Int32" Nullable="false" />
+          <Property Name="IDDepto" Type="Int32" Nullable="false" />
+          <Property Name="Arbitrio" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NaturalezaArbitrio" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NombreCorto" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="EsCorriente" Type="Boolean" Nullable="false" />
+          <Property Name="TieneAdcional" Type="Boolean" Nullable="false" />
+          <Property Name="TieneRecargos" Type="Boolean" Nullable="false" />
+          <Property Name="EsRezago" Type="Boolean" Nullable="false" />
+          <Property Name="TieneAdicionalRezago" Type="Boolean" Nullable="false" />
+          <Property Name="TieneRecargosRezago" Type="Boolean" Nullable="false" />
+          <Property Name="TieneMulta" Type="Boolean" Nullable="false" />
+          <Property Name="TieneHonorarios" Type="Boolean" Nullable="false" />
+          <Property Name="TieneEjecucion" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Departamentos" Relationship="Self.FK_ArbitriosMov_Departamentos" FromRole="ArbitriosMov" ToRole="Departamentos" />
+          <NavigationProperty Name="Espacios" Relationship="Self.FK_ArbitriosMov_Espacios" FromRole="ArbitriosMov" ToRole="Espacios" />
+          <NavigationProperty Name="CruceOrden" Relationship="Self.FK_CruceOrden_ArbitriosMov" FromRole="ArbitriosMov" ToRole="CruceOrden" />
+          <NavigationProperty Name="Ordenes" Relationship="Self.FK_Ordenes_ArbitriosMov" FromRole="ArbitriosMov" ToRole="Ordenes" />
+        </EntityType>
+        <EntityType Name="Contratos">
+          <Key>
+            <PropertyRef Name="IDContrato" />
+          </Key>
+          <Property Name="IDContrato" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDPersona" Type="Int32" Nullable="false" />
+          <Property Name="IDLocal" Type="Int32" Nullable="false" />
+          <Property Name="IDGiro" Type="Int32" Nullable="false" />
+          <Property Name="IDTipoOcupacionUso" Type="Int32" Nullable="false" />
+          <Property Name="NombreComercial" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EsContrato" Type="Boolean" Nullable="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="FechaContrato" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FechaInicio" Type="DateTime" Precision="0" />
+          <Property Name="FechaVencim" Type="DateTime" Precision="0" />
+          <Property Name="NombreFiador" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DiaFijoPago" Type="Int32" />
+          <Property Name="NumYearsVigencia" Type="Int32" />
+          <Property Name="IDUser" Type="Int32" Nullable="false" />
+          <Property Name="Observaciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Giros" Relationship="Self.FK_Contratos_Gros" FromRole="Contratos" ToRole="Giros" />
+          <NavigationProperty Name="Locales" Relationship="Self.FK_Contratos_Locales" FromRole="Contratos" ToRole="Locales" />
+          <NavigationProperty Name="Personas" Relationship="Self.FK_Contratos_Personas" FromRole="Contratos" ToRole="Personas" />
+          <NavigationProperty Name="TipoOcupacionUso" Relationship="Self.FK_Contratos_TipoOcupacionUso" FromRole="Contratos" ToRole="TipoOcupacionUso" />
+          <NavigationProperty Name="Movimientos" Relationship="Self.FK_Movimientos_Contratos" FromRole="Contratos" ToRole="Movimientos" />
+        </EntityType>
+        <EntityType Name="CruceOrden">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDEspacio" Type="Int32" Nullable="false" />
+          <Property Name="IDTipoMov" Type="Int32" Nullable="false" />
+          <Property Name="IDArbitrioMov" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ArbitriosMov" Relationship="Self.FK_CruceOrden_ArbitriosMov" FromRole="CruceOrden" ToRole="ArbitriosMov" />
+          <NavigationProperty Name="Espacios" Relationship="Self.FK_CruceOrden_Espacio" FromRole="CruceOrden" ToRole="Espacios" />
+          <NavigationProperty Name="TipoMovimiento" Relationship="Self.FK_CruceOrden_TipoMovimiento" FromRole="CruceOrden" ToRole="TipoMovimiento" />
+        </EntityType>
+        <EntityType Name="Departamentos">
+          <Key>
+            <PropertyRef Name="IDDepto" />
+          </Key>
+          <Property Name="IDDepto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Departamento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NombreJefe" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ArbitriosMov" Relationship="Self.FK_ArbitriosMov_Departamentos" FromRole="Departamentos" ToRole="ArbitriosMov" />
+          <NavigationProperty Name="Espacios" Relationship="Self.FK_Espacios_Deptos" FromRole="Departamentos" ToRole="Espacios" />
+          <NavigationProperty Name="Ordenes" Relationship="Self.FK_Ordenes_Deptos" FromRole="Departamentos" ToRole="Ordenes" />
+          <NavigationProperty Name="Personas" Relationship="Self.FK_Personas_Deptos" FromRole="Departamentos" ToRole="Personas" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Users_Deptos" FromRole="Departamentos" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Espacios">
+          <Key>
+            <PropertyRef Name="IDEspacio" />
+          </Key>
+          <Property Name="IDEspacio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Espacio" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IDDepto" Type="Int32" Nullable="false" />
+          <Property Name="Direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NumLocales" Type="Int32" />
+          <NavigationProperty Name="ArbitriosMov" Relationship="Self.FK_ArbitriosMov_Espacios" FromRole="Espacios" ToRole="ArbitriosMov" />
+          <NavigationProperty Name="CruceOrden" Relationship="Self.FK_CruceOrden_Espacio" FromRole="Espacios" ToRole="CruceOrden" />
+          <NavigationProperty Name="Departamentos" Relationship="Self.FK_Espacios_Deptos" FromRole="Espacios" ToRole="Departamentos" />
+          <NavigationProperty Name="Locales" Relationship="Self.FK_Locales_Espacios" FromRole="Espacios" ToRole="Locales" />
+          <NavigationProperty Name="Naves" Relationship="Self.FK_Naves_Espacios" FromRole="Espacios" ToRole="Naves" />
+          <NavigationProperty Name="Permisos" Relationship="Self.FK_Permisos_Espacios" FromRole="Espacios" ToRole="Permisos" />
+          <NavigationProperty Name="Secciones" Relationship="Self.FK_Secciones_Espacios" FromRole="Espacios" ToRole="Secciones" />
+          <NavigationProperty Name="TipoCuotas" Relationship="Self.FK_TipoCuotas_Espacios" FromRole="Espacios" ToRole="TipoCuotas" />
+        </EntityType>
+        <EntityType Name="GiroInformal">
+          <Key>
+            <PropertyRef Name="IDGiroInformal" />
+          </Key>
+          <Property Name="IDGiroInformal" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GiroInformal1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Permisos" Relationship="Self.FK_Permisos_GiroInformal" FromRole="GiroInformal" ToRole="Permisos" />
+        </EntityType>
+        <EntityType Name="Giros">
+          <Key>
+            <PropertyRef Name="IDGiro" />
+          </Key>
+          <Property Name="IDGiro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Giro" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Contratos" Relationship="Self.FK_Contratos_Gros" FromRole="Giros" ToRole="Contratos" />
+        </EntityType>
+        <EntityType Name="Locales">
+          <Key>
+            <PropertyRef Name="IDLocal" />
+          </Key>
+          <Property Name="IDLocal" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDEspacio" Type="Int32" Nullable="false" />
+          <Property Name="IDNave" Type="Int32" />
+          <Property Name="IDSeccion" Type="Int32" />
+          <Property Name="IDTipoCuota" Type="Int32" Nullable="false" />
+          <Property Name="Ocupado" Type="Boolean" Nullable="false" />
+          <Property Name="Local" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MFrente" Type="Single" Nullable="false" />
+          <Property Name="MFondo" Type="Single" Nullable="false" />
+          <Property Name="MCuadTotales" Type="Single" Nullable="false" />
+          <Property Name="NumLocParaCobro" Type="Int32" />
+          <Property Name="ImporteRenta" Type="Single" Nullable="false" />
+          <Property Name="PorMetraje" Type="Boolean" />
+          <NavigationProperty Name="Contratos" Relationship="Self.FK_Contratos_Locales" FromRole="Locales" ToRole="Contratos" />
+          <NavigationProperty Name="Espacios" Relationship="Self.FK_Locales_Espacios" FromRole="Locales" ToRole="Espacios" />
+          <NavigationProperty Name="Naves" Relationship="Self.FK_Locales_Naves" FromRole="Locales" ToRole="Naves" />
+          <NavigationProperty Name="Secciones" Relationship="Self.FK_Locales_Secciones" FromRole="Locales" ToRole="Secciones" />
+          <NavigationProperty Name="TipoCuotas" Relationship="Self.FK_Locales_TipoCuotas" FromRole="Locales" ToRole="TipoCuotas" />
+        </EntityType>
+        <EntityType Name="Movimientos">
+          <Key>
+            <PropertyRef Name="IDMovimiento" />
+          </Key>
+          <Property Name="IDMovimiento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDContrato" Type="Int32" Nullable="false" />
+          <Property Name="IDPermiso" Type="Int32" />
+          <Property Name="IDTipoMovimiento" Type="Int32" Nullable="false" />
+          <Property Name="IDUser" Type="Int32" Nullable="false" />
+          <Property Name="IDOrden" Type="Int32" />
+          <Property Name="ImporteTotal" Type="Single" Nullable="false" />
+          <Property Name="FolioRecibo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="FechaEmision" Type="DateTime" Precision="0" />
+          <Property Name="FechaVencimiento" Type="DateTime" Precision="0" />
+          <Property Name="Pagado" Type="Boolean" />
+          <Property Name="FechaPago" Type="DateTime" Precision="0" />
+          <Property Name="Corriente" Type="Single" />
+          <Property Name="Adicional" Type="Single" />
+          <Property Name="Recargos" Type="Single" />
+          <Property Name="Rezago" Type="Single" />
+          <Property Name="AdicionalRezago" Type="Single" />
+          <Property Name="RecargoRezago" Type="Single" />
+          <Property Name="Multa" Type="Single" />
+          <Property Name="Honorarios" Type="Single" />
+          <Property Name="Ejecucion" Type="Single" />
+          <Property Name="Redondeo" Type="Single" />
+          <Property Name="Observaciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Estatus" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Periodo" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Contratos" Relationship="Self.FK_Movimientos_Contratos" FromRole="Movimientos" ToRole="Contratos" />
+          <NavigationProperty Name="Ordenes" Relationship="Self.FK_Movimientos_Ordenes" FromRole="Movimientos" ToRole="Ordenes" />
+          <NavigationProperty Name="Permisos" Relationship="Self.FK_Movimientos_Permisos" FromRole="Movimientos" ToRole="Permisos" />
+          <NavigationProperty Name="TipoMovimiento" Relationship="Self.FK_Movimientos_TipoMovimientos" FromRole="Movimientos" ToRole="TipoMovimiento" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Movimientos_Users" FromRole="Movimientos" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Naves">
+          <Key>
+            <PropertyRef Name="IDNave" />
+          </Key>
+          <Property Name="IDNave" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nave" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IDEspacio" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Espacios" Relationship="Self.FK_Naves_Espacios" FromRole="Naves" ToRole="Espacios" />
+          <NavigationProperty Name="Locales" Relationship="Self.FK_Locales_Naves" FromRole="Naves" ToRole="Locales" />
+          <NavigationProperty Name="TipoCuotas" Relationship="Self.FK_TipoCuotas_Naves" FromRole="Naves" ToRole="TipoCuotas" />
+        </EntityType>
+        <EntityType Name="Ordenes">
+          <Key>
+            <PropertyRef Name="IDOrden" />
+          </Key>
+          <Property Name="IDOrden" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDUser" Type="Int32" Nullable="false" />
+          <Property Name="IDArbitrioMov" Type="Int32" Nullable="false" />
+          <Property Name="IDDepto" Type="Int32" Nullable="false" />
+          <Property Name="FolioRecibo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FechaEmision" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ImporteTotal" Type="Single" Nullable="false" />
+          <Property Name="Corriente" Type="Single" Nullable="false" />
+          <Property Name="Adicional" Type="Single" Nullable="false" />
+          <Property Name="Recargo" Type="Single" Nullable="false" />
+          <Property Name="Rezago" Type="Single" Nullable="false" />
+          <Property Name="AdicionalRezago" Type="Single" Nullable="false" />
+          <Property Name="RecargoRezago" Type="Single" Nullable="false" />
+          <Property Name="Multa" Type="Single" Nullable="false" />
+          <Property Name="Honorarios" Type="Single" Nullable="false" />
+          <Property Name="Ejecucion" Type="Single" Nullable="false" />
+          <Property Name="Redondeo" Type="Single" />
+          <Property Name="Observaciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Estatus" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ArbitriosMov" Relationship="Self.FK_Ordenes_ArbitriosMov" FromRole="Ordenes" ToRole="ArbitriosMov" />
+          <NavigationProperty Name="Departamentos" Relationship="Self.FK_Ordenes_Deptos" FromRole="Ordenes" ToRole="Departamentos" />
+          <NavigationProperty Name="Movimientos" Relationship="Self.FK_Movimientos_Ordenes" FromRole="Ordenes" ToRole="Movimientos" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Ordenes_Users" FromRole="Ordenes" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Parametros">
+          <Key>
+            <PropertyRef Name="IDParametro" />
+          </Key>
+          <Property Name="IDParametro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Year" Type="Int32" Nullable="false" />
+          <Property Name="UMAProrrateada" Type="Double" />
+          <Property Name="FechaLimiteProrrateada" Type="DateTime" Precision="0" />
+          <Property Name="UMANormal" Type="Double" />
+          <Property Name="FechaLimiteNormal" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Permisos">
+          <Key>
+            <PropertyRef Name="IDPermiso" />
+          </Key>
+          <Property Name="IDPermiso" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDPersona" Type="Int32" Nullable="false" />
+          <Property Name="IDEspacio" Type="Int32" Nullable="false" />
+          <Property Name="IDTipoOcupacionUso" Type="Int32" Nullable="false" />
+          <Property Name="IDGiroInformal" Type="Int32" Nullable="false" />
+          <Property Name="IDTipoMedioInformal" Type="Int32" />
+          <Property Name="IDTipoPermisoInformal" Type="Int32" Nullable="false" />
+          <Property Name="NombreComercial" Type="Int32" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="DiaFijoPago" Type="Int32" />
+          <Property Name="FechaPermiso" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FechaHrInicio" Type="DateTime" Precision="7" />
+          <Property Name="FechaHrFin" Type="DateTime" Precision="7" />
+          <Property Name="IDUser" Type="Int32" Nullable="false" />
+          <Property Name="Observaciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Espacios" Relationship="Self.FK_Permisos_Espacios" FromRole="Permisos" ToRole="Espacios" />
+          <NavigationProperty Name="GiroInformal" Relationship="Self.FK_Permisos_GiroInformal" FromRole="Permisos" ToRole="GiroInformal" />
+          <NavigationProperty Name="Movimientos" Relationship="Self.FK_Movimientos_Permisos" FromRole="Permisos" ToRole="Movimientos" />
+          <NavigationProperty Name="Permisos1" Relationship="Self.FK_Permisos_Permisos" FromRole="Permisos" ToRole="Permisos1" />
+          <NavigationProperty Name="Permisos2" Relationship="Self.FK_Permisos_Permisos" FromRole="Permisos1" ToRole="Permisos" />
+          <NavigationProperty Name="Personas" Relationship="Self.FK_Permisos_Personas" FromRole="Permisos" ToRole="Personas" />
+          <NavigationProperty Name="TipoMedioInformal" Relationship="Self.FK_Permisos_TipoMedioInformal" FromRole="Permisos" ToRole="TipoMedioInformal" />
+          <NavigationProperty Name="TipoOcupacionUso" Relationship="Self.FK_Permisos_TipoOcupacionUso" FromRole="Permisos" ToRole="TipoOcupacionUso" />
+          <NavigationProperty Name="TipoPermisoInformal" Relationship="Self.FK_Permisos_TipoPermisoInformal" FromRole="Permisos" ToRole="TipoPermisoInformal" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Permisos_Users" FromRole="Permisos" ToRole="Users" />
+          <NavigationProperty Name="Vendedores" Relationship="Self.FK_Vendedores_Permisos" FromRole="Permisos" ToRole="Vendedores" />
+        </EntityType>
+        <EntityType Name="Personas">
+          <Key>
+            <PropertyRef Name="IDPersona" />
+          </Key>
+          <Property Name="IDPersona" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="APaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Direccion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EsPersonaFisica" Type="Boolean" />
+          <Property Name="RFC" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Movil" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IDDepto" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Contratos" Relationship="Self.FK_Contratos_Personas" FromRole="Personas" ToRole="Contratos" />
+          <NavigationProperty Name="Departamentos" Relationship="Self.FK_Personas_Deptos" FromRole="Personas" ToRole="Departamentos" />
+          <NavigationProperty Name="Permisos" Relationship="Self.FK_Permisos_Personas" FromRole="Personas" ToRole="Permisos" />
+        </EntityType>
+        <EntityType Name="Secciones">
+          <Key>
+            <PropertyRef Name="IDSeccion" />
+          </Key>
+          <Property Name="IDSeccion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Seccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IDEspacio" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Espacios" Relationship="Self.FK_Secciones_Espacios" FromRole="Secciones" ToRole="Espacios" />
+          <NavigationProperty Name="Locales" Relationship="Self.FK_Locales_Secciones" FromRole="Secciones" ToRole="Locales" />
+        </EntityType>
+        <EntityType Name="TipoCuotas">
+          <Key>
+            <PropertyRef Name="IDTipoCuota" />
+          </Key>
+          <Property Name="IDTipoCuota" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDEspacio" Type="Int32" Nullable="false" />
+          <Property Name="IDNave" Type="Int32" Nullable="false" />
+          <Property Name="TipoCuota" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ImporteRenta" Type="Single" Nullable="false" />
+          <Property Name="PorcentajeAdicional" Type="Single" />
+          <Property Name="FactorAdicional" Type="Single" />
+          <Property Name="FactorUMADiario" Type="Single" Nullable="false" />
+          <Property Name="FactorUMAMensual" Type="Single" />
+          <Property Name="FactorUMARecargoDiario" Type="Single" />
+          <Property Name="FactorUMARecargoMensual" Type="Single" />
+          <Property Name="PorcentajeRecargoMensual" Type="Single" />
+          <Property Name="Year" Type="Int32" Nullable="false" />
+          <Property Name="FechaAplicaInicial" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FechaAplicaFinal" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PorMetraje" Type="Boolean" />
+          <NavigationProperty Name="Espacios" Relationship="Self.FK_TipoCuotas_Espacios" FromRole="TipoCuotas" ToRole="Espacios" />
+          <NavigationProperty Name="Locales" Relationship="Self.FK_Locales_TipoCuotas" FromRole="TipoCuotas" ToRole="Locales" />
+          <NavigationProperty Name="Naves" Relationship="Self.FK_TipoCuotas_Naves" FromRole="TipoCuotas" ToRole="Naves" />
+        </EntityType>
+        <EntityType Name="TipoMedioInformal">
+          <Key>
+            <PropertyRef Name="IDTipoMedioInformal" />
+          </Key>
+          <Property Name="IDTipoMedioInformal" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Medio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Placas" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Permisos" Relationship="Self.FK_Permisos_TipoMedioInformal" FromRole="TipoMedioInformal" ToRole="Permisos" />
+        </EntityType>
+        <EntityType Name="TipoMovimiento">
+          <Key>
+            <PropertyRef Name="IDTipoMovimiento" />
+          </Key>
+          <Property Name="IDTipoMovimiento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TipoMovimiento1" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NombreCorto" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Naturaleza" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="EmitirOrden" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="CruceOrden" Relationship="Self.FK_CruceOrden_TipoMovimiento" FromRole="TipoMovimiento" ToRole="CruceOrden" />
+          <NavigationProperty Name="Movimientos" Relationship="Self.FK_Movimientos_TipoMovimientos" FromRole="TipoMovimiento" ToRole="Movimientos" />
+        </EntityType>
+        <EntityType Name="TipoOcupacionUso">
+          <Key>
+            <PropertyRef Name="IDTipoOcupacionUso" />
+          </Key>
+          <Property Name="IDTipoOcupacionUso" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OcupacionUso" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GeneraContrato" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Contratos" Relationship="Self.FK_Contratos_TipoOcupacionUso" FromRole="TipoOcupacionUso" ToRole="Contratos" />
+          <NavigationProperty Name="Permisos" Relationship="Self.FK_Permisos_TipoOcupacionUso" FromRole="TipoOcupacionUso" ToRole="Permisos" />
+        </EntityType>
+        <EntityType Name="TipoPermisoInformal">
+          <Key>
+            <PropertyRef Name="IDTipoPermisoInformal" />
+          </Key>
+          <Property Name="IDTipoPermisoInformal" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PermisoInformal" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Permisos" Relationship="Self.FK_Permisos_TipoPermisoInformal" FromRole="TipoPermisoInformal" ToRole="Permisos" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="IDUser" />
+          </Key>
+          <Property Name="IDUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDDepto" Type="Int32" Nullable="false" />
+          <Property Name="IDASPNETUSER" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Nombre_User" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EMail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Departamentos" Relationship="Self.FK_Users_Deptos" FromRole="Users" ToRole="Departamentos" />
+          <NavigationProperty Name="Movimientos" Relationship="Self.FK_Movimientos_Users" FromRole="Users" ToRole="Movimientos" />
+          <NavigationProperty Name="Ordenes" Relationship="Self.FK_Ordenes_Users" FromRole="Users" ToRole="Ordenes" />
+          <NavigationProperty Name="Permisos" Relationship="Self.FK_Permisos_Users" FromRole="Users" ToRole="Permisos" />
+        </EntityType>
+        <EntityType Name="Vendedores">
+          <Key>
+            <PropertyRef Name="IDVendedor" />
+          </Key>
+          <Property Name="IDVendedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDPermiso" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Permisos" Relationship="Self.FK_Vendedores_Permisos" FromRole="Vendedores" ToRole="Permisos" />
+        </EntityType>
+        <Association Name="FK_ArbitriosMov_Departamentos">
+          <End Role="Departamentos" Type="Self.Departamentos" Multiplicity="1" />
+          <End Role="ArbitriosMov" Type="Self.ArbitriosMov" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamentos">
+              <PropertyRef Name="IDDepto" />
+            </Principal>
+            <Dependent Role="ArbitriosMov">
+              <PropertyRef Name="IDDepto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ArbitriosMov_Espacios">
+          <End Role="Espacios" Type="Self.Espacios" Multiplicity="1" />
+          <End Role="ArbitriosMov" Type="Self.ArbitriosMov" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Espacios">
+              <PropertyRef Name="IDEspacio" />
+            </Principal>
+            <Dependent Role="ArbitriosMov">
+              <PropertyRef Name="IDEspacio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CruceOrden_ArbitriosMov">
+          <End Role="ArbitriosMov" Type="Self.ArbitriosMov" Multiplicity="1" />
+          <End Role="CruceOrden" Type="Self.CruceOrden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ArbitriosMov">
+              <PropertyRef Name="IDArbitrioMov" />
+            </Principal>
+            <Dependent Role="CruceOrden">
+              <PropertyRef Name="IDArbitrioMov" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ordenes_ArbitriosMov">
+          <End Role="ArbitriosMov" Type="Self.ArbitriosMov" Multiplicity="1" />
+          <End Role="Ordenes" Type="Self.Ordenes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ArbitriosMov">
+              <PropertyRef Name="IDArbitrioMov" />
+            </Principal>
+            <Dependent Role="Ordenes">
+              <PropertyRef Name="IDArbitrioMov" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contratos_Gros">
+          <End Role="Giros" Type="Self.Giros" Multiplicity="1" />
+          <End Role="Contratos" Type="Self.Contratos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Giros">
+              <PropertyRef Name="IDGiro" />
+            </Principal>
+            <Dependent Role="Contratos">
+              <PropertyRef Name="IDGiro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contratos_Locales">
+          <End Role="Locales" Type="Self.Locales" Multiplicity="1" />
+          <End Role="Contratos" Type="Self.Contratos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Locales">
+              <PropertyRef Name="IDLocal" />
+            </Principal>
+            <Dependent Role="Contratos">
+              <PropertyRef Name="IDLocal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contratos_Personas">
+          <End Role="Personas" Type="Self.Personas" Multiplicity="1" />
+          <End Role="Contratos" Type="Self.Contratos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personas">
+              <PropertyRef Name="IDPersona" />
+            </Principal>
+            <Dependent Role="Contratos">
+              <PropertyRef Name="IDPersona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contratos_TipoOcupacionUso">
+          <End Role="TipoOcupacionUso" Type="Self.TipoOcupacionUso" Multiplicity="1" />
+          <End Role="Contratos" Type="Self.Contratos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoOcupacionUso">
+              <PropertyRef Name="IDTipoOcupacionUso" />
+            </Principal>
+            <Dependent Role="Contratos">
+              <PropertyRef Name="IDTipoOcupacionUso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Movimientos_Contratos">
+          <End Role="Contratos" Type="Self.Contratos" Multiplicity="1" />
+          <End Role="Movimientos" Type="Self.Movimientos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contratos">
+              <PropertyRef Name="IDContrato" />
+            </Principal>
+            <Dependent Role="Movimientos">
+              <PropertyRef Name="IDContrato" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CruceOrden_Espacio">
+          <End Role="Espacios" Type="Self.Espacios" Multiplicity="1" />
+          <End Role="CruceOrden" Type="Self.CruceOrden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Espacios">
+              <PropertyRef Name="IDEspacio" />
+            </Principal>
+            <Dependent Role="CruceOrden">
+              <PropertyRef Name="IDEspacio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CruceOrden_TipoMovimiento">
+          <End Role="TipoMovimiento" Type="Self.TipoMovimiento" Multiplicity="1" />
+          <End Role="CruceOrden" Type="Self.CruceOrden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoMovimiento">
+              <PropertyRef Name="IDTipoMovimiento" />
+            </Principal>
+            <Dependent Role="CruceOrden">
+              <PropertyRef Name="IDTipoMov" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Espacios_Deptos">
+          <End Role="Departamentos" Type="Self.Departamentos" Multiplicity="1" />
+          <End Role="Espacios" Type="Self.Espacios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamentos">
+              <PropertyRef Name="IDDepto" />
+            </Principal>
+            <Dependent Role="Espacios">
+              <PropertyRef Name="IDDepto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ordenes_Deptos">
+          <End Role="Departamentos" Type="Self.Departamentos" Multiplicity="1" />
+          <End Role="Ordenes" Type="Self.Ordenes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamentos">
+              <PropertyRef Name="IDDepto" />
+            </Principal>
+            <Dependent Role="Ordenes">
+              <PropertyRef Name="IDDepto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Personas_Deptos">
+          <End Role="Departamentos" Type="Self.Departamentos" Multiplicity="1" />
+          <End Role="Personas" Type="Self.Personas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamentos">
+              <PropertyRef Name="IDDepto" />
+            </Principal>
+            <Dependent Role="Personas">
+              <PropertyRef Name="IDDepto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Deptos">
+          <End Role="Departamentos" Type="Self.Departamentos" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamentos">
+              <PropertyRef Name="IDDepto" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="IDDepto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Locales_Espacios">
+          <End Role="Espacios" Type="Self.Espacios" Multiplicity="1" />
+          <End Role="Locales" Type="Self.Locales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Espacios">
+              <PropertyRef Name="IDEspacio" />
+            </Principal>
+            <Dependent Role="Locales">
+              <PropertyRef Name="IDEspacio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Naves_Espacios">
+          <End Role="Espacios" Type="Self.Espacios" Multiplicity="1" />
+          <End Role="Naves" Type="Self.Naves" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Espacios">
+              <PropertyRef Name="IDEspacio" />
+            </Principal>
+            <Dependent Role="Naves">
+              <PropertyRef Name="IDEspacio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permisos_Espacios">
+          <End Role="Espacios" Type="Self.Espacios" Multiplicity="1" />
+          <End Role="Permisos" Type="Self.Permisos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Espacios">
+              <PropertyRef Name="IDEspacio" />
+            </Principal>
+            <Dependent Role="Permisos">
+              <PropertyRef Name="IDEspacio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Secciones_Espacios">
+          <End Role="Espacios" Type="Self.Espacios" Multiplicity="1" />
+          <End Role="Secciones" Type="Self.Secciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Espacios">
+              <PropertyRef Name="IDEspacio" />
+            </Principal>
+            <Dependent Role="Secciones">
+              <PropertyRef Name="IDEspacio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TipoCuotas_Espacios">
+          <End Role="Espacios" Type="Self.Espacios" Multiplicity="1" />
+          <End Role="TipoCuotas" Type="Self.TipoCuotas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Espacios">
+              <PropertyRef Name="IDEspacio" />
+            </Principal>
+            <Dependent Role="TipoCuotas">
+              <PropertyRef Name="IDEspacio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permisos_GiroInformal">
+          <End Role="GiroInformal" Type="Self.GiroInformal" Multiplicity="1" />
+          <End Role="Permisos" Type="Self.Permisos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GiroInformal">
+              <PropertyRef Name="IDGiroInformal" />
+            </Principal>
+            <Dependent Role="Permisos">
+              <PropertyRef Name="IDGiroInformal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Locales_Naves">
+          <End Role="Naves" Type="Self.Naves" Multiplicity="0..1" />
+          <End Role="Locales" Type="Self.Locales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Naves">
+              <PropertyRef Name="IDNave" />
+            </Principal>
+            <Dependent Role="Locales">
+              <PropertyRef Name="IDNave" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Locales_Secciones">
+          <End Role="Secciones" Type="Self.Secciones" Multiplicity="0..1" />
+          <End Role="Locales" Type="Self.Locales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Secciones">
+              <PropertyRef Name="IDSeccion" />
+            </Principal>
+            <Dependent Role="Locales">
+              <PropertyRef Name="IDSeccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Locales_TipoCuotas">
+          <End Role="TipoCuotas" Type="Self.TipoCuotas" Multiplicity="1" />
+          <End Role="Locales" Type="Self.Locales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoCuotas">
+              <PropertyRef Name="IDTipoCuota" />
+            </Principal>
+            <Dependent Role="Locales">
+              <PropertyRef Name="IDTipoCuota" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Movimientos_Ordenes">
+          <End Role="Ordenes" Type="Self.Ordenes" Multiplicity="0..1" />
+          <End Role="Movimientos" Type="Self.Movimientos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ordenes">
+              <PropertyRef Name="IDOrden" />
+            </Principal>
+            <Dependent Role="Movimientos">
+              <PropertyRef Name="IDOrden" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Movimientos_Permisos">
+          <End Role="Permisos" Type="Self.Permisos" Multiplicity="0..1" />
+          <End Role="Movimientos" Type="Self.Movimientos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permisos">
+              <PropertyRef Name="IDPermiso" />
+            </Principal>
+            <Dependent Role="Movimientos">
+              <PropertyRef Name="IDPermiso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Movimientos_TipoMovimientos">
+          <End Role="TipoMovimiento" Type="Self.TipoMovimiento" Multiplicity="1" />
+          <End Role="Movimientos" Type="Self.Movimientos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoMovimiento">
+              <PropertyRef Name="IDTipoMovimiento" />
+            </Principal>
+            <Dependent Role="Movimientos">
+              <PropertyRef Name="IDTipoMovimiento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Movimientos_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Movimientos" Type="Self.Movimientos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="Movimientos">
+              <PropertyRef Name="IDUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TipoCuotas_Naves">
+          <End Role="Naves" Type="Self.Naves" Multiplicity="1" />
+          <End Role="TipoCuotas" Type="Self.TipoCuotas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Naves">
+              <PropertyRef Name="IDNave" />
+            </Principal>
+            <Dependent Role="TipoCuotas">
+              <PropertyRef Name="IDNave" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ordenes_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Ordenes" Type="Self.Ordenes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="Ordenes">
+              <PropertyRef Name="IDUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permisos_Permisos">
+          <End Role="Permisos" Type="Self.Permisos" Multiplicity="1" />
+          <End Role="Permisos1" Type="Self.Permisos" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Permisos">
+              <PropertyRef Name="IDPermiso" />
+            </Principal>
+            <Dependent Role="Permisos1">
+              <PropertyRef Name="IDPermiso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permisos_Personas">
+          <End Role="Personas" Type="Self.Personas" Multiplicity="1" />
+          <End Role="Permisos" Type="Self.Permisos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personas">
+              <PropertyRef Name="IDPersona" />
+            </Principal>
+            <Dependent Role="Permisos">
+              <PropertyRef Name="IDPersona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permisos_TipoMedioInformal">
+          <End Role="TipoMedioInformal" Type="Self.TipoMedioInformal" Multiplicity="0..1" />
+          <End Role="Permisos" Type="Self.Permisos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoMedioInformal">
+              <PropertyRef Name="IDTipoMedioInformal" />
+            </Principal>
+            <Dependent Role="Permisos">
+              <PropertyRef Name="IDTipoMedioInformal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permisos_TipoOcupacionUso">
+          <End Role="TipoOcupacionUso" Type="Self.TipoOcupacionUso" Multiplicity="1" />
+          <End Role="Permisos" Type="Self.Permisos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoOcupacionUso">
+              <PropertyRef Name="IDTipoOcupacionUso" />
+            </Principal>
+            <Dependent Role="Permisos">
+              <PropertyRef Name="IDTipoOcupacionUso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permisos_TipoPermisoInformal">
+          <End Role="TipoPermisoInformal" Type="Self.TipoPermisoInformal" Multiplicity="1" />
+          <End Role="Permisos" Type="Self.Permisos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoPermisoInformal">
+              <PropertyRef Name="IDTipoPermisoInformal" />
+            </Principal>
+            <Dependent Role="Permisos">
+              <PropertyRef Name="IDTipoPermisoInformal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permisos_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Permisos" Type="Self.Permisos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="Permisos">
+              <PropertyRef Name="IDUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vendedores_Permisos">
+          <End Role="Permisos" Type="Self.Permisos" Multiplicity="1" />
+          <End Role="Vendedores" Type="Self.Vendedores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permisos">
+              <PropertyRef Name="IDPermiso" />
+            </Principal>
+            <Dependent Role="Vendedores">
+              <PropertyRef Name="IDPermiso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OccupancyEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ArbitriosMov" EntityType="Self.ArbitriosMov" />
+          <EntitySet Name="Contratos" EntityType="Self.Contratos" />
+          <EntitySet Name="CruceOrden" EntityType="Self.CruceOrden" />
+          <EntitySet Name="Departamentos" EntityType="Self.Departamentos" />
+          <EntitySet Name="Espacios" EntityType="Self.Espacios" />
+          <EntitySet Name="GiroInformal" EntityType="Self.GiroInformal" />
+          <EntitySet Name="Giros" EntityType="Self.Giros" />
+          <EntitySet Name="Locales" EntityType="Self.Locales" />
+          <EntitySet Name="Movimientos" EntityType="Self.Movimientos" />
+          <EntitySet Name="Naves" EntityType="Self.Naves" />
+          <EntitySet Name="Ordenes" EntityType="Self.Ordenes" />
+          <EntitySet Name="Parametros" EntityType="Self.Parametros" />
+          <EntitySet Name="Permisos" EntityType="Self.Permisos" />
+          <EntitySet Name="Personas" EntityType="Self.Personas" />
+          <EntitySet Name="Secciones" EntityType="Self.Secciones" />
+          <EntitySet Name="TipoCuotas" EntityType="Self.TipoCuotas" />
+          <EntitySet Name="TipoMedioInformal" EntityType="Self.TipoMedioInformal" />
+          <EntitySet Name="TipoMovimiento" EntityType="Self.TipoMovimiento" />
+          <EntitySet Name="TipoOcupacionUso" EntityType="Self.TipoOcupacionUso" />
+          <EntitySet Name="TipoPermisoInformal" EntityType="Self.TipoPermisoInformal" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <EntitySet Name="Vendedores" EntityType="Self.Vendedores" />
+          <AssociationSet Name="FK_ArbitriosMov_Departamentos" Association="Self.FK_ArbitriosMov_Departamentos">
+            <End Role="Departamentos" EntitySet="Departamentos" />
+            <End Role="ArbitriosMov" EntitySet="ArbitriosMov" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ArbitriosMov_Espacios" Association="Self.FK_ArbitriosMov_Espacios">
+            <End Role="Espacios" EntitySet="Espacios" />
+            <End Role="ArbitriosMov" EntitySet="ArbitriosMov" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CruceOrden_ArbitriosMov" Association="Self.FK_CruceOrden_ArbitriosMov">
+            <End Role="ArbitriosMov" EntitySet="ArbitriosMov" />
+            <End Role="CruceOrden" EntitySet="CruceOrden" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ordenes_ArbitriosMov" Association="Self.FK_Ordenes_ArbitriosMov">
+            <End Role="ArbitriosMov" EntitySet="ArbitriosMov" />
+            <End Role="Ordenes" EntitySet="Ordenes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contratos_Gros" Association="Self.FK_Contratos_Gros">
+            <End Role="Giros" EntitySet="Giros" />
+            <End Role="Contratos" EntitySet="Contratos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contratos_Locales" Association="Self.FK_Contratos_Locales">
+            <End Role="Locales" EntitySet="Locales" />
+            <End Role="Contratos" EntitySet="Contratos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contratos_Personas" Association="Self.FK_Contratos_Personas">
+            <End Role="Personas" EntitySet="Personas" />
+            <End Role="Contratos" EntitySet="Contratos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contratos_TipoOcupacionUso" Association="Self.FK_Contratos_TipoOcupacionUso">
+            <End Role="TipoOcupacionUso" EntitySet="TipoOcupacionUso" />
+            <End Role="Contratos" EntitySet="Contratos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Movimientos_Contratos" Association="Self.FK_Movimientos_Contratos">
+            <End Role="Contratos" EntitySet="Contratos" />
+            <End Role="Movimientos" EntitySet="Movimientos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CruceOrden_Espacio" Association="Self.FK_CruceOrden_Espacio">
+            <End Role="Espacios" EntitySet="Espacios" />
+            <End Role="CruceOrden" EntitySet="CruceOrden" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CruceOrden_TipoMovimiento" Association="Self.FK_CruceOrden_TipoMovimiento">
+            <End Role="TipoMovimiento" EntitySet="TipoMovimiento" />
+            <End Role="CruceOrden" EntitySet="CruceOrden" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Espacios_Deptos" Association="Self.FK_Espacios_Deptos">
+            <End Role="Departamentos" EntitySet="Departamentos" />
+            <End Role="Espacios" EntitySet="Espacios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ordenes_Deptos" Association="Self.FK_Ordenes_Deptos">
+            <End Role="Departamentos" EntitySet="Departamentos" />
+            <End Role="Ordenes" EntitySet="Ordenes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Personas_Deptos" Association="Self.FK_Personas_Deptos">
+            <End Role="Departamentos" EntitySet="Departamentos" />
+            <End Role="Personas" EntitySet="Personas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Deptos" Association="Self.FK_Users_Deptos">
+            <End Role="Departamentos" EntitySet="Departamentos" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Locales_Espacios" Association="Self.FK_Locales_Espacios">
+            <End Role="Espacios" EntitySet="Espacios" />
+            <End Role="Locales" EntitySet="Locales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Naves_Espacios" Association="Self.FK_Naves_Espacios">
+            <End Role="Espacios" EntitySet="Espacios" />
+            <End Role="Naves" EntitySet="Naves" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permisos_Espacios" Association="Self.FK_Permisos_Espacios">
+            <End Role="Espacios" EntitySet="Espacios" />
+            <End Role="Permisos" EntitySet="Permisos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Secciones_Espacios" Association="Self.FK_Secciones_Espacios">
+            <End Role="Espacios" EntitySet="Espacios" />
+            <End Role="Secciones" EntitySet="Secciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TipoCuotas_Espacios" Association="Self.FK_TipoCuotas_Espacios">
+            <End Role="Espacios" EntitySet="Espacios" />
+            <End Role="TipoCuotas" EntitySet="TipoCuotas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permisos_GiroInformal" Association="Self.FK_Permisos_GiroInformal">
+            <End Role="GiroInformal" EntitySet="GiroInformal" />
+            <End Role="Permisos" EntitySet="Permisos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Locales_Naves" Association="Self.FK_Locales_Naves">
+            <End Role="Naves" EntitySet="Naves" />
+            <End Role="Locales" EntitySet="Locales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Locales_Secciones" Association="Self.FK_Locales_Secciones">
+            <End Role="Secciones" EntitySet="Secciones" />
+            <End Role="Locales" EntitySet="Locales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Locales_TipoCuotas" Association="Self.FK_Locales_TipoCuotas">
+            <End Role="TipoCuotas" EntitySet="TipoCuotas" />
+            <End Role="Locales" EntitySet="Locales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Movimientos_Ordenes" Association="Self.FK_Movimientos_Ordenes">
+            <End Role="Ordenes" EntitySet="Ordenes" />
+            <End Role="Movimientos" EntitySet="Movimientos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Movimientos_Permisos" Association="Self.FK_Movimientos_Permisos">
+            <End Role="Permisos" EntitySet="Permisos" />
+            <End Role="Movimientos" EntitySet="Movimientos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Movimientos_TipoMovimientos" Association="Self.FK_Movimientos_TipoMovimientos">
+            <End Role="TipoMovimiento" EntitySet="TipoMovimiento" />
+            <End Role="Movimientos" EntitySet="Movimientos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Movimientos_Users" Association="Self.FK_Movimientos_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Movimientos" EntitySet="Movimientos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TipoCuotas_Naves" Association="Self.FK_TipoCuotas_Naves">
+            <End Role="Naves" EntitySet="Naves" />
+            <End Role="TipoCuotas" EntitySet="TipoCuotas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ordenes_Users" Association="Self.FK_Ordenes_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Ordenes" EntitySet="Ordenes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permisos_Permisos" Association="Self.FK_Permisos_Permisos">
+            <End Role="Permisos" EntitySet="Permisos" />
+            <End Role="Permisos1" EntitySet="Permisos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permisos_Personas" Association="Self.FK_Permisos_Personas">
+            <End Role="Personas" EntitySet="Personas" />
+            <End Role="Permisos" EntitySet="Permisos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permisos_TipoMedioInformal" Association="Self.FK_Permisos_TipoMedioInformal">
+            <End Role="TipoMedioInformal" EntitySet="TipoMedioInformal" />
+            <End Role="Permisos" EntitySet="Permisos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permisos_TipoOcupacionUso" Association="Self.FK_Permisos_TipoOcupacionUso">
+            <End Role="TipoOcupacionUso" EntitySet="TipoOcupacionUso" />
+            <End Role="Permisos" EntitySet="Permisos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permisos_TipoPermisoInformal" Association="Self.FK_Permisos_TipoPermisoInformal">
+            <End Role="TipoPermisoInformal" EntitySet="TipoPermisoInformal" />
+            <End Role="Permisos" EntitySet="Permisos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permisos_Users" Association="Self.FK_Permisos_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Permisos" EntitySet="Permisos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vendedores_Permisos" Association="Self.FK_Vendedores_Permisos">
+            <End Role="Permisos" EntitySet="Permisos" />
+            <End Role="Vendedores" EntitySet="Vendedores" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OccupancyModelStoreContainer" CdmEntityContainer="OccupancyEntities">
+          <EntitySetMapping Name="ArbitriosMov">
+            <EntityTypeMapping TypeName="OccupancyModel.ArbitriosMov">
+              <MappingFragment StoreEntitySet="ArbitriosMov">
+                <ScalarProperty Name="IDArbitrioMov" ColumnName="IDArbitrioMov" />
+                <ScalarProperty Name="IDEspacio" ColumnName="IDEspacio" />
+                <ScalarProperty Name="IDDepto" ColumnName="IDDepto" />
+                <ScalarProperty Name="Arbitrio" ColumnName="Arbitrio" />
+                <ScalarProperty Name="NaturalezaArbitrio" ColumnName="NaturalezaArbitrio" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="NombreCorto" ColumnName="NombreCorto" />
+                <ScalarProperty Name="EsCorriente" ColumnName="EsCorriente" />
+                <ScalarProperty Name="TieneAdcional" ColumnName="TieneAdcional" />
+                <ScalarProperty Name="TieneRecargos" ColumnName="TieneRecargos" />
+                <ScalarProperty Name="EsRezago" ColumnName="EsRezago" />
+                <ScalarProperty Name="TieneAdicionalRezago" ColumnName="TieneAdicionalRezago" />
+                <ScalarProperty Name="TieneRecargosRezago" ColumnName="TieneRecargosRezago" />
+                <ScalarProperty Name="TieneMulta" ColumnName="TieneMulta" />
+                <ScalarProperty Name="TieneHonorarios" ColumnName="TieneHonorarios" />
+                <ScalarProperty Name="TieneEjecucion" ColumnName="TieneEjecucion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contratos">
+            <EntityTypeMapping TypeName="OccupancyModel.Contratos">
+              <MappingFragment StoreEntitySet="Contratos">
+                <ScalarProperty Name="IDContrato" ColumnName="IDContrato" />
+                <ScalarProperty Name="IDPersona" ColumnName="IDPersona" />
+                <ScalarProperty Name="IDLocal" ColumnName="IDLocal" />
+                <ScalarProperty Name="IDGiro" ColumnName="IDGiro" />
+                <ScalarProperty Name="IDTipoOcupacionUso" ColumnName="IDTipoOcupacionUso" />
+                <ScalarProperty Name="NombreComercial" ColumnName="NombreComercial" />
+                <ScalarProperty Name="EsContrato" ColumnName="EsContrato" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="FechaContrato" ColumnName="FechaContrato" />
+                <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />
+                <ScalarProperty Name="FechaVencim" ColumnName="FechaVencim" />
+                <ScalarProperty Name="NombreFiador" ColumnName="NombreFiador" />
+                <ScalarProperty Name="DiaFijoPago" ColumnName="DiaFijoPago" />
+                <ScalarProperty Name="NumYearsVigencia" ColumnName="NumYearsVigencia" />
+                <ScalarProperty Name="IDUser" ColumnName="IDUser" />
+                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CruceOrden">
+            <EntityTypeMapping TypeName="OccupancyModel.CruceOrden">
+              <MappingFragment StoreEntitySet="CruceOrden">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="IDEspacio" ColumnName="IDEspacio" />
+                <ScalarProperty Name="IDTipoMov" ColumnName="IDTipoMov" />
+                <ScalarProperty Name="IDArbitrioMov" ColumnName="IDArbitrioMov" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departamentos">
+            <EntityTypeMapping TypeName="OccupancyModel.Departamentos">
+              <MappingFragment StoreEntitySet="Departamentos">
+                <ScalarProperty Name="IDDepto" ColumnName="IDDepto" />
+                <ScalarProperty Name="Departamento" ColumnName="Departamento" />
+                <ScalarProperty Name="NombreJefe" ColumnName="NombreJefe" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Espacios">
+            <EntityTypeMapping TypeName="OccupancyModel.Espacios">
+              <MappingFragment StoreEntitySet="Espacios">
+                <ScalarProperty Name="IDEspacio" ColumnName="IDEspacio" />
+                <ScalarProperty Name="Espacio" ColumnName="Espacio" />
+                <ScalarProperty Name="IDDepto" ColumnName="IDDepto" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="CP" ColumnName="CP" />
+                <ScalarProperty Name="NumLocales" ColumnName="NumLocales" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GiroInformal">
+            <EntityTypeMapping TypeName="OccupancyModel.GiroInformal">
+              <MappingFragment StoreEntitySet="GiroInformal">
+                <ScalarProperty Name="IDGiroInformal" ColumnName="IDGiroInformal" />
+                <ScalarProperty Name="GiroInformal1" ColumnName="GiroInformal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Giros">
+            <EntityTypeMapping TypeName="OccupancyModel.Giros">
+              <MappingFragment StoreEntitySet="Giros">
+                <ScalarProperty Name="IDGiro" ColumnName="IDGiro" />
+                <ScalarProperty Name="Giro" ColumnName="Giro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Locales">
+            <EntityTypeMapping TypeName="OccupancyModel.Locales">
+              <MappingFragment StoreEntitySet="Locales">
+                <ScalarProperty Name="IDLocal" ColumnName="IDLocal" />
+                <ScalarProperty Name="IDEspacio" ColumnName="IDEspacio" />
+                <ScalarProperty Name="IDNave" ColumnName="IDNave" />
+                <ScalarProperty Name="IDSeccion" ColumnName="IDSeccion" />
+                <ScalarProperty Name="IDTipoCuota" ColumnName="IDTipoCuota" />
+                <ScalarProperty Name="Ocupado" ColumnName="Ocupado" />
+                <ScalarProperty Name="Local" ColumnName="Local" />
+                <ScalarProperty Name="MFrente" ColumnName="MFrente" />
+                <ScalarProperty Name="MFondo" ColumnName="MFondo" />
+                <ScalarProperty Name="MCuadTotales" ColumnName="MCuadTotales" />
+                <ScalarProperty Name="NumLocParaCobro" ColumnName="NumLocParaCobro" />
+                <ScalarProperty Name="ImporteRenta" ColumnName="ImporteRenta" />
+                <ScalarProperty Name="PorMetraje" ColumnName="PorMetraje" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Movimientos">
+            <EntityTypeMapping TypeName="OccupancyModel.Movimientos">
+              <MappingFragment StoreEntitySet="Movimientos">
+                <ScalarProperty Name="IDMovimiento" ColumnName="IDMovimiento" />
+                <ScalarProperty Name="IDContrato" ColumnName="IDContrato" />
+                <ScalarProperty Name="IDPermiso" ColumnName="IDPermiso" />
+                <ScalarProperty Name="IDTipoMovimiento" ColumnName="IDTipoMovimiento" />
+                <ScalarProperty Name="IDUser" ColumnName="IDUser" />
+                <ScalarProperty Name="IDOrden" ColumnName="IDOrden" />
+                <ScalarProperty Name="ImporteTotal" ColumnName="ImporteTotal" />
+                <ScalarProperty Name="FolioRecibo" ColumnName="FolioRecibo" />
+                <ScalarProperty Name="FechaEmision" ColumnName="FechaEmision" />
+                <ScalarProperty Name="FechaVencimiento" ColumnName="FechaVencimiento" />
+                <ScalarProperty Name="Pagado" ColumnName="Pagado" />
+                <ScalarProperty Name="FechaPago" ColumnName="FechaPago" />
+                <ScalarProperty Name="Corriente" ColumnName="Corriente" />
+                <ScalarProperty Name="Adicional" ColumnName="Adicional" />
+                <ScalarProperty Name="Recargos" ColumnName="Recargos" />
+                <ScalarProperty Name="Rezago" ColumnName="Rezago" />
+                <ScalarProperty Name="AdicionalRezago" ColumnName="AdicionalRezago" />
+                <ScalarProperty Name="RecargoRezago" ColumnName="RecargoRezago" />
+                <ScalarProperty Name="Multa" ColumnName="Multa" />
+                <ScalarProperty Name="Honorarios" ColumnName="Honorarios" />
+                <ScalarProperty Name="Ejecucion" ColumnName="Ejecucion" />
+                <ScalarProperty Name="Redondeo" ColumnName="Redondeo" />
+                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+                <ScalarProperty Name="Estatus" ColumnName="Estatus" />
+                <ScalarProperty Name="Periodo" ColumnName="Periodo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Naves">
+            <EntityTypeMapping TypeName="OccupancyModel.Naves">
+              <MappingFragment StoreEntitySet="Naves">
+                <ScalarProperty Name="IDNave" ColumnName="IDNave" />
+                <ScalarProperty Name="Nave" ColumnName="Nave" />
+                <ScalarProperty Name="IDEspacio" ColumnName="IDEspacio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ordenes">
+            <EntityTypeMapping TypeName="OccupancyModel.Ordenes">
+              <MappingFragment StoreEntitySet="Ordenes">
+                <ScalarProperty Name="IDOrden" ColumnName="IDOrden" />
+                <ScalarProperty Name="IDUser" ColumnName="IDUser" />
+                <ScalarProperty Name="IDArbitrioMov" ColumnName="IDArbitrioMov" />
+                <ScalarProperty Name="IDDepto" ColumnName="IDDepto" />
+                <ScalarProperty Name="FolioRecibo" ColumnName="FolioRecibo" />
+                <ScalarProperty Name="FechaEmision" ColumnName="FechaEmision" />
+                <ScalarProperty Name="ImporteTotal" ColumnName="ImporteTotal" />
+                <ScalarProperty Name="Corriente" ColumnName="Corriente" />
+                <ScalarProperty Name="Adicional" ColumnName="Adicional" />
+                <ScalarProperty Name="Recargo" ColumnName="Recargo" />
+                <ScalarProperty Name="Rezago" ColumnName="Rezago" />
+                <ScalarProperty Name="AdicionalRezago" ColumnName="AdicionalRezago" />
+                <ScalarProperty Name="RecargoRezago" ColumnName="RecargoRezago" />
+                <ScalarProperty Name="Multa" ColumnName="Multa" />
+                <ScalarProperty Name="Honorarios" ColumnName="Honorarios" />
+                <ScalarProperty Name="Ejecucion" ColumnName="Ejecucion" />
+                <ScalarProperty Name="Redondeo" ColumnName="Redondeo" />
+                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+                <ScalarProperty Name="Estatus" ColumnName="Estatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Parametros">
+            <EntityTypeMapping TypeName="OccupancyModel.Parametros">
+              <MappingFragment StoreEntitySet="Parametros">
+                <ScalarProperty Name="IDParametro" ColumnName="IDParametro" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="UMAProrrateada" ColumnName="UMAProrrateada" />
+                <ScalarProperty Name="FechaLimiteProrrateada" ColumnName="FechaLimiteProrrateada" />
+                <ScalarProperty Name="UMANormal" ColumnName="UMANormal" />
+                <ScalarProperty Name="FechaLimiteNormal" ColumnName="FechaLimiteNormal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Permisos">
+            <EntityTypeMapping TypeName="OccupancyModel.Permisos">
+              <MappingFragment StoreEntitySet="Permisos">
+                <ScalarProperty Name="IDPermiso" ColumnName="IDPermiso" />
+                <ScalarProperty Name="IDPersona" ColumnName="IDPersona" />
+                <ScalarProperty Name="IDEspacio" ColumnName="IDEspacio" />
+                <ScalarProperty Name="IDTipoOcupacionUso" ColumnName="IDTipoOcupacionUso" />
+                <ScalarProperty Name="IDGiroInformal" ColumnName="IDGiroInformal" />
+                <ScalarProperty Name="IDTipoMedioInformal" ColumnName="IDTipoMedioInformal" />
+                <ScalarProperty Name="IDTipoPermisoInformal" ColumnName="IDTipoPermisoInformal" />
+                <ScalarProperty Name="NombreComercial" ColumnName="NombreComercial" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="DiaFijoPago" ColumnName="DiaFijoPago" />
+                <ScalarProperty Name="FechaPermiso" ColumnName="FechaPermiso" />
+                <ScalarProperty Name="FechaHrInicio" ColumnName="FechaHrInicio" />
+                <ScalarProperty Name="FechaHrFin" ColumnName="FechaHrFin" />
+                <ScalarProperty Name="IDUser" ColumnName="IDUser" />
+                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Personas">
+            <EntityTypeMapping TypeName="OccupancyModel.Personas">
+              <MappingFragment StoreEntitySet="Personas">
+                <ScalarProperty Name="IDPersona" ColumnName="IDPersona" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="APaterno" ColumnName="APaterno" />
+                <ScalarProperty Name="AMaterno" ColumnName="AMaterno" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="EsPersonaFisica" ColumnName="EsPersonaFisica" />
+                <ScalarProperty Name="RFC" ColumnName="RFC" />
+                <ScalarProperty Name="Movil" ColumnName="Movil" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IDDepto" ColumnName="IDDepto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Secciones">
+            <EntityTypeMapping TypeName="OccupancyModel.Secciones">
+              <MappingFragment StoreEntitySet="Secciones">
+                <ScalarProperty Name="IDSeccion" ColumnName="IDSeccion" />
+                <ScalarProperty Name="Seccion" ColumnName="Seccion" />
+                <ScalarProperty Name="IDEspacio" ColumnName="IDEspacio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoCuotas">
+            <EntityTypeMapping TypeName="OccupancyModel.TipoCuotas">
+              <MappingFragment StoreEntitySet="TipoCuotas">
+                <ScalarProperty Name="IDTipoCuota" ColumnName="IDTipoCuota" />
+                <ScalarProperty Name="IDEspacio" ColumnName="IDEspacio" />
+                <ScalarProperty Name="IDNave" ColumnName="IDNave" />
+                <ScalarProperty Name="TipoCuota" ColumnName="TipoCuota" />
+                <ScalarProperty Name="ImporteRenta" ColumnName="ImporteRenta" />
+                <ScalarProperty Name="PorcentajeAdicional" ColumnName="PorcentajeAdicional" />
+                <ScalarProperty Name="FactorAdicional" ColumnName="FactorAdicional" />
+                <ScalarProperty Name="FactorUMADiario" ColumnName="FactorUMADiario" />
+                <ScalarProperty Name="FactorUMAMensual" ColumnName="FactorUMAMensual" />
+                <ScalarProperty Name="FactorUMARecargoDiario" ColumnName="FactorUMARecargoDiario" />
+                <ScalarProperty Name="FactorUMARecargoMensual" ColumnName="FactorUMARecargoMensual" />
+                <ScalarProperty Name="PorcentajeRecargoMensual" ColumnName="PorcentajeRecargoMensual" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="FechaAplicaInicial" ColumnName="FechaAplicaInicial" />
+                <ScalarProperty Name="FechaAplicaFinal" ColumnName="FechaAplicaFinal" />
+                <ScalarProperty Name="PorMetraje" ColumnName="PorMetraje" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoMedioInformal">
+            <EntityTypeMapping TypeName="OccupancyModel.TipoMedioInformal">
+              <MappingFragment StoreEntitySet="TipoMedioInformal">
+                <ScalarProperty Name="IDTipoMedioInformal" ColumnName="IDTipoMedioInformal" />
+                <ScalarProperty Name="Medio" ColumnName="Medio" />
+                <ScalarProperty Name="Placas" ColumnName="Placas" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoMovimiento">
+            <EntityTypeMapping TypeName="OccupancyModel.TipoMovimiento">
+              <MappingFragment StoreEntitySet="TipoMovimiento">
+                <ScalarProperty Name="IDTipoMovimiento" ColumnName="IDTipoMovimiento" />
+                <ScalarProperty Name="TipoMovimiento1" ColumnName="TipoMovimiento" />
+                <ScalarProperty Name="NombreCorto" ColumnName="NombreCorto" />
+                <ScalarProperty Name="Naturaleza" ColumnName="Naturaleza" />
+                <ScalarProperty Name="EmitirOrden" ColumnName="EmitirOrden" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoOcupacionUso">
+            <EntityTypeMapping TypeName="OccupancyModel.TipoOcupacionUso">
+              <MappingFragment StoreEntitySet="TipoOcupacionUso">
+                <ScalarProperty Name="IDTipoOcupacionUso" ColumnName="IDTipoOcupacionUso" />
+                <ScalarProperty Name="OcupacionUso" ColumnName="OcupacionUso" />
+                <ScalarProperty Name="GeneraContrato" ColumnName="GeneraContrato" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoPermisoInformal">
+            <EntityTypeMapping TypeName="OccupancyModel.TipoPermisoInformal">
+              <MappingFragment StoreEntitySet="TipoPermisoInformal">
+                <ScalarProperty Name="IDTipoPermisoInformal" ColumnName="IDTipoPermisoInformal" />
+                <ScalarProperty Name="PermisoInformal" ColumnName="PermisoInformal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="OccupancyModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="IDUser" ColumnName="IDUser" />
+                <ScalarProperty Name="IDDepto" ColumnName="IDDepto" />
+                <ScalarProperty Name="IDASPNETUSER" ColumnName="IDASPNETUSER" />
+                <ScalarProperty Name="Nombre_User" ColumnName="Nombre_User" />
+                <ScalarProperty Name="EMail" ColumnName="EMail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vendedores">
+            <EntityTypeMapping TypeName="OccupancyModel.Vendedores">
+              <MappingFragment StoreEntitySet="Vendedores">
+                <ScalarProperty Name="IDVendedor" ColumnName="IDVendedor" />
+                <ScalarProperty Name="IDPermiso" ColumnName="IDPermiso" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

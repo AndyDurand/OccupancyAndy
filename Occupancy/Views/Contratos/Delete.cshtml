@@ -1,0 +1,144 @@
+﻿@model Occupancy.Models.Contratos
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Contratos</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NombreComercial)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreComercial)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EsContrato)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EsContrato)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Activo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Activo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaContrato)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaContrato)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaInicio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaInicio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaVencim)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaVencim)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NombreFiador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreFiador)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DiaFijoPago)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiaFijoPago)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumYearsVigencia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumYearsVigencia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IDUser)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IDUser)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Observaciones)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Observaciones)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Giros.Giro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Giros.Giro)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Locales.Local)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Locales.Local)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Personas.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Personas.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TipoOcupacionUso.OcupacionUso)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoOcupacionUso.OcupacionUso)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

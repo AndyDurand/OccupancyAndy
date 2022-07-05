@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="cf0c58abdc614da7bf5921570c4799fe" Name="Diagram1">
+        <EntityTypeShape EntityType="OccupancyModel.ArbitriosMov" Width="1.5" PointX="5.25" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OccupancyModel.Contratos" Width="1.5" PointX="9.75" PointY="32" IsExpanded="true" />
+        <EntityTypeShape EntityType="OccupancyModel.CruceOrden" Width="1.5" PointX="10.5" PointY="21" IsExpanded="true" />
+        <EntityTypeShape EntityType="OccupancyModel.Departamentos" Width="1.5" PointX="0.75" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OccupancyModel.Espacios" Width="1.5" PointX="3" PointY="21.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OccupancyModel.GiroInformal" Width="1.5" PointX="8" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OccupancyModel.Giros" Width="1.5" PointX="7.5" PointY="33.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OccupancyModel.Locales" Width="1.5" PointX="7.5" PointY="27.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OccupancyModel.Movimientos" Width="1.5" PointX="14.75" PointY="27.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OccupancyModel.Naves" Width="1.5" PointX="5.25" PointY="26.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OccupancyModel.Ordenes" Width="1.5" PointX="12.5" PointY="29.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OccupancyModel.Parametros" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OccupancyModel.Permisos" Width="1.5" PointX="10.25" PointY="25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OccupancyModel.Personas" Width="1.5" PointX="3" PointY="26.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OccupancyModel.Secciones" Width="1.5" PointX="5.25" PointY="36.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="OccupancyModel.TipoCuotas" Width="1.5" PointX="7.5" PointY="21.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OccupancyModel.TipoMedioInformal" Width="1.5" PointX="8" PointY="38.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="OccupancyModel.TipoMovimiento" Width="1.5" PointX="8.25" PointY="18" IsExpanded="true" />
+        <EntityTypeShape EntityType="OccupancyModel.TipoOcupacionUso" Width="1.5" PointX="7.5" PointY="43.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OccupancyModel.TipoPermisoInformal" Width="1.5" PointX="8" PointY="40.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OccupancyModel.Users" Width="1.5" PointX="3" PointY="31.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OccupancyModel.Vendedores" Width="1.5" PointX="12.5" PointY="27.125" IsExpanded="true" />
+        <AssociationConnector Association="OccupancyModel.FK_ArbitriosMov_Departamentos" ManuallyRouted="false" />
+        <AssociationConnector Association="OccupancyModel.FK_ArbitriosMov_Espacios" ManuallyRouted="false" />
+        <AssociationConnector Association="OccupancyModel.FK_CruceOrden_ArbitriosMov" ManuallyRouted="false" />
+        <AssociationConnector Association="OccupancyModel.FK_Ordenes_ArbitriosMov" ManuallyRouted="false" />
+        <AssociationConnector Association="OccupancyModel.FK_Contratos_Gros" ManuallyRouted="false" />
+        <AssociationConnector Association="OccupancyModel.FK_Contratos_Locales" ManuallyRouted="false" />
+        <AssociationConnector Association="OccupancyModel.FK_Contratos_Personas" ManuallyRouted="false" />
+        <AssociationConnector Association="OccupancyModel.FK_Contratos_TipoOcupacionUso" ManuallyRouted="false" />
+        <AssociationConnector Association="OccupancyModel.FK_Movimientos_Contratos" ManuallyRouted="false" />
+        <AssociationConnector Association="OccupancyModel.FK_CruceOrden_Espacio" ManuallyRouted="false" />
+        <AssociationConnector Association="OccupancyModel.FK_CruceOrden_TipoMovimiento" ManuallyRouted="false" />
+        <AssociationConnector Association="OccupancyModel.FK_Espacios_Deptos" ManuallyRouted="false" />
+        <AssociationConnector Association="OccupancyModel.FK_Ordenes_Deptos" ManuallyRouted="false" />
+        <AssociationConnector Association="OccupancyModel.FK_Personas_Deptos" ManuallyRouted="false" />
+        <AssociationConnector Association="OccupancyModel.FK_Users_Deptos" ManuallyRouted="false" />
+        <AssociationConnector Association="OccupancyModel.FK_Locales_Espacios" ManuallyRouted="false" />
+        <AssociationConnector Association="OccupancyModel.FK_Naves_Espacios" ManuallyRouted="false" />
+        <AssociationConnector Association="OccupancyModel.FK_Permisos_Espacios" ManuallyRouted="false" />
+        <AssociationConnector Association="OccupancyModel.FK_Secciones_Espacios" ManuallyRouted="false" />
+        <AssociationConnector Association="OccupancyModel.FK_TipoCuotas_Espacios" ManuallyRouted="false" />
+        <AssociationConnector Association="OccupancyModel.FK_Permisos_GiroInformal" ManuallyRouted="false" />
+        <AssociationConnector Association="OccupancyModel.FK_Locales_Naves" ManuallyRouted="false" />
+        <AssociationConnector Association="OccupancyModel.FK_Locales_Secciones" ManuallyRouted="false" />
+        <AssociationConnector Association="OccupancyModel.FK_Locales_TipoCuotas" ManuallyRouted="false" />
+        <AssociationConnector Association="OccupancyModel.FK_Movimientos_Ordenes" ManuallyRouted="false" />
+        <AssociationConnector Association="OccupancyModel.FK_Movimientos_Permisos" ManuallyRouted="false" />
+        <AssociationConnector Association="OccupancyModel.FK_Movimientos_TipoMovimientos" ManuallyRouted="false" />
+        <AssociationConnector Association="OccupancyModel.FK_Movimientos_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="OccupancyModel.FK_TipoCuotas_Naves" ManuallyRouted="false" />
+        <AssociationConnector Association="OccupancyModel.FK_Ordenes_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="OccupancyModel.FK_Permisos_Permisos" ManuallyRouted="false" />
+        <AssociationConnector Association="OccupancyModel.FK_Permisos_Personas" ManuallyRouted="false" />
+        <AssociationConnector Association="OccupancyModel.FK_Permisos_TipoMedioInformal" ManuallyRouted="false" />
+        <AssociationConnector Association="OccupancyModel.FK_Permisos_TipoOcupacionUso" ManuallyRouted="false" />
+        <AssociationConnector Association="OccupancyModel.FK_Permisos_TipoPermisoInformal" ManuallyRouted="false" />
+        <AssociationConnector Association="OccupancyModel.FK_Permisos_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="OccupancyModel.FK_Vendedores_Permisos" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

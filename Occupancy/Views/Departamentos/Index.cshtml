@@ -1,0 +1,107 @@
+﻿@model IEnumerable<Occupancy.Models.Departamentos>
+
+@{
+    ViewBag.Title = "Index";
+}
+<head>
+
+</head>
+<body>
+    <br />
+    <br />
+    <div class="container">
+        <!--  -->
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <div class="panel-title"><span class="glyphicon glyphicon-home" aria-hidden="true" style="font-size: 25px"></span> <strong> Departamentos  </strong></div>
+                    </div>
+                    <div class="panel-body">
+                        <p>Actualice las áreas, departamentos o jefaturas que administran los Inmuebles, Espacios o Vía Pública.</p>                       
+                        <p></p>
+                        <hr />
+                        <div class="col-md-offset-4 col-md-12">
+                            @using (Html.BeginForm("Create", "Departamentos", FormMethod.Get))
+                            {
+                                @Html.AntiForgeryToken()
+                                <input type="submit" value="Agregar Departamento" class="btn btn-primary" />
+                                <br>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <br />
+        <table id="miTabla" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Departamento)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NombreJefe)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Departamento)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NombreJefe)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.IDDepto }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.IDDepto }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.IDDepto })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+       </table>
+
+</div>     
+
+       @section scripts {
+            <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap.min.css">
+            <script type="text/javascript" charset="utf8" src=" https://code.jquery.com/jquery-3.5.1.js"></script>
+            <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+            <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap.min.js"></script>
+            <script>
+                $(document).ready(function () {
+                    $('#miTabla').DataTable({
+                        "createdRow": function (row, data, dataIndex) {
+                            if (data[2] == false) {
+                                $(row).addClass('.libre');
+                            }
+                        },
+                        "language": {
+                            "emptyTable": "Aún no hay datos en la tabla",
+                            "lengthMenu": "Mostrar _MENU_ filas",
+                            "search": "Buscar:",
+                            "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                            "infoEmpty": "Mostrando 0 a 0 de 0 registros",
+                            "infoFiltered": "(De un total de regsitros _MAX_ .)",
+                            "paginate": {
+                                "first": "Primer",
+                                "last": "Ultimo",
+                                "next": "Siguiente",
+                                "previous": "Anterior"
+                            },
+                            "pageLength": 50
+
+                        }
+                    });
+                });
+            </script>
+
+        }
+</body>

@@ -1,0 +1,152 @@
+﻿@model Occupancy.Models.Permisos
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Permisos</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NombreComercial)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreComercial)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Activo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Activo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DiaFijoPago)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiaFijoPago)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaPermiso)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaPermiso)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaHrInicio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaHrInicio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaHrFin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaHrFin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Observaciones)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Observaciones)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Espacios.Espacio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Espacios.Espacio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GiroInformal.GiroInformal1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GiroInformal.GiroInformal1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Permisos1.Observaciones)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Permisos1.Observaciones)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Permisos2.Observaciones)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Permisos2.Observaciones)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Personas.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Personas.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TipoMedioInformal.Medio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoMedioInformal.Medio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TipoOcupacionUso.OcupacionUso)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoOcupacionUso.OcupacionUso)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TipoPermisoInformal.PermisoInformal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoPermisoInformal.PermisoInformal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Users.IDASPNETUSER)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Users.IDASPNETUSER)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

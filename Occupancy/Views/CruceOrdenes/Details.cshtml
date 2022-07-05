@@ -1,0 +1,42 @@
+﻿@model Occupancy.Models.CruceOrden
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CruceOrden</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IDEspacio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IDEspacio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IDTipoMov)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IDTipoMov)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IDArbitrioMov)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IDArbitrioMov)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

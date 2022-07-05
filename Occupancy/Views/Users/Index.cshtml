@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Occupancy.Models.Users>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IDDepto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IDASPNETUSER)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre_User)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EMail)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IDDepto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IDASPNETUSER)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nombre_User)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EMail)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IDUser }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IDUser }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IDUser })
+        </td>
+    </tr>
+}
+
+</table>

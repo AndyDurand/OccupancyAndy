@@ -1,0 +1,81 @@
+﻿@model Occupancy.Models.Espacios
+
+@{
+    ViewBag.Title = "Agregar Espacio";
+}
+<head>
+
+</head>
+<body>
+    <br />
+    <br />
+    <div class="container">
+
+    </div>
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h4 class="panel-title"><span class="glyphicon glyphicon-screenshot" aria-hidden="true" style="font-size: 25px"></span> <strong>  Agregar Inmueble - Espacio </strong></h4>
+        </div>
+        <div class="panel-body">
+            <div>
+                <p>Cree un Espacio o Inmueble del Dominio Público del Municipio de Orizaba, o Espacio específico del que registrará los derechos por el uso con fines comerciales.</p>
+            </div>
+            <br />
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Espacio, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Espacio, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Espacio, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IDDepto, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @*@Html.EditorFor(model => model.IDDepto, new { htmlAttributes = new { @class = "form-control" } })*@
+                        @Html.DropDownList("IDDepto", null, "-Seleccione Departamento-", htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.IDDepto, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Direccion, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Direccion, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Direccion, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CP, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.CP, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CP, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NumLocales, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.NumLocales, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.NumLocales, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                               
+                <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Grabar" class="btn btn-success" />
+                            </div>
+                 </div>
+
+            }
+        </div>
+    </div>
+    <div>
+        @Html.ActionLink("Regresar", "Index")
+    </div>
+
+</body>

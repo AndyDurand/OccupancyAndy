@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Occupancy.Models.Parametros>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Yar)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UMAProrrateada)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaLimiteProrrateada)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UMANormal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaLimiteNormal)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Yar)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UMAProrrateada)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaLimiteProrrateada)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UMANormal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaLimiteNormal)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IDParametro }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IDParametro }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IDParametro })
+        </td>
+    </tr>
+}
+
+</table>

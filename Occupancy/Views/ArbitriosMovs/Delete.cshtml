@@ -1,0 +1,144 @@
+﻿@model Occupancy.Models.ArbitriosMov
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>ArbitriosMov</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Arbitrio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Arbitrio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NaturalezaArbitrio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NaturalezaArbitrio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NombreCorto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreCorto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EsCorriente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EsCorriente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TieneAdcional)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TieneAdcional)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TieneRecargos)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TieneRecargos)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EsRezago)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EsRezago)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TieneAdicionalRezago)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TieneAdicionalRezago)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TieneRecargosRezago)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TieneRecargosRezago)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TieneMulta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TieneMulta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TieneHonorarios)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TieneHonorarios)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TieneEjecucion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TieneEjecucion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Departamentos.Departamento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Departamentos.Departamento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Espacios.Espacio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Espacios.Espacio)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

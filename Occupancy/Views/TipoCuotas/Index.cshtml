@@ -1,0 +1,211 @@
+﻿@model IEnumerable<Occupancy.Models.TipoCuotas>
+
+@{
+    ViewBag.Title = "TipoCuotas";
+}
+<head>
+
+</head>
+<body>
+    <br />
+    <br />
+    <!--  -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <div class="panel-title"><span class="glyphicon glyphicon-home" aria-hidden="true" style="font-size: 25px"></span> <strong>  Tipo de Cuotas </strong></div>
+                    </div>
+                    <div class="panel-body">
+                        <p>En los tipos de Cuotas se definen los Importes a cobrar por mes, bien sea por por <strong>Cuotas</strong> o por <strong>factor UMAs</strong>; los recargos a cobrar bien sea por porcentajes sobre el importe o por factores UMA.</p>
+                        <p>Lo anterior de acuerdo con el Código Hacendario del Municipio de Orizaba, Ver. </p>
+                        <p>Agregue los Tipos de Cuota a aplicar, por Espacio o Inmueble, o por Nave; estos valores los tomará el Sistema para el cálculo completo. </p>
+                        <p></p>
+                        <hr />
+                        <div class="col-md-offset-4 col-md-12">
+                            @using (Html.BeginForm("Create", "TipoCuotas", FormMethod.Get))
+                            {
+                                @Html.AntiForgeryToken()
+                                <input type="submit" value="Agregar Cuota" class="btn btn-primary" />
+                                <br>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <br />
+        <br />
+        <!-- Stripped DataTable --- Tipo cuotas   <table id="miTabla" class="table table-responsive table-striped table-bordered"> -->
+        <table id="miTabla" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TipoCuota)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Espacios.Espacio)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Naves.Nave)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ImporteRenta)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PorcentajeAdicional)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PorcentajeRecargoMensual)
+                    </th>
+                    <!-- -->
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.FactorUMADiario)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FactorUMAMensual)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FactorUMARecargoDiario)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FactorUMARecargoMensual)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Year)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FechaAplicaInicial)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FechaAplicaFinal)
+                    </th>
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TipoCuota)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Espacios.Espacio)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Naves.Nave)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ImporteRenta)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PorcentajeAdicional)
+                        </td>
+                        <!-- -->
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PorcentajeRecargoMensual)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FactorUMADiario)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FactorUMAMensual)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FactorUMARecargoDiario)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FactorUMARecargoMensual)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Year)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FechaAplicaInicial)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FechaAplicaFinal)
+                        </td>
+
+                        <td>
+                            @Html.ActionLink("Editar", "Edit", new { id = item.IDTipoCuota }) |
+                            @Html.ActionLink("Detalles", "Details", new { id = item.IDTipoCuota }) |
+                            @*@Html.ActionLink("Delete", "Delete", new { id = item.IDTipoCuota })*@
+                        </td>
+                    </tr>
+                    }
+            </tbody>
+
+        </table>
+    </div>
+
+    @section scripts{
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.24/r-2.2.7/datatables.min.css" />
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css">
+        <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.24/r-2.2.7/datatables.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.bootstrap.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.colVis.min.js"></script>
+
+        <script>
+            $(document).ready(function () {
+                $('#miTabla').DataTable({
+                    dom: 'lfrtip',
+                    lengthMenu: [
+                        [10, 25, 50, -1],
+                        ['Ver 10 Filas', 'Ver 25 Filas', 'Ver 50 Filas', 'Ver Todo']
+                    ],
+                    "order": [[1, "desc"]],
+                    responsive: true,
+                    "language": {
+                        "sProcessing": "Procesando...",
+                        "sLengthMenu": " _MENU_ ",
+                        "sZeroRecords": "No se encontraron resultados",
+                        "sEmptyTable": "Ningún dato disponible en esta tabla =(",
+                        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                        "sInfoPostFix": "",
+                        "sSearch": "Buscar:",
+                        "sUrl": "",
+                        "sInfoThousands": ",",
+                        "sLoadingRecords": "Cargando...",
+                        "oPaginate": {
+                            "sFirst": "Primero",
+                            "sLast": "Último",
+                            "sNext": "Siguiente",
+                            "sPrevious": "Anterior"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                        },
+                        "buttons": {
+                            "copy": "Copiar",
+                            "colvis": "Visibilidad"
+                        }
+                    },
+                    "pageLength": 10
+                });
+                table.buttons().container()
+                    .appendTo('.btn-default');
+            });
+
+        </script>
+
+    }
+
+</body>

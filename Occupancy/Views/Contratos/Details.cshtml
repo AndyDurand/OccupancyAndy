@@ -1,0 +1,125 @@
+﻿@model Occupancy.Models.Contratos
+
+@{
+    ViewBag.Title = "Details";
+}
+<head>
+
+</head>
+<body>
+    <br />
+    <br />
+    <div class="container">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h4 class="panel-title"><span class="glyphicon glyphicon-list-alt" aria-hidden="true" style="font-size: 25px"></span> <strong>  Info Contrato / Concesión:  @ViewBag.personaNombre </strong></h4>
+                <div class="row">
+                    <div class="col-md-6"><h4><strong>@Html.DisplayNameFor(model => model.Locales.Local) : @Html.DisplayFor(model => model.Locales.Local) </strong></h4></div>
+                    <div class="col-md-6"><h4><strong>@Html.DisplayNameFor(model => model.Locales.Espacios.Espacio) : @Html.DisplayFor(model => model.Locales.Espacios.Espacio)   </strong></h4></div>
+                </div>      
+                <div class="row">
+                    <div class="col-md-6"><h4><strong>@Html.DisplayNameFor(model => model.Locales.Naves.Nave) : @Html.DisplayFor(model => model.Locales.Naves.Nave) </strong></h4></div>
+                    <div class="col-md-6"><h4><strong>@Html.DisplayNameFor(model => model.Locales.Secciones.Seccion ) : @Html.DisplayFor(model => model.Locales.Secciones.Seccion)   </strong></h4></div>
+                </div>
+            </div>
+            <div class="panel-body">      
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.NombreComercial)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.NombreComercial)
+                    </dd>
+                    @*<dt>Tipo</dt>
+                    @{
+                        if (Model.EsContrato == true)
+                        {
+                                    <div>CONTRATO</div>
+                        }
+                    }*@
+                    <dt>
+                        <strong>@Html.DisplayNameFor(model => model.EsContrato)</strong>
+                    </dt>
+                    <dd>
+                        <strong>@Html.DisplayFor(model => model.EsContrato)</strong>
+                    </dd>
+                    <dt>
+                        <strong>@Html.DisplayNameFor(model => model.Activo)</strong>
+                    </dt>
+                    <dd>
+                        <strong>@Html.DisplayFor(model => model.Activo)</strong>
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.FechaContrato)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.FechaContrato)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.FechaInicio)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.FechaInicio)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.FechaVencim)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.FechaVencim)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.NombreFiador)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.NombreFiador)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.DiaFijoPago)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.DiaFijoPago)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.NumYearsVigencia)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.NumYearsVigencia)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.IDUser)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.IDUser)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Observaciones)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Observaciones)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Giros.Giro)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Giros.Giro)
+                    </dd>    
+                    <dt>
+                        @Html.DisplayNameFor(model => model.TipoOcupacionUso.OcupacionUso)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.TipoOcupacionUso.OcupacionUso)
+                    </dd>
+                </dl>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                @Html.ActionLink("Regresar a Contratos", "IndexAdmin")
+            </div>
+            <div class="col-md-4">
+                @*@Html.ActionLink(" Editar", "Edit", new { id = Model.IDContrato }, new { @class = "btn btn-info glyphicon glyphicon-edit" })*@
+            </div>
+        </div>
+    </div>
+</body>

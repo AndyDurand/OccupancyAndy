@@ -1,0 +1,174 @@
+﻿@model IEnumerable<Occupancy.Models.ArbitriosMov>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<br />
+<br />
+<!-- Panel --->
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Arbitrios de Ordenes de Pago </h3>
+    </div>
+    <div class="panel-body">
+        <div>
+            <p class="alert alert-warning">
+                @*<span class="glyphicon glyphicon-check" aria-hidden="true" style="font-size: 25px"></span>*@
+                Los Arbitrios ... Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras at aliquam nisi. Cras id nibh ut urna vehicula molestie quis eget justo. Aenean pharetra ut dolor at hendrerit. Integer euismod dolor mi, vitae semper magna vestibulum porttitor. Donec ut enim nec ligula finibus tempor. Donec vitae lorem est. Mauris nisi sem, interdum nec sagittis eget, accumsan ut ante. Cras non arcu vel sapien eleifend porttitor et id libero. Aenean id dolor in risus sagittis tincidunt eget id lacus.
+                <br>
+            </p>
+        </div>
+        <p></p>
+
+        @Html.ActionLink("Agregar Arbitrio", "Create")
+        <br />
+        <br />
+
+        <table id="miTabla" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Arbitrio)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NaturalezaArbitrio)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nombre)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NombreCorto)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Departamentos.Departamento)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Espacios.Espacio)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EsCorriente)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TieneAdcional)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TieneRecargos)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EsRezago)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TieneAdicionalRezago)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TieneRecargosRezago)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TieneMulta)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TieneHonorarios)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TieneEjecucion)
+                    </th>
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Arbitrio)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NaturalezaArbitrio)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NombreCorto)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Departamentos.Departamento)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Espacios.Espacio)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EsCorriente)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TieneAdcional)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TieneRecargos)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EsRezago)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TieneAdicionalRezago)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TieneRecargosRezago)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TieneMulta)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TieneHonorarios)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TieneEjecucion)
+                        </td>
+
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.IDArbitrioMov }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.IDArbitrioMov }) |
+                            @*@Html.ActionLink("Delete", "Delete", new { id = item.IDArbitrioMov })*@
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+@section scripts {
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap.min.css">
+
+    <script type="text/javascript" charset="utf8" src=" https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#miTabla').DataTable({
+                "language": {
+                    "emptyTable": "Aún no hay datos en la tabla",
+                    "lengthMenu": "Mostrar _MENU_ filas",
+                    "search": "Buscar:",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                    "infoEmpty": "Mostrando 0 a 0 de 0 registros",
+                    "infoFiltered": "(De un total de regsitros _MAX_ .)",
+                    "paginate": {
+                        "first": "Primer",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    },
+                    "pageLength": 50
+
+                }
+            });
+        });
+    </script>
+
+}

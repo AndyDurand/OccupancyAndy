@@ -1,0 +1,170 @@
+﻿
+
+@{
+    ViewBag.Title = "Configuracion";
+}
+<head>
+
+</head>
+<body>
+    <br />    
+    <div class="container">
+        <h3><span class="glyphicon glyphicon-cog" aria-hidden="true" style="font-size: 28px"></span>  Configuración</h3>
+        <div class="container">
+            <p>
+                Revise y edite las Configuraciones generales de la Ocupación y Uso de Bienes Inmuebles y Vía Pública con fines comerciales: Arrendamientos, Permiso, Permiso por Evento, Renta por Evento.
+            </p>
+        </div>
+        <br />
+        <!-- Row 1   -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <!-- -->
+                    <div class="col-md-4">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><span class="glyphicon glyphicon-edit" aria-hidden="true" style="font-size: 25px"></span> <strong> Departamentos</strong></h3>
+                            </div>
+                            <div class="panel-body">
+                                <p>Actualice las áreas, departamentos o jefaturas que administran los Inmuebles, Espacios o Vía Pública.</p>
+                                @Html.ActionLink("Departamentos", "Index", "Departamentos")
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="panel panel-success">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><span class="glyphicon glyphicon-edit" aria-hidden="true" style="font-size: 25px"></span> <strong> Usuarios</strong></h3>
+                            </div>
+                            <div class="panel-body">
+                                <p>Liste los usuarios autorizados a la Aplicación y el área asignada.</p> @Html.ActionLink("Usuarios", "Index", "Users")
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><span class="glyphicon glyphicon-edit" aria-hidden="true" style="font-size: 25px"></span> <strong> Parámetros</strong></h3>
+                            </div>
+                            <div class="panel-body">
+                                <p>Fije el Valor del UMA anual y su vigencia.</p>  
+                                @*@Html.ActionLink("Parámetros", "Index", "Parametros")*@
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- Row 2 -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <!-- -->
+                    <div class="col-md-4">
+                        <div class="panel panel-success">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><span class="glyphicon glyphicon-edit" aria-hidden="true" style="font-size: 25px"></span> <strong> Tipo de Ocupación</strong></h3>
+                            </div>
+                            <div class="panel-body">
+                                <p>Revise o agregue los tipos de ocupación disponibles para los Inmuebles, Espacios o Vía Pública.</p> @Html.ActionLink("Tipos de Ocupación", "Index", "TipoOcupacionUsos")
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><span class="glyphicon glyphicon-edit" aria-hidden="true" style="font-size: 25px"></span> <strong> Arbitrios</strong></h3>
+                            </div>
+                            <div class="panel-body">
+                                <p>Agregue o actualice los arbitrios relacionados, tanto de cobro Corriente como de Rezago del Inmueble o Espacio que administra.</p> 
+                                @*@Html.ActionLink("Arbitrios", "Index", "ArbitriosMovs")*@
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="panel panel-success">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><span class="glyphicon glyphicon-edit" aria-hidden="true" style="font-size: 25px"></span> <strong> Tipos de Movimientos </strong></h3>
+                            </div>
+                            <div class="panel-body">
+                                <p>Revise o actualice los Tipos de Movimientos que afectan el Estado de Cuenta de un Contrato, Concesión o Permiso.</p> @Html.ActionLink("Tipo Movimientos", "Index", "TipoMovimientos")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Row 3 -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-4">
+                        @*<div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><span class="glyphicon glyphicon-edit" aria-hidden="true" style="font-size: 25px"></span> <strong> Arbitrios - Tipos de Movimientos - Inmuebles  </strong></h3>
+                            </div>
+                            <div class="panel-body">
+                                <p>Revise o actualice el empate de los Arbitrios - Tipos de Movimientos - Inmuebles.</p> @Html.ActionLink("Arbitrios - Movimientos", "Index", "CruceOrdenes")
+                            </div>
+                        </div>*@
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><span class="glyphicon glyphicon-edit" aria-hidden="true" style="font-size: 25px"></span> <strong>Tipos de Cuotas  </strong></h3>
+                            </div>
+                            <div class="panel-body">
+                                <p>En los tipos de Cuotas se definen los Importes a cobrar, bien sea por por Cuotas o por factor UMAs; los recargos a cobrar bien sea por porcentajes sobre el importe o por factores UMA.</p>
+                                <p>Determine lo que aplicará y agregue los Tipos de Cuota a aplicar, por Espacio o Inmueble, o por Nave.</p>
+                                @Html.ActionLink("Tipos de Cuotas", "Index", "TipoCuotas")
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="panel panel-success">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><span class="glyphicon glyphicon-edit" aria-hidden="true" style="font-size: 25px"></span> <strong> Locales</strong></h3>
+                            </div>
+                            <div class="panel-body">
+                                <p>Revise, edite, agregue los datos asociados a los Locales, Stands o Piso que se asignarán en los Contratos, Permisos o Concesiones. </p>
+                                @Html.ActionLink("Locales", "Index", "Locales")
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><span class="glyphicon glyphicon-edit" aria-hidden="true" style="font-size: 25px"></span> <strong>Personas - Contratos </strong></h3>
+                            </div>
+                            <div class="panel-body">
+                                <p>
+                                    Las personas que utilicen espacios en inmuebles del dominio público del Municipio o usen la vía pública, para fines comerciales, deberán acreditar ante el Ayuntamiento el permiso correspondiente
+                                    al área que ocupen, a efecto de conformarse un padrón por cada espacio.
+                                </p>
+                                <p>Se establecerá un Contrato, Permiso, Concesión o Autorización si utiliza un espacio delimitado bien se un Local o Piso.</p>
+
+                                @Html.ActionLink("Personas-Contratos", "Index", "Personas")
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+                <!-- Row 4 -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">                   
+                    <div class="col-md-4">
+                       
+                    </div>                  
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+
+

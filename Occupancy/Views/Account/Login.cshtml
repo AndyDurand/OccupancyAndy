@@ -1,0 +1,79 @@
+﻿@using Occupancy.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Iniciar Sesión";
+}
+
+
+
+<div style="text-align:center; margin-top:5%">
+
+    <img src="~/Content/images/Ayuntamiento.gif" />
+
+</div>
+
+<div class="row" style="text-align:center">
+    <div class="col-md-12">
+
+        <table width=100% height=100%>
+            <tr>
+                <td align=center valign=middle>
+                    <section id="loginForm">
+                        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @*@Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })*@
+                                <div class="col-md-12">
+                                    @Html.TextBoxFor(m => m.Email, new { placeholder = "Email", @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @*@Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })*@
+                                <div class="col-md-12">
+                                    @Html.PasswordFor(m => m.Password, new { placeholder = "Contraseña", @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    @Html.CheckBoxFor(m => m.RememberMe)
+                                    @Html.LabelFor(m => m.RememberMe)
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <input type="submit" value="Iniciar sesión" class="btn btn-success" />
+
+                            </div>
+                            <p>
+                                @Html.ActionLink("Registrarse como usuario nuevo", "Register")
+                            </p>
+                            //Habilite esta opción una vez tenga la confirmación de la cuenta habilitada para la funcionalidad de restablecimiento de contraseña
+                            <p style="margin-bottom: 10%">
+                                @Html.ActionLink("¿Ha olvidado su contraseña?", "ForgotPassword")
+                            </p>
+                        }
+                    </section>
+                </td>
+            </tr>
+        </table>
+
+
+    </div>
+    <div class="col-md-4">
+        @*<section id="socialLoginForm">
+                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+            </section>*@
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+}

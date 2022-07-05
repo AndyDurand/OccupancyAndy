@@ -1,0 +1,26 @@
+﻿@model Occupancy.Models.TipoPermisoInformal
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TipoPermisoInformal</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PermisoInformal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PermisoInformal)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IDTipoPermisoInformal }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,208 @@
+﻿@model IEnumerable<Occupancy.Models.Personas>
+
+@{
+    ViewBag.Title = "Padrón";
+}
+<head>
+
+</head>
+<body>
+    <br />
+    <br />
+    <div class="container">
+        <!--  -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><span class="glyphicon glyphicon-user" aria-hidden="true" style="font-size: 25px"></span> <strong>Padrón</strong></h3>
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                            Las personas que utilicen espacios en inmuebles del dominio público del Municipio o usen la vía pública, para fines comerciales, deberán acreditar ante el Ayuntamiento el permiso correspondiente
+                            al área que ocupen, a efecto de conformarse un Padrón por cada espacio.
+                        </p>
+                        <p><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Revise, edite, agregue los contactos de <strong>Personas.</strong></p>
+                        <hr />
+                        @using (Html.BeginForm("Create", "Personas", FormMethod.Get))
+                        {
+                            @Html.AntiForgeryToken()
+                            <input type="submit" value="Agregar Persona" class="btn btn-info" />
+                            <br>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><span class="glyphicon glyphicon-file" aria-hidden="true" style="font-size: 25px"></span> <strong>Contratos - Permisos</strong></h3>
+                    </div>
+                    <div class="panel-body">
+                        <p>Se establecerá un Contrato, Permiso, Concesión o Autorización si utiliza un espacio delimitado bien se un Local o Piso.</p>
+                        <p><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Una Persona puede tener más de un Contrato - Permiso, asociados a áreas específicas.</p>
+                        <p><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Utilice los botones <strong>"Agregar Contrato Local-Piso"</strong> o <strong>"Agregar Permiso Ambulante"</strong> en la Persona seleccionada.</p>
+                        <hr />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+
+        @*<table id="miTabla" class="table table-striped table-bordered" style="width:100%">*@
+        <table class="display" style="width:100%" id="miTabla">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IDPersona)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nombre)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.APaterno)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AMaterno)
+                    </th>
+                    <!-- -->
+                    <th>
+                        @Html.DisplayNameFor(model => model.RFC)
+                    </th>
+                    <th>Acciones</th>
+                    <!-- -->
+                    <th>
+                        @Html.DisplayNameFor(model => model.Direccion)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EsPersonaFisica)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Movil)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Phone)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Departamentos.Departamento)
+                    </th>
+
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IDPersona)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.APaterno)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AMaterno)
+                        </td>
+                        <!-- -->
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RFC)
+                        </td>
+                        <td>
+                            @Html.ActionLink(" Editar", "Edit", new { id = item.IDPersona }, new { @class = "btn btn-info glyphicon glyphicon-edit" })
+                            <br />
+                            <br />
+                            <div>@Html.ActionLink(" Agregar Contrato Local-Piso", "Create", "Contratos", new { id = item.IDPersona }, new { @class = "btn btn-success glyphicon glyphicon-file" })</div>
+                        </td>
+
+                        <!-- -->
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Direccion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EsPersonaFisica)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Movil)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Phone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Departamentos.Departamento)
+                        </td>
+                    </tr>
+                 }
+            </tbody>
+        </table>
+    </div>
+     @section scripts{
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.24/r-2.2.7/datatables.min.css" />
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css">
+        <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.24/r-2.2.7/datatables.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.bootstrap.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.colVis.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#miTabla').DataTable({
+                    dom: 'lfrtip',
+                    lengthMenu: [
+                        [10, 25, 50, -1],
+                        ['Ver 10 Filas', 'Ver 25 Filas', 'Ver 50 Filas', 'Ver Todo']
+                    ],
+                    "order": [[1, "desc"]],
+                    responsive: true,
+                    "language": {
+                        "sProcessing": "Procesando...",
+                        "sLengthMenu": " _MENU_ ",
+                        "sZeroRecords": "No se encontraron resultados",
+                        "sEmptyTable": "Ningún dato disponible en esta tabla =(",
+                        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                        "sInfoPostFix": "",
+                        "sSearch": "Buscar:",
+                        "sUrl": "",
+                        "sInfoThousands": ",",
+                        "sLoadingRecords": "Cargando...",
+                        "oPaginate": {
+                            "sFirst": "Primero",
+                            "sLast": "Último",
+                            "sNext": "Siguiente",
+                            "sPrevious": "Anterior"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                        },
+                        "buttons": {
+                            "copy": "Copiar",
+                            "colvis": "Visibilidad"
+                        }
+                    },
+                    "pageLength": 10
+                });
+                table.buttons().container()
+                    .appendTo('.btn-default');
+            });
+
+        </script>
+    }
+</body>

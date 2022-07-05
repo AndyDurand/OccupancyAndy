@@ -1,0 +1,58 @@
+﻿@model Occupancy.Models.Parametros
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Parametros</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Yar)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Yar)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UMAProrrateada)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UMAProrrateada)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaLimiteProrrateada)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaLimiteProrrateada)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UMANormal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UMANormal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaLimiteNormal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaLimiteNormal)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IDParametro }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

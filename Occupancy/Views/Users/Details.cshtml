@@ -1,0 +1,50 @@
+﻿@model Occupancy.Models.Users
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Users</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IDDepto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IDDepto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IDASPNETUSER)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IDASPNETUSER)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre_User)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre_User)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EMail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EMail)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IDUser }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

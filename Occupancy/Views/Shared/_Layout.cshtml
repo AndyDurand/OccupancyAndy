@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>@ViewBag.Title - OBIVP Web</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <!-- inverse  default    "navbar navbar-inverse navbar-fixed-top"-->
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("OBIVP Orizaba", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Padrones
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="~/Personas/Index#">Personas </a></li>
+                            <li><a href="#">Padrones</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Espacios
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="~/Espacios/Index#">Inmuebles</a></li>
+                            <li><a href="~/Espacios/Index#">Naves</a></li>
+                            <li><a href="~/Espacios/Index#">Secciones</a></li>
+                            <li><a href="~/Locales/Index#">Locales</a></li>
+                            <li><a href="~/Giros/Index#">Giros Comerciales</a></li>
+                            <li><a href="#"></a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Vía Pública
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Giros Comercio Informal</a></li>
+                            <li><a href="#">Tipos de Medio</a></li>
+                            <li><a href="#">Secciones - Zonas</a></li>
+                            <li><a href="#">Vendedores</a></li>
+                            <li><a href="#"></a></li>
+                            <li class="divider"></li>
+                            <!-- Operaciones de  Movimientos  Ordenes de Pago-->
+                            @*<li><a href="#">Permisos - Movimientos</a></li>
+                            <li><a href="#">Cuentas por Cobrar</a></li>*@
+                        </ul>
+                    </li>
+                    @*<li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Eventos
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Públicos </a></li>
+                            <li><a href="#">Privados</a></li>
+                        </ul>
+                    </li>*@
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Contratos
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="~/Personas/Index#">Contratos Locales / Piso </a></li>
+                            <li><a href="#">Permiso Ambulante / Semifijo</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Estados de Cuenta
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!--  Operaciones de Movimientos  Ordenes de Pago-->
+                            <li><a href="~/Contratos/IndexAdmin#">Edos. de Cta. Locales / Piso  </a></li>                           
+                            <li><a href="#">Edos. de Cta. Ambulante / Semifijo</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Cuentas por Cobrar</a></li>
+                        </ul>
+                    </li>
+                    <li>@Html.ActionLink("Configuración", "Setup", "Home")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <div class="container-fluid pull-right ">
+                <a href="~/Home/About">Acerca de | </a>
+                <a href="~/Home/Contact">Contacto</a>
+            </div>
+            <p>&copy; @DateTime.Now.Year - OBIVP Ocupación de Bienes Inmuebles y Vía Pública. | Ayuntamiento de Orizaba</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

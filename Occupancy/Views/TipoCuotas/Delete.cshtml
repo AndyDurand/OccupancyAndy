@@ -1,0 +1,104 @@
+﻿@model Occupancy.Models.TipoCuotas
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>TipoCuotas</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TipoCuota)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoCuota)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImporteRenta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImporteRenta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FactorUMADiario)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FactorUMADiario)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FactorUMAMensual)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FactorUMAMensual)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FactorUMARecargoDiario)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FactorUMARecargoDiario)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Year)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Year)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaAplicaInicial)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaAplicaInicial)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaAplicaFinal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaAplicaFinal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Espacios.Espacio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Espacios.Espacio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Naves.Nave)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Naves.Nave)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,178 @@
+﻿@model Occupancy.Models.Ordenes
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Ordenes</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FolioRecibo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FolioRecibo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaEmision)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaEmision)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImporteTotal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImporteTotal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Corriente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Corriente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Adicional)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Adicional)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Recargo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Recargo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rezago)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rezago)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AdicionalRezago)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AdicionalRezago)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RecargoRezago)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RecargoRezago)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Multa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Multa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Honorarios)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Honorarios)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ejecucion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ejecucion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Redondeo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Redondeo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Observaciones)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Observaciones)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Estatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Estatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ArbitriosMov.Arbitrio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ArbitriosMov.Arbitrio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Departamentos.Departamento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Departamentos.Departamento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Movimientos.FolioRecibo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Movimientos.FolioRecibo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Users.IDASPNETUSER)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Users.IDASPNETUSER)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Personas.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Personas.Nombre)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IDOrden }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

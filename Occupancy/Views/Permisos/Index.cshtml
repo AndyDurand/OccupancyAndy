@@ -1,0 +1,123 @@
+﻿@model IEnumerable<Occupancy.Models.Permisos>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NombreComercial)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Activo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DiaFijoPago)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaPermiso)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaHrInicio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaHrFin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Observaciones)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Espacios.Espacio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GiroInformal.GiroInformal1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Permisos1.Observaciones)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Permisos2.Observaciones)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Personas.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TipoMedioInformal.Medio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TipoOcupacionUso.OcupacionUso)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TipoPermisoInformal.PermisoInformal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Users.IDASPNETUSER)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NombreComercial)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Activo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DiaFijoPago)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaPermiso)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaHrInicio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaHrFin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Observaciones)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Espacios.Espacio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GiroInformal.GiroInformal1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Permisos1.Observaciones)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Permisos2.Observaciones)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Personas.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TipoMedioInformal.Medio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TipoOcupacionUso.OcupacionUso)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TipoPermisoInformal.PermisoInformal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Users.IDASPNETUSER)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IDPermiso }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IDPermiso }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IDPermiso })
+        </td>
+    </tr>
+}
+
+</table>

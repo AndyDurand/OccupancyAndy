@@ -1,0 +1,93 @@
+﻿@model IEnumerable<Occupancy.Models.TipoMovimiento>
+
+@{
+    ViewBag.Title = "TipoMovs";
+}
+<head>
+
+</head>
+<body>
+    <br />
+    <br />
+    <div class="container">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3 class="panel-title">Tipo de Movimientos </h3>
+            </div>
+            <div class="panel-body">
+                <table id="miTabla" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TipoMovimiento1)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.NombreCorto)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Naturaleza)
+                            </th>
+                            @*<th>
+                                @Html.DisplayNameFor(model => model.EmitirOrden)
+                            </th>*@
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TipoMovimiento1)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NombreCorto)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Naturaleza)
+                                </td>
+                                @*<td>
+                                    @Html.DisplayFor(modelItem => item.EmitirOrden)
+                                </td>*@
+                                <td>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+    @section scripts {
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap.min.css">
+
+        <script type="text/javascript" charset="utf8" src=" https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap.min.js"></script>
+
+        <script>
+            $(document).ready(function () {
+                $('#miTabla').DataTable({
+                    "language": {
+                        "emptyTable": "Aún no hay datos en la tabla",
+                        "lengthMenu": "Mostrar _MENU_ filas",
+                        "search": "Buscar:",
+                        "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                        "infoEmpty": "Mostrando 0 a 0 de 0 registros",
+                        "infoFiltered": "(De un total de regsitros _MAX_ .)",
+                        "paginate": {
+                            "first": "Primer",
+                            "last": "Ultimo",
+                            "next": "Siguiente",
+                            "previous": "Anterior"
+                        },
+                        "pageLength": 50
+
+                    }
+                });
+            });
+        </script>
+    }
+</body>

@@ -1,0 +1,52 @@
+﻿@model Occupancy.Models.Naves
+
+@{
+    ViewBag.Title = "Edit Nave";
+}
+<head>
+
+</head>
+<body>
+    <br />
+    <br />
+    <div class="container">
+        <div class="panel-success">
+            <div class="panel-heading">
+                <h4 class="panel-title"><span class="glyphicon glyphicon-screenshot" aria-hidden="true" style="font-size: 25px"></span> <strong>  Editar   Nave  Clave: @Model.IDNave   </strong></h4>
+
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.IDNave)
+                        @Html.HiddenFor(model => model.IDEspacio)
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Nave, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Nave, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Nave, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Guardar" class="btn btn-success" />
+                            </div>
+                        </div>
+                    </div>
+                }
+                <!-- Aqui es regresar a VieNav, list de las Naves de x Espacio-->                
+                <div class="row">
+                    <div class="col-md-4">
+                        @Html.ActionLink("Regresar a Naves", "ViewNav", new { idEsp = Model.IDEspacio  })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>

@@ -1,0 +1,214 @@
+﻿@model IEnumerable<Occupancy.Models.Contratos>
+
+@{
+    ViewBag.Title = "Contratos";
+}
+
+<head>
+            
+</head>
+<body>    
+    <br />
+    <br />
+    <div class="container">
+        <br />
+        <br />
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <div class="panel-title"><span class="glyphicon glyphicon-th-list" aria-hidden="true" style="font-size: 25px"></span><strong> Estados de Cuenta (Saldos y Movimientos) Locatarios</strong></div>                
+            </div>
+        </div>        
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-info">
+                    <div class="panel-heading">                        
+                        <div class="panel-title"><strong> Estados de Cuenta </strong></div>
+                    </div>
+                    <div class="panel-body">
+                        <h4></h4>
+                        <div> 
+                            <p><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Haga clic en el botón <strong>"Saldos y movimientos"</strong> del Contrato o Concesión para actualizar o revisar los detalles de los Estados de Cuenta.</p>                             
+                            <p><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Para realizar la Búsqueda de un Contrato o Concesión capture en el cuadro de texto <strong>"Buscar"</strong> cualquier dato asociado: persona, número de contrato, local, nave, sección.</p>                                                        
+                        </div>
+                        <br />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        @*<h3 class="panel-title"><span class="glyphicon glyphicon-file" aria-hidden="true" style="font-size: 25px"></span> <strong>Contratos - Concesiones - Permisos - Autorizaciones</strong></h3>*@
+                        <div class="panel-heading"> </div>
+                    </div>
+                    <div class="panel-body">
+                        <h4></h4>
+                        <div>
+                            <p><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Revise los Contratos o Concesiones con estatus Activo, asociados a <strong>Uso de Piso o Locales</strong>, en cada Nave o Sección que estén definidos dentro del Espacio que administra.</p>
+                            <p><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Para crear un <strong>nuevo Contrato</strong>, puede acceder a Padrones/Personas o bien a Espacios / Locales.</p>
+                            <p></p>
+                        </div>
+                        @using (Html.BeginForm("Index", "Personas", FormMethod.Get))
+                        {
+                            <br>
+                            @Html.AntiForgeryToken()
+                            <input type="submit" value="Revisar Padrón" class="btn btn-success" />
+                            <br>
+                        }                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <br />
+        <!-- style="width:100%" "display responsive nowrap" ""table-responsive table-striped table-bordered"-->
+        <table class="display" style="width:100%" id="miTabla">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IDContrato)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Personas.APaterno)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Personas.AMaterno)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Personas.Nombre)
+                    </th>
+                    <!-- nombre del espacio, -->
+                    <th>
+                        @Html.DisplayNameFor(model => model.Locales.Espacios.Espacio)
+                    </th>
+                    <!-- nombre de la nave-->
+                    <th>
+                        @Html.DisplayNameFor(model => model.Locales.Naves.Nave)
+                    </th>
+                    <!-- nombre del local -->
+                    <th>
+                        @Html.DisplayNameFor(model => model.Locales.Local)
+                    </th>
+                    <!--    -->
+                    @*<th>
+                        @Html.DisplayNameFor(model => model.TipoOcupacionUso.OcupacionUso)
+                    </th>*@
+                    <th>
+                        @Html.DisplayNameFor(model => model.NombreComercial)
+                    </th>
+                    @*<th>
+                        @Html.DisplayNameFor(model => model.EsContrato)
+                    </th>*@
+                    <th>
+                        @Html.DisplayNameFor(model => model.Activo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Giros.Giro)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Observaciones)
+                    </th>
+
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IDContrato)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Personas.APaterno)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Personas.AMaterno)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Personas.Nombre)
+                        </td>
+                        <!-- nombre del Espacio -->
+                        <td>
+                            @Html.DisplayFor(model => item.Locales.Espacios.Espacio)
+                        </td>
+                        <!-- nombre de la nave-->
+                        <td>
+                            @Html.DisplayFor(model => item.Locales.Naves.Nave)
+                        </td>
+                        <!-- nombre del local -->
+                        <td>
+                            <p style="text-align:center;"><strong>@Html.DisplayFor(modelItem => item.Locales.Local)</strong></p>
+                        </td>
+                        <!--  -->
+                        @*<td>
+                            @Html.DisplayFor(modelItem => item.TipoOcupacionUso.OcupacionUso)
+                        </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NombreComercial)
+                        </td>
+                        @*<td>
+                            @Html.DisplayFor(modelItem => item.EsContrato)
+                        </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Activo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Giros.Giro)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Observaciones)
+                        </td>
+                        <td>
+                            <!-- Movimientos del Contrato, agregar Saldos iniciales, meses, desde Contratos Controller -->
+                            <div>@Html.ActionLink(" Saldos y Movim.", "EditMovs", new { id = item.IDContrato }, new { @class = "btn btn-success glyphicon glyphicon-edit" })</div>
+                            <br />
+                            <br />
+                            <div>@Html.ActionLink(" Ver Contrato", "Details", new { id = item.IDContrato }, new { @class = "btn btn-info glyphicon glyphicon-list-alt" })</div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    @section scripts {
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+        <script type="text/javascript" charset="utf8" src=" https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#miTabla').DataTable({
+                    "responsive": {
+                        "details": {
+                            "type": "column"
+                        }
+                    },
+                    "columnDefs": [{
+                        "className": "dtr-control",
+                        "orderable": true,
+                        "targets": 0
+                    }],
+                    "language": {
+                        "emptyTable": "Aún no hay datos en la tabla",
+                        "lengthMenu": "Mostrar _MENU_ filas",
+                        "search": "Buscar:",
+                        "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                        "infoEmpty": "Mostrando 0 a 0 de 0 registros",
+                        "infoFiltered": "(De un total de registros _MAX_ .)",
+                        "paginate": {
+                            "first": "Primer",
+                            "last": "Ultimo",
+                            "next": "Siguiente",
+                            "previous": "Anterior"
+                        },
+                        "pageLength": 20
+                    }
+                });
+            });
+        </script>
+
+    }
+
+
+</body>

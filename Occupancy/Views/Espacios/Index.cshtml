@@ -1,0 +1,149 @@
+﻿@model IEnumerable<Occupancy.Models.Espacios>
+
+@{
+    ViewBag.Title = "Espacios";
+}
+<head>
+
+</head>
+<body>
+    <br /> 
+    <br />
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><span class="glyphicon glyphicon-screenshot" aria-hidden="true" style="font-size: 25px"></span> <strong>    Ocupación de Bienes Inmuebles y Vía Pública</strong></h3>
+                    </div>
+                    <div class="panel-body">
+                        <p>    Tenemos como objetivo el simplificar el control administrativo de los derechos </p>
+                        <p><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> por ocupación de Inmuebles del Dominio Público del Municipio de Orizaba</p>
+                        <p><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> el uso de la Vía Pública para fines comerciales, en puestos fijos o semifijos,</p>
+                        <p><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> u otros bienes de uso común.</p>
+                        <p></p>
+                        <hr />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><span class="glyphicon glyphicon-screenshot" aria-hidden="true" style="font-size: 25px"></span> <strong>    Inmuebles - Espacios @ViewBag.nombreDepartamento </strong></h3>
+                    </div>
+                    <div class="panel-body">
+                        <p>    Agregue, revise los datos asociados a los Espacios o Inmuebles de los que administrará la ocupación para fines comerciales.  </p>
+                        <p>Cree nuevas áreas asociadas al Inmueble o Espacio, como Naves y Secciones.</p>
+                        <hr />
+                        <!-- Form Espacios Inmuebles -->
+                        <!-- Form EspaciosController\Create -->
+                        @using (Html.BeginForm("Create", "Espacios", FormMethod.Get))
+                        {
+                            <br>
+                            @Html.AntiForgeryToken()
+                            <input type="submit" value="Agregar Inmueble" class="btn btn-success" />
+                            <br>
+                            <br>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><strong>@ViewBag.nombreDepartamento</strong></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Stripped DataTable --- Espacios-->
+        <table id="miTabla" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Espacio)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Departamentos.Departamento)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Direccion)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CP)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NumLocales)
+                    </th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Espacio)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Departamentos.Departamento)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Direccion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CP)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NumLocales)
+                        </td>
+                        <td>
+                            @*@Html.ActionLink("Editar", "Edit", new { id = item.IDEspacio }, new { @class = "btn btn-info" })*@
+                            @Html.ActionLink(" ", "Edit", new { id = item.IDEspacio }, new { @class = "glyphicon glyphicon-edit" })
+                            <br />
+                            <br />
+                            <div>@Html.ActionLink("Ver Naves", "ViewNav", "Naves", new { idEsp = item.IDEspacio }, new { @class = "btn btn-success" })</div>
+                            <br />
+                            <div>@Html.ActionLink("Ver Secciones", "ViewSec", "Secciones", new { idEsp = item.IDEspacio }, new { @class = "btn btn-info" })</div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+    @section scripts {
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap.min.css">
+
+        <script type="text/javascript" charset="utf8" src=" https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap.min.js"></script>
+
+        <script>
+            $(document).ready(function () {
+                $('#miTabla').DataTable({
+                    "language": {
+                        "emptyTable": "Aún no hay datos en la tabla",
+                        "lengthMenu": "Mostrar _MENU_ filas",
+                        "search": "Buscar:",
+                        "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                        "infoEmpty": "Mostrando 0 a 0 de 0 registros",
+                        "infoFiltered": "(De un total de regsitros _MAX_ .)",
+                        "paginate": {
+                            "first": "Primer",
+                            "last": "Ultimo",
+                            "next": "Siguiente",
+                            "previous": "Anterior"
+                        },
+                        "pageLength": 50
+
+                    }
+                });
+            });
+        </script>
+
+    }
+
+</body>
