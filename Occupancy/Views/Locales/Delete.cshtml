@@ -1,112 +1,129 @@
 ﻿@model Occupancy.Models.Locales
 
-@{
-    ViewBag.Title = "Delete";
-}
+@{ ViewBag.Title = "Delete Local"; }
+<head>
 
-<h2>Delete</h2>
+</head>
+<body>
+    <br />
+    <br />
+    <div class="container">
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                <h4 class="panel-title"><span class="glyphicon glyphicon-home" aria-hidden="true" style="font-size: 25px"></span> <strong>  Eliminar Local </strong></h4>
+            </div>
+            <div class="panel-body">
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Locales</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Ocupado)
-        </dt>
+                <h3>¿Está seguro de borrar este Registro?</h3>
+                <div>
+                    <h4>Locales</h4>
+                    <hr />
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Ocupado)
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Ocupado)
-        </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.Ocupado)
+                        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Local)
-        </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Local)
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Local)
-        </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.Local)
+                        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.MFrente)
-        </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.MFrente)
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.MFrente)
-        </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.MFrente)
+                        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.MFondo)
-        </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.MFondo)
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.MFondo)
-        </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.MFondo)
+                        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.MCuadTotales)
-        </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.MCuadTotales)
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.MCuadTotales)
-        </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.MCuadTotales)
+                        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.NumLocParaCobro)
-        </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.NumLocParaCobro)
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.NumLocParaCobro)
-        </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.NumLocParaCobro)
+                        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ImporteRenta)
-        </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.ImporteRenta)
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ImporteRenta)
-        </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.ImporteRenta)
+                        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Espacios.Espacio)
-        </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Espacios.Espacio)
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Espacios.Espacio)
-        </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.Espacios.Espacio)
+                        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Naves.Nave)
-        </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Naves.Nave)
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Naves.Nave)
-        </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.Naves.Nave)
+                        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Secciones.Seccion)
-        </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Secciones.Seccion)
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Secciones.Seccion)
-        </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.Secciones.Seccion)
+                        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TipoCuotas.TipoCuota)
-        </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.TipoCuotas.TipoCuota)
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.TipoCuotas.TipoCuota)
-        </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.TipoCuotas.TipoCuota)
+                        </dd>
+                    </dl>
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-actions no-color">
+                            <input type="submit" value="Delete" class="btn btn-danger" /> |
+                            @*@Html.ActionLink("Back to List", "Index")*@
+                        </div>                        
+                     }
+                </div>
 
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            </div>
         </div>
-    }
-</div>
+        <div class="row">
+            <div class="col-md-4">
+                @Html.ActionLink("Regresar a Locales", "Index")
+            </div>
+        </div>
+    </div>
+</body>
+

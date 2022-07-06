@@ -31,12 +31,21 @@ namespace Occupancy.Controllers
 
             }
             int idDepto = (int)Session["ID_Depto"];
-            //
-            var tipoCuotas = db.TipoCuotas.Include(t => t.Espacios)
+            // SuperAdmin y AdminAuditor pueden crear Cuotas para cualquier Depto
+            if (User.IsInRole("SuperAdmin") || User.IsInRole("AdminAuditor"))
+            {
+                var tipoCuotas = db.TipoCuotas.Include(t => t.Espacios)
+                .Include(t => t.Naves);
+                return View(tipoCuotas.ToList());
+            }
+            else if (User.IsInRole("AdminArea") || User.IsInRole("FuncionarioA"))
+            {
+                var tipoCuotas = db.TipoCuotas.Include(t => t.Espacios)
                 .Include(t => t.Naves)
-                .Where (t => t.Espacios.IDDepto == idDepto);
-
-            return View(tipoCuotas.ToList());
+                .Where(t => t.Espacios.IDDepto == idDepto);
+                return View(tipoCuotas.ToList());
+            }
+            else return RedirectToAction("InvalidProfile", "Home");
         }
 
         // GET: TipoCuotas/Details/5
@@ -76,30 +85,46 @@ namespace Occupancy.Controllers
         }
 
         // GET: TipoCuotas/Create
-        [Authorize(Roles = "SuperAdmin, AdminArea")]
+        [Authorize(Roles = "SuperAdmin, AdminAuditor, AdminArea, FuncionarioA")]
         public ActionResult Create()
         {
             // 
-            int IDDeptoUser = (int)Session["ID_Depto"];            
+            int IDDeptoUser = (int)Session["ID_Depto"];
+            if (User.IsInRole("SuperAdmin") || User.IsInRole("AdminAuditor"))
+            {
+                var espacioQry = from esp in db.Espacios
+                                 orderby esp.Espacio                                
+                                 select esp;
+                ViewBag.IDEspacio = new SelectList(espacioQry.AsNoTracking(), "IDEspacio", "Espacio");
+                // IDNAve List cambia en la vista por el Espacio seleccionado 
+                var navesQry = from nav in db.Naves
+                               orderby nav.Nave                               
+                               select nav;
+                ViewBag.IDNave = new SelectList(navesQry.AsNoTracking(), "IDNave", "Nave");
+                return View();
 
-            var espacioQry = from esp in db.Espacios
-                             orderby esp.Espacio
-                             where esp.IDDepto == IDDeptoUser
-                             select esp;
-            ViewBag.IDEspacio = new SelectList(espacioQry.AsNoTracking(), "IDEspacio", "Espacio");
-            // IDNAve List cambia en la vista por el Espacio seleccionado 
-            var navesQry = from nav in db.Naves
-                           orderby nav.Nave
-                           where nav.Espacios.IDDepto == IDDeptoUser
-                           select nav;
-            ViewBag.IDNave = new SelectList(navesQry.AsNoTracking(), "IDNave", "Nave");
-
-            return View();
+            }
+            else if (User.IsInRole("AdminArea") || User.IsInRole("FuncionarioA"))
+            {
+                var espacioQry = from esp in db.Espacios
+                                 orderby esp.Espacio
+                                 where esp.IDDepto == IDDeptoUser
+                                 select esp;
+                ViewBag.IDEspacio = new SelectList(espacioQry.AsNoTracking(), "IDEspacio", "Espacio");
+                // IDNAve List cambia en la vista por el Espacio seleccionado 
+                var navesQry = from nav in db.Naves
+                               orderby nav.Nave
+                               where nav.Espacios.IDDepto == IDDeptoUser
+                               select nav;
+                ViewBag.IDNave = new SelectList(navesQry.AsNoTracking(), "IDNave", "Nave");
+                return View();
+            }
+            else return RedirectToAction("InvalidProfile", "Home");
         }
 
 
         // POST: TipoCuotas/Create
-        [Authorize(Roles = "SuperAdmin, AdminArea")]
+        [Authorize(Roles = "SuperAdmin, AdminAuditor, AdminArea, FuncionarioA")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "")] TipoCuotas tipoCuotas)
@@ -111,7 +136,6 @@ namespace Occupancy.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             ViewBag.IDEspacio = new SelectList(db.Espacios, "IDEspacio", "Espacio", tipoCuotas.IDEspacio);
             ViewBag.IDNave = new SelectList(db.Naves, "IDNave", "Nave", tipoCuotas.IDNave);
             return View(tipoCuotas);

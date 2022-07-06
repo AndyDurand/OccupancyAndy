@@ -33,9 +33,7 @@ namespace Occupancy.Controllers
             int idDepto = (int)Session["ID_Depto"];
             //
             if (User.IsInRole("SuperAdmin") || User.IsInRole("AdminAuditor"))
-            {
-                // es necesario un control de selección de Espacios, asociados a ese idDepto
-                // ahora todos los locales-areas 
+            {                 
                 var locales = db.Locales
                     .Include(l => l.Espacios)
                     .Include(l => l.Naves)
@@ -117,40 +115,62 @@ namespace Occupancy.Controllers
             // Naves del Espacio seleccionado, GetNavesList, desde Vista Create con el Json result
             // Secciones del idEspacio, desde vista Create con el Json result
             // TipoCuota por Nave. GetTipoCuotaList, desde vista Create con el Json result
-            
-            var espacioQry = from esp in db.Espacios 
-                               orderby esp.Espacio 
-                               where esp.IDDepto == IDDeptoUser                             
-                               select esp;
-            ViewBag.IDEspacio = new SelectList(espacioQry.AsNoTracking(), "IDEspacio", "Espacio");
-           
-            var navesQry = from nav in db.Naves
-                           orderby nav.Nave
-                           where nav.Espacios.IDDepto == IDDeptoUser                           
-                           select nav;
-            ViewBag.IDNave = new SelectList(navesQry.AsNoTracking(), "IDNave", "Nave" );
-            
-            var seccionesQry = from sec in db.Secciones
-                               orderby sec.Seccion
-                               where sec.Espacios.IDDepto == IDDeptoUser
-                               select sec;
-            ViewBag.IDSeccion = new SelectList(seccionesQry.AsNoTracking(), "IDSeccion", "Seccion");
+            if (User.IsInRole("SuperAdmin") || User.IsInRole("AdminAuditor"))
+            {
+                //iniciales, después actualizados con el Json result    
+                var espacioQry = from esp in db.Espacios
+                                 orderby esp.Espacio                                 
+                                 select esp;
+                ViewBag.IDEspacio = new SelectList(espacioQry.AsNoTracking(), "IDEspacio", "Espacio");
+                var navesQry = from nav in db.Naves
+                               orderby nav.Nave
+                               select nav;
+                ViewBag.IDNave = new SelectList(navesQry.AsNoTracking(), "IDNave", "Nave");
+                var seccionesQry = from sec in db.Secciones
+                                   orderby sec.Seccion
+                                   select sec;
+                ViewBag.IDSeccion = new SelectList(seccionesQry.AsNoTracking(), "IDSeccion", "Seccion");                
+                var tipocQry = from tc in db.TipoCuotas
+                               orderby tc.TipoCuota
+                               select tc;
+                ViewBag.IDTipoCuota = new SelectList(tipocQry.AsNoTracking(), "IDTipoCuota", "TipoCuota");
+                return View();
 
-            //TipoCuota por espacio y nave, por IDNave, para llenado inicial las del depto
-            var tipocQry = from tc in db.TipoCuotas
-                           orderby tc.TipoCuota
-                           where tc.Espacios.IDDepto == IDDeptoUser
-                           select tc;
-            ViewBag.IDTipoCuota = new SelectList(tipocQry.AsNoTracking(), "IDTipoCuota", "TipoCuota");
-
-            return View();
+            }
+            else if (User.IsInRole("AdminArea") || User.IsInRole("FuncionarioA"))
+            {
+                var espacioQry = from esp in db.Espacios
+                                 orderby esp.Espacio
+                                 where esp.IDDepto == IDDeptoUser
+                                 select esp;
+                ViewBag.IDEspacio = new SelectList(espacioQry.AsNoTracking(), "IDEspacio", "Espacio");
+                var navesQry = from nav in db.Naves
+                               orderby nav.Nave
+                               where nav.Espacios.IDDepto == IDDeptoUser
+                               select nav;
+                ViewBag.IDNave = new SelectList(navesQry.AsNoTracking(), "IDNave", "Nave");
+                var seccionesQry = from sec in db.Secciones
+                                   orderby sec.Seccion
+                                   where sec.Espacios.IDDepto == IDDeptoUser
+                                   select sec;
+                ViewBag.IDSeccion = new SelectList(seccionesQry.AsNoTracking(), "IDSeccion", "Seccion");
+                //TipoCuota por espacio y nave, por IDNave, para llenado inicial las del depto
+                var tipocQry = from tc in db.TipoCuotas
+                               orderby tc.TipoCuota
+                               where tc.Espacios.IDDepto == IDDeptoUser
+                               select tc;
+                ViewBag.IDTipoCuota = new SelectList(tipocQry.AsNoTracking(), "IDTipoCuota", "TipoCuota");
+                return View();
+            }
+            else return RedirectToAction("InvalidProfile", "Home");
+            
         }
 
         // POST: Locales/Create -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
         [Authorize(Roles = "SuperAdmin, AdminArea, FuncionarioA")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IDLocal,IDEspacio,IDNave,IDSeccion,IDTipoCuota,Ocupado,Local,MFrente,MFondo,MCuadTotales,NumLocParaCobro,ImporteRenta")] Locales locales)
+        public ActionResult Create([Bind(Include = "")] Locales locales)
         {
             if (ModelState.IsValid)
             {

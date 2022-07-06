@@ -373,7 +373,6 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\AskPermission.cshtml" />
-    <Content Include="Views\Home\Index_copia.cshtml" />
     <Content Include="Views\Home\InvalidProfile.cshtml" />
     <Content Include="Views\Home\Setup.cshtml" />
     <Content Include="Views\ArbitriosMovs\Create.cshtml" />
