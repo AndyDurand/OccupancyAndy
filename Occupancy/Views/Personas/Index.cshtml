@@ -15,28 +15,36 @@
             <div class="col-md-6">
                 <div class="panel panel-info">
                     <div class="panel-heading">
-                        <h3 class="panel-title"><span class="glyphicon glyphicon-user" aria-hidden="true" style="font-size: 25px"></span> <strong>Padrón</strong></h3>
+                        <div style="text-align:center;">
+                            <img src="~/Content/images/group.png" width="40" height="40" />
+                            <h4><strong>Padrón</strong></h4>
+                            @*<h3 class="panel-title"><span class="glyphicon glyphicon-user" aria-hidden="true" style="font-size: 25px"></span> <strong>Padrón</strong></h3>*@
+                        </div>
                     </div>
                     <div class="panel-body">
-                        <p>
-                            Las personas que utilicen espacios en inmuebles del dominio público del Municipio o usen la vía pública, para fines comerciales, deberán acreditar ante el Ayuntamiento el permiso correspondiente
-                            al área que ocupen, a efecto de conformarse un Padrón por cada espacio.
-                        </p>
-                        <p><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Revise, edite, agregue los contactos de <strong>Personas.</strong></p>
-                        <hr />
-                        @using (Html.BeginForm("Create", "Personas", FormMethod.Get))
-                        {
-                            @Html.AntiForgeryToken()
-                            <input type="submit" value="Agregar Persona" class="btn btn-info" />
-                            <br>
-                        }
+                            <p>
+                                Las personas que utilicen espacios en inmuebles del dominio público del Municipio o usen la vía pública, para fines comerciales, deberán acreditar ante el Ayuntamiento el permiso correspondiente
+                                al área que ocupen, a efecto de conformarse un Padrón por cada espacio.
+                            </p>
+                            <p><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Revise, edite, agregue los contactos de <strong>Personas.</strong></p>
+                            <hr />
+                            @using (Html.BeginForm("Create", "Personas", FormMethod.Get))
+                            {
+                                @Html.AntiForgeryToken()
+                                <input type="submit" value="Agregar Persona" class="btn btn-info" />
+                                <br>
+                            }
                     </div>
-                </div>
+               </div>
             </div>
             <div class="col-md-6">
                 <div class="panel panel-success">
                     <div class="panel-heading">
-                        <h3 class="panel-title"><span class="glyphicon glyphicon-file" aria-hidden="true" style="font-size: 25px"></span> <strong>Contratos - Permisos</strong></h3>
+                        <div style="text-align:center;">
+                            <img src="~/Content/images/deal.png" width="50" height="50" />
+                            <h4><strong>Contratos - Permisos</strong></h4>                            
+                        </div>                        
+                        @*<h3 class="panel-title"><span class="glyphicon glyphicon-file" aria-hidden="true" style="font-size: 25px"></span> <strong>Contratos - Permisos</strong></h3>*@
                     </div>
                     <div class="panel-body">
                         <p>Se establecerá un Contrato, Permiso, Concesión o Autorización si utiliza un espacio delimitado bien se un Local o Piso.</p>

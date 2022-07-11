@@ -10,6 +10,7 @@ using Occupancy.Models;
 
 namespace Occupancy.Controllers
 {
+    [Authorize]
     public class VendedoresController : Controller
     {
         private OccupancyEntities db = new OccupancyEntities();

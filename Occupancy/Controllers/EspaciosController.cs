@@ -55,7 +55,7 @@ namespace Occupancy.Controllers
             }
             else
             {
-                return RedirectToAction("Invalid_profile", "Home");
+                return RedirectToAction("InvalidProfile", "Home");
             }
         }
 
