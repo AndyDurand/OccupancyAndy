@@ -28,17 +28,18 @@ namespace Occupancy.Controllers
                 var valueIdDepto = obj.Retrive(x => x.IDASPNETUSER == u).IDDepto;
                 Session["ID_User"] = value;
                 Session["ID_Depto"] = valueIdDepto;
-
             }
             int idDepto = (int)Session["ID_Depto"];
             //
-            if (User.IsInRole("SuperAdmin") || User.IsInRole("AdminAuditor"))
+            if (User.IsInRole("SuperAdmin") || User.IsInRole("AdminAuditor") || User.IsInRole("AdminConsulta"))
             {                 
                 var locales = db.Locales
                     .Include(l => l.Espacios)
                     .Include(l => l.Naves)
                     .Include(l => l.Secciones)
                     .Include(l => l.TipoCuotas);
+                ViewBag.nombreDepto = "";
+
                 return View(locales.ToList());
             }
             else if (User.IsInRole("AdminArea") || User.IsInRole("FuncionarioA"))
@@ -52,8 +53,12 @@ namespace Occupancy.Controllers
                     .Where(l => l.Espacios.IDDepto == idDepto);
                 if (locales.ToList().Count() > 1)
                 {
-                    ViewBag.nombreEspacio = locales.ToList().First().Espacios.Espacio;
-                }
+                    // el nombre del Depto, en lugar del nombre del Espacio
+                    // ViewBag.nombreEspacio = locales.ToList().First().Espacios.Espacio;                    
+                }                
+                Departamentos departamento = db.Departamentos.Find(idDepto);
+                ViewBag.nombreDepto = departamento.Departamento;
+
                 return View(locales.ToList());
             }
             else

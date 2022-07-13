@@ -82,7 +82,7 @@ namespace Occupancy.Controllers
             }
             else
             {
-                return RedirectToAction("Invalid_profile", "Home");
+                return RedirectToAction("InvalidProfile", "Home");
             }
         }
         // -- Obtener info general en diccionario de datos
@@ -127,7 +127,12 @@ namespace Occupancy.Controllers
             Session["ID_Espacio"] = contrato.Locales.Espacios.IDEspacio;
 
             ViewBag.naveNombre = contrato.Locales.Naves.Nave;
-            ViewBag.seccionNombre = contrato.Locales.Secciones.Seccion;
+            if (contrato.Locales.IDSeccion != null )
+            {
+                ViewBag.seccionNombre = contrato.Locales.Secciones.Seccion;
+            }
+            else ViewBag.seccionNombre = " ";
+
 
             return;
         }
@@ -149,13 +154,15 @@ namespace Occupancy.Controllers
             // Info general 
             GeneralInfo(contrato);
             // Si no tiene movimientos, ni saldo inicial, debo mostrar la tabla aún así
-            if (contrato.Movimientos != null) 
+            if (contrato.Movimientos.Count() > 0     ) //   != null)   
             {
                 // Recorrer los movimientos para obtener el saldo de la cuenta
-                ViewBag.Saldo = SaldoAccount(contrato.Movimientos.ToList());                      
+                ViewBag.Saldo = SaldoAccount(contrato.Movimientos.ToList());
             }
-            // Revisar movimientos tipo 3 Renta del Mes
-            AddMonth(id);  /// -----------------------
+            else ViewBag.Saldo = 0;
+
+            // Revisar movimientos tipo 3 Renta del Mes. Llenado de listMeses
+            AddMonth(id); 
             // La vista EditMovs recibe un objeto Contrato
             return View(contrato);
         }
@@ -311,7 +318,7 @@ namespace Occupancy.Controllers
             }
             // Permitir agregar mes del año actual, el Stored Procedure realiza inserción del nuevo Cargo del Mes
             // existen casos en los que puede pagar por adelantado, por lo que se debe generar el Cargo y la Orden de Pago que corresponda
-            if (contratos.Movimientos != null)
+            if (contratos.Movimientos.Count() >0 )  //// != null)
             {
                 // Recorrer movimientos para ver si del año actual ya están cargados meses 
                 IEnumerable<Movimientos> listMovimientos = contratos.Movimientos.ToList(); 
@@ -843,7 +850,7 @@ namespace Occupancy.Controllers
             //ViewBag.IDLocal = new SelectList(db.Locales, "IDLocal", "Local");
             //ViewBag.IDPersona = new SelectList(db.Personas, "IDPersona", "NombreCompleto");
 
-            //int IDDeptoUser = (int)Session["ID_User"];
+            int IDDeptoUser = (int)Session["ID_User"];
             // y locales disponibles de ese espacio          
 
             var girosQry = from g in db.Giros
@@ -853,13 +860,13 @@ namespace Occupancy.Controllers
 
             var espaciosQry = from esp in db.Espacios
                               orderby esp.Espacio
-                              where esp.IDEspacio == 1
+                              where esp.IDEspacio == IDDeptoUser
                               select esp;
             ViewBag.IDEspacio = new SelectList(espaciosQry.AsNoTracking(), "IDEspacio", "Espacio");
 
             var localesQry = from l in db.Locales
                              orderby l.Local
-                             where (l.Ocupado == false)
+                             where (l.Ocupado == false && l.IDEspacio == IDDeptoUser) 
                              select l;
             ViewBag.IDLocal = new SelectList(localesQry.AsNoTracking(), "IDLocal", "Local");
 
@@ -875,8 +882,8 @@ namespace Occupancy.Controllers
         {
             if (ModelState.IsValid)
             {
-                //contratos.IDUser = (int)Session["ID_User"];
-                contratos.IDUser = 1;
+                contratos.IDUser = (int)Session["ID_User"];
+                
                 contratos.IDPersona = (int)TempData["PersonaID"];
                 db.Contratos.Add(contratos);
                 Locales locales = db.Locales.Find(contratos.IDLocal);                

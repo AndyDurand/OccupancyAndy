@@ -67,7 +67,7 @@ namespace Occupancy.Controllers
         }
 
         // GET: Giros/Edit/5
-        [Authorize(Roles = "SuperAdmin, AdminArea")]
+        [Authorize(Roles = "SuperAdmin, AdminArea, FuncionarioA")]
         public ActionResult Edit(int? id)
         {
             if (id == null)

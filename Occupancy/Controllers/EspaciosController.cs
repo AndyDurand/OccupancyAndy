@@ -31,7 +31,7 @@ namespace Occupancy.Controllers
             }
             int idArea = (int)Session["ID_Area"];
             //
-            if (User.IsInRole("SuperAdmin") || User.IsInRole("AdminAuditor"))
+            if (User.IsInRole("SuperAdmin") || User.IsInRole("AdminAuditor") || User.IsInRole("AdminConsulta"))
             {
                 var espacios = db.Espacios.Include(e => e.Departamentos);
                 ViewBag.nombreDepartamento = "Departamento: Todos";
@@ -75,7 +75,7 @@ namespace Occupancy.Controllers
             return View(espacios);
         }
 
-        [Authorize(Roles = "SuperAdmin")]
+        [Authorize(Roles = "SuperAdmin, AdminArea")]
         // GET: Espacios/Create
         public ActionResult Create()
         {
