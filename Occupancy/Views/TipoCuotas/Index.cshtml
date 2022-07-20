@@ -16,7 +16,11 @@
             <div class="col-md-8">
                 <div class="panel panel-success">
                     <div class="panel-heading">
-                        <div class="panel-title"><span class="glyphicon glyphicon-home" aria-hidden="true" style="font-size: 25px"></span> <strong>  Tipo de Cuotas </strong></div>
+                        <div style="text-align:center;">
+                            <img src="~/Content/images/fees.png" width="40" height="40" />
+                            <h4><strong>Tipo de Cuotas</strong></h4>                            
+                        </div>
+                        @*<div class="panel-title"><span class="glyphicon glyphicon-home" aria-hidden="true" style="font-size: 25px"></span> <strong>  Tipo de Cuotas </strong></div>*@
                     </div>
                     <div class="panel-body">
                         <p>En los tipos de Cuotas se definen los Importes a cobrar por mes, bien sea por por <strong>Cuotas</strong> o por <strong>factor UMAs</strong>; los recargos a cobrar bien sea por porcentajes sobre el importe o por factores UMA.</p>
@@ -136,7 +140,7 @@
 
                         <td>
                             @Html.ActionLink("Editar", "Edit", new { id = item.IDTipoCuota }) |
-                            @Html.ActionLink("Detalles", "Details", new { id = item.IDTipoCuota }) |
+                           @* @Html.ActionLink("Detalles", "Details", new { id = item.IDTipoCuota }) |*@
                             @*@Html.ActionLink("Delete", "Delete", new { id = item.IDTipoCuota })*@
                         </td>
                     </tr>

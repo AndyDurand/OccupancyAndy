@@ -840,18 +840,10 @@ namespace Occupancy.Controllers
             }
             ViewBag.IDPersona = personas.IDPersona;
             TempData["PersonaID"] = personas.IDPersona;
-
-            ViewBag.nombrePersona = personas.Nombre + " " + personas.APaterno + " " + personas.AMaterno;
-            // text dropdown - busqueda
-
-            //ViewBag.IDGiro = new SelectList(db.Giros, "IDGiro", "Giro");
+            ViewBag.nombrePersona = personas.Nombre + " " + personas.APaterno + " " + personas.AMaterno;           
             // de qué Espacio .
-            // solo locales disponibles, no ocupados
-            //ViewBag.IDLocal = new SelectList(db.Locales, "IDLocal", "Local");
-            //ViewBag.IDPersona = new SelectList(db.Personas, "IDPersona", "NombreCompleto");
-
-            int IDDeptoUser = (int)Session["ID_User"];
-            // y locales disponibles de ese espacio          
+            // solo locales disponibles, no ocupados           
+            int IDDeptoUser = (int)Session["ID_Area"];                    
 
             var girosQry = from g in db.Giros
                            orderby g.Giro
@@ -869,7 +861,7 @@ namespace Occupancy.Controllers
                              where (l.Ocupado == false && l.IDEspacio == IDDeptoUser) 
                              select l;
             ViewBag.IDLocal = new SelectList(localesQry.AsNoTracking(), "IDLocal", "Local");
-
+            
             ViewBag.IDTipoOcupacionUso = new SelectList(db.TipoOcupacionUso, "IDTipoOcupacionUso", "OcupacionUso");
             return View();
         }
@@ -882,8 +874,9 @@ namespace Occupancy.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Relación usuario crea
                 contratos.IDUser = (int)Session["ID_User"];
-                
+                // Relación Persona
                 contratos.IDPersona = (int)TempData["PersonaID"];
                 db.Contratos.Add(contratos);
                 Locales locales = db.Locales.Find(contratos.IDLocal);                

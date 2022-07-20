@@ -304,6 +304,7 @@
     <Content Include="Content\images\banner2.jpg" />
     <Content Include="Content\images\banner3.jpg" />
     <Content Include="Content\images\deal.png" />
+    <Content Include="Content\images\fees.png" />
     <Content Include="Content\images\food-stand.png" />
     <Content Include="Content\images\group.png" />
     <Content Include="Content\images\house.png" />

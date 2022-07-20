@@ -13,8 +13,13 @@
     <div class="container">
         <div class="panel panel-success">
             <div class="panel panel-heading">
-                <h4 class="panel-title"><span class="glyphicon glyphicon-list-alt" aria-hidden="true" style="font-size: 25px"></span> <strong>  Agregar Contrato / Concesión a :  @ViewBag.nombrePersona </strong></h4>
-                @ViewBag.IDPersona
+                @*<h4 class="panel-title"><span class="glyphicon glyphicon-list-alt" aria-hidden="true" style="font-size: 25px"></span> <strong>  Agregar Contrato / Concesión a :  @ViewBag.nombrePersona </strong></h4>*@                
+                <div style="text-align:center;">                    
+                    <img src="~/Content/images/deal.png" width="50" height="50" />
+                    <h4><strong> Agregar Contrato / Concesión a :  @ViewBag.nombrePersona </strong></h4>
+                    <h4>Folio Persona: @ViewBag.IDPersona</h4> 
+                </div>
+
             </div>
             <div class="panel panel-body">
                 <br />
@@ -27,6 +32,10 @@
                         <br />
                         <div class="form-group">
                             <!-- locales disponibles -->
+                           
+                            <div class="alert alert-warning">
+                                <strong>Locales disponibles. </strong> Seleccione el Local que le asignará.
+                            </div>
                             @Html.LabelFor(model => model.IDLocal, "IDLocal", htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
                                 @Html.DropDownList("IDLocal", null, htmlAttributes: new { @class = "form-control" })
@@ -35,6 +44,9 @@
                         </div>
 
                         <div class="form-group">
+                            <div class="alert alert-warning">
+                                <strong>Giro. </strong> Seleccione el Giro comercial.
+                            </div>
                             @Html.LabelFor(model => model.IDGiro, "IDGiro", htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
                                 @Html.DropDownList("IDGiro", null, htmlAttributes: new { @class = "form-control" })
@@ -43,6 +55,9 @@
                         </div>
 
                         <div class="form-group">
+                            <div class="alert alert-warning">
+                                <strong>Tipo de Ocupación. </strong> Seleccione el Tipo de Ocupación. Si no va a establecer un Contrato, seleccione la primera opción.
+                            </div>
                             @Html.LabelFor(model => model.IDTipoOcupacionUso, "IDTipoOcupacionUso", htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
                                 @Html.DropDownList("IDTipoOcupacionUso", null, htmlAttributes: new { @class = "form-control" })
@@ -50,13 +65,8 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.NombreComercial, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.NombreComercial, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.NombreComercial, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
+
+                        
 
                         <div class="form-group">
                             @Html.LabelFor(model => model.EsContrato, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -69,6 +79,9 @@
                         </div>
 
                         <div class="form-group">
+                            <div class="alert alert-warning">
+                                <strong>Activo. </strong> Indique si se considera Activo.
+                            </div>
                             @Html.LabelFor(model => model.Activo, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
                                 <div class="checkbox">
@@ -79,6 +92,20 @@
                         </div>
 
                         <div class="form-group">
+                            <div class="alert alert-warning">
+                                <strong>Nombre comercial. </strong> Capture el nombre comercial, si es que existe.
+                            </div>
+                            @Html.LabelFor(model => model.NombreComercial, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.NombreComercial, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.NombreComercial, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="alert alert-warning">
+                                <strong>Fechas. </strong> Indique las Fechas que se le solicita.
+                            </div>
                             @Html.LabelFor(model => model.FechaContrato, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
                                 @*@Html.EditorFor(model => model.FechaContrato, new { htmlAttributes = new { @class = "form-control" } })*@
@@ -86,7 +113,6 @@
                                 @Html.ValidationMessageFor(model => model.FechaContrato, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
                         <div class="form-group">
                             @Html.LabelFor(model => model.FechaInicio, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
@@ -94,7 +120,6 @@
                                 @Html.ValidationMessageFor(model => model.FechaInicio, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
                         <div class="form-group">
                             @Html.LabelFor(model => model.FechaVencim, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
@@ -102,23 +127,6 @@
                                 @Html.ValidationMessageFor(model => model.FechaVencim, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.NombreFiador, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.NombreFiador, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.NombreFiador, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.DiaFijoPago, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.DiaFijoPago, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.DiaFijoPago, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
                         <div class="form-group">
                             @Html.LabelFor(model => model.NumYearsVigencia, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
@@ -128,6 +136,31 @@
                         </div>
 
                         <div class="form-group">
+                            <div class="alert alert-warning">
+                                <strong>Fiador. </strong> Capture el nombre del Fiador, si es que aplica.
+                            </div>
+                            @Html.LabelFor(model => model.NombreFiador, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.NombreFiador, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.NombreFiador, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="alert alert-warning">
+                                <strong>Día de pago. </strong> Indique el valor del día que será el tope o máximo para que realice el pago.
+                            </div>
+                            @Html.LabelFor(model => model.DiaFijoPago, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.DiaFijoPago, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.DiaFijoPago, "", new { @class = "text-danger" })
+                            </div>
+                        </div>                        
+
+                        <div class="form-group">
+                            <div class="alert alert-warning">
+                                <strong>Observaciones. </strong> Capture las Observaciones que crea pertinentes a este Contrato/Permiso/Concesión.
+                            </div>
                             @Html.LabelFor(model => model.Observaciones, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
                                 @Html.EditorFor(model => model.Observaciones, new { htmlAttributes = new { @class = "form-control" } })

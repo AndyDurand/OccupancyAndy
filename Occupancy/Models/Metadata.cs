@@ -12,6 +12,9 @@ namespace Occupancy.Models
         [Display(Name = "Num Contrato")]
         public int IDContrato;
 
+        [Display(Name = "Tipo de Ocupación")]
+        public int IDTipoOcupacionUso;
+
         [StringLength(50)]
         [Display(Name = "Nombre Comercial")]
         public string NombreComercial;

@@ -154,6 +154,7 @@ namespace Occupancy.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.NombreCuota = tipoCuotas.TipoCuota;
             ViewBag.IDEspacio = new SelectList(db.Espacios, "IDEspacio", "Espacio", tipoCuotas.IDEspacio);
             ViewBag.IDNave = new SelectList(db.Naves, "IDNave", "Nave", tipoCuotas.IDNave);
 
