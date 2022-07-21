@@ -63,7 +63,7 @@ namespace Occupancy.Controllers
             }
             else
             {
-                return RedirectToAction("Invalid_profile", "Home");
+                return RedirectToAction("InvalidProfile", "Home");
             }             
         }
 
@@ -135,6 +135,7 @@ namespace Occupancy.Controllers
                                    orderby sec.Seccion
                                    select sec;
                 ViewBag.IDSeccion = new SelectList(seccionesQry.AsNoTracking(), "IDSeccion", "Seccion");                
+
                 var tipocQry = from tc in db.TipoCuotas
                                orderby tc.TipoCuota
                                select tc;
@@ -159,6 +160,9 @@ namespace Occupancy.Controllers
                                    where sec.Espacios.IDDepto == IDDeptoUser
                                    select sec;
                 ViewBag.IDSeccion = new SelectList(seccionesQry.AsNoTracking(), "IDSeccion", "Seccion");
+                //ViewBag.IDSeccion = GetSeccionesList();
+
+
                 //TipoCuota por espacio y nave, por IDNave, para llenado inicial las del depto
                 var tipocQry = from tc in db.TipoCuotas
                                orderby tc.TipoCuota

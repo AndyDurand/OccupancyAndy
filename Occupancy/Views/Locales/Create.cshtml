@@ -6,7 +6,7 @@
 <head>  
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-        // obtener lista tipo de cuotas de la nave seleccionada -- ---
+        // obtener lista tipo de cuotas de la nave seleccionada -- click y change ---
         $(document).ready(function () {
             $("#IDNave").click(function () {
                 $.get("/Locales/GetTipoCuotaList", { naveId: $("#IDNave").val() }, function (data) {
@@ -27,7 +27,18 @@
                 });
             })
         });
-        // obtener lista tipo de naves de acuerdo al espacio seleccionado ---
+        // obtener lista de secciones en base a IDEspacio, cuando click Nave
+        $(document).ready(function () {
+            $("#IDNave").click(function () {
+                $.get("/Locales/GetSeccionesList", { espacioId: $("#IDEspacio").val() }, function (data) {
+                    $("#IDSeccion").empty();
+                    $.each(data, function (index, row) {
+                        $("#IDSeccion").append("<option value ='" + row.IDSeccion + "' >" + row.Seccion + " </option>")
+                    });
+                });
+            })
+        });
+        // obtener lista tipo de naves de acuerdo al espacio seleccionado --- click y change
         $(document).ready(function () {
             $("#IDEspacio").click(function () {
                 $.get("/Locales/GetNavesList", { espacioId: $("#IDEspacio").val() }, function (data) {
@@ -48,7 +59,7 @@
                 });
             })
         });
-        // obtener lista tipo de secciones de acuerdo al espacio seleccionado
+        // obtener lista tipo de secciones de acuerdo al espacio seleccionado -- change
         $(document).ready(function () {
             $("#IDEspacio").change(function () {
                 $.get("/Locales/GetSeccionesList", { espacioId: $("#IDEspacio").val() }, function (data) {
@@ -59,6 +70,7 @@
                 });
             })
         });
+
     </script>
 
 </head>
@@ -110,7 +122,6 @@
                         <div class="alert alert-warning">
                                 <strong>Nave y Sección</strong> Seleccione la ubicación del local de acuerdo al Inmueble o Espacio seleccionado anteriormente.
                         </div>
-
                         <div class="form-group">
                             @Html.LabelFor(model => model.IDNave, "IDNave", htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
@@ -160,6 +171,7 @@
                             </div>
                         </div>
                         <hr />
+                        <!-- num locales para cobro / por metraje -->
                         <div class="form-group">
                             <div class="alert alert-warning">
                                 <strong>Metraje</strong> Indique si la cuota se relaciona con el numero de locales para cobro.

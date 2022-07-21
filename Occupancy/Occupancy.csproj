@@ -312,6 +312,7 @@
     <Content Include="Content\images\Logotipo 2022 - gris.png" />
     <Content Include="Content\images\market.png" />
     <Content Include="Content\images\mercado-cerritos.jpg" />
+    <Content Include="Content\images\occupied-stand.png" />
     <Content Include="Content\images\park.png" />
     <Content Include="Content\images\settings.png" />
     <Content Include="Content\images\supermarket.png" />

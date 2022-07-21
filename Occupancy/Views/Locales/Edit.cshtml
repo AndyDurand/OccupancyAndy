@@ -4,13 +4,79 @@
     ViewBag.Title = "Edit";
 }
 <head>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        // obtener lista tipo de cuotas de la nave seleccionada -- click y change ---
+        $(document).ready(function () {
+            $("#IDNave").click(function () {
+                $.get("/Locales/GetTipoCuotaList", { naveId: $("#IDNave").val() }, function (data) {
+                    $("#IDTipoCuota").empty();
+                    $.each(data, function (index, row) {
+                        $("#IDTipoCuota").append("<option value ='" + row.IDTipoCuota + "' >" + row.TipoCuota + " </option>")
+                    });
+                });
+            })
+        });
+        $(document).ready(function () {
+            $("#IDNave").change(function () {
+                $.get("/Locales/GetTipoCuotaList", { naveId: $("#IDNave").val() }, function (data) {
+                    $("#IDTipoCuota").empty();
+                    $.each(data, function (index, row) {
+                        $("#IDTipoCuota").append("<option value ='" + row.IDTipoCuota + "' >" + row.TipoCuota + " </option>")
+                    });
+                });
+            })
+        });
+        // obtener lista de secciones en base a IDEspacio, cuando click Nave
+        $(document).ready(function () {
+            $("#IDNave").click(function () {
+                $.get("/Locales/GetSeccionesList", { espacioId: $("#IDEspacio").val() }, function (data) {
+                    $("#IDSeccion").empty();
+                    $.each(data, function (index, row) {
+                        $("#IDSeccion").append("<option value ='" + row.IDSeccion + "' >" + row.Seccion + " </option>")
+                    });
+                });
+            })
+        });
+        // obtener lista tipo de naves de acuerdo al espacio seleccionado --- click y change
+        $(document).ready(function () {
+            $("#IDEspacio").click(function () {
+                $.get("/Locales/GetNavesList", { espacioId: $("#IDEspacio").val() }, function (data) {
+                    $("#IDNave").empty();
+                    $.each(data, function (index, row) {
+                        $("#IDNave").append("<option value ='" + row.IDNave + "' >" + row.Nave + " </option>")
+                    });
+                });
+            })
+        });
+        $(document).ready(function () {
+            $("#IDEspacio").change(function () {
+                $.get("/Locales/GetNavesList", { espacioId: $("#IDEspacio").val() }, function (data) {
+                    $("#IDNave").empty();
+                    $.each(data, function (index, row) {
+                        $("#IDNave").append("<option value ='" + row.IDNave + "' >" + row.Nave + " </option>")
+                    });
+                });
+            })
+        });
+        // obtener lista tipo de secciones de acuerdo al espacio seleccionado -- change
+        $(document).ready(function () {
+            $("#IDEspacio").change(function () {
+                $.get("/Locales/GetSeccionesList", { espacioId: $("#IDEspacio").val() }, function (data) {
+                    $("#IDSeccion").empty();
+                    $.each(data, function (index, row) {
+                        $("#IDSeccion").append("<option value ='" + row.IDSeccion + "' >" + row.Seccion + " </option>")
+                    });
+                });
+            })
+        });
+    </script>
 </head>
 <body>
     <br />
     <br />
     <div class="container">
-        <div class="panel panel-info">
+        <div class="panel panel-success">
             <div class="panel-heading">
                 @*<h4 class="panel-title"><span class="glyphicon glyphicon-home" aria-hidden="true" style="font-size: 25px"></span> <strong>  Editar  Local Clave: @Model.IDLocal  </strong></h4>*@
                 <div style="text-align:center;">
@@ -25,7 +91,22 @@
                 </div>
             </div>
             <div class="panel-heading">
-                <h4 class="panel-title"><span class="glyphicon glyphicon-home" aria-hidden="true" style="font-size: 25px"></span> <strong>Estado: @ViewBag.estado</strong></h4>
+                @*<h4 class="panel-title"><span class="glyphicon glyphicon-home" aria-hidden="true" style="font-size: 25px"></span> <strong>Estado: @ViewBag.estado</strong></h4>*@
+
+                @if (@ViewBag.estado == "Ocupado")
+                {
+                    <div style="text-align:left;">
+                        <img src="~/Content/images/occupied-stand.png" width="40" height="40" />
+                        <h4><strong>Estado: @ViewBag.estado</strong></h4>
+                    </div>
+                }
+                else
+                {
+                    <div style="text-align:right;">
+                        <img src="~/Content/images/food-stand.png"  width="40" height="40" />
+                        <h4><strong><strong>Estado: @ViewBag.estado</strong></strong></h4>
+                    </div>
+                }
             </div>
             <div class="panel-body">
                 @using (Html.BeginForm())
@@ -37,73 +118,109 @@
                         @Html.HiddenFor(model => model.IDLocal)
                         @Html.HiddenFor(model => model.IDEspacio)
                         @Html.HiddenFor(model => model.Ocupado)
-                        @Html.HiddenFor(model => model.Local)
+
+                        <!-- -->
+                        @*@Html.HiddenFor(model => model.Local)*@
+
                         <div class="row">
                             <div class="col-md-6">
+                                <!-- Nombre del local -->
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.IDNave, "IDNave", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="alert alert-warning">
+                                        <strong>Local</strong> Indique el nombre o designación del local.
+                                    </div>
+                                    @Html.LabelFor(model => model.Local, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
-                                        @Html.DropDownList("IDNave", null, htmlAttributes: new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.IDNave, "", new { @class = "text-danger" })
+                                        @Html.EditorFor(model => model.Local, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Local, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
+                                <!-- Nave -->                                
+                                <div class="form-group">
+                                    <div class="alert alert-warning">
+                                        <strong>Nave y Sección</strong> Seleccione la ubicación del local de acuerdo al Inmueble o Espacio seleccionado anteriormente.
+                                    </div>
+                                    @Html.LabelFor(model => model.IDNave, "IDNave", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        <!-- Dropdownl list de acuerdo al espacio seleccionado -->
+                                        @*@Html.DropDownList("IDNave", new SelectList(""), "-Seleccione Nave-", new { @class = "form-control" })*@
 
+                                        @Html.DropDownList("IDNave", null, "-Seleccione Nave-", htmlAttributes: new { @class = "form-control" })
+                                        @* @Html.ValidationMessageFor(model => model.IDNave, "", new { @class = "text-danger" })*@
+                                    </div>
+                                </div>
+                                <!-- Seccion -->
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.IDSeccion, "IDSeccion", htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
-                                        @Html.DropDownList("IDSeccion", null, htmlAttributes: new { @class = "form-control" })
+                                        <!-- Dropdownl list de acuerdo al espacio seleccionado -->
+                                        @Html.DropDownList("IDSeccion", new SelectList(""), "-Seleccione Sección-", htmlAttributes: new { @class = "form-control" })
                                         @Html.ValidationMessageFor(model => model.IDSeccion, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
-
+                                <!-- Tipo de Cuota -- -- -->
                                 <div class="form-group">
+                                    <div class="alert alert-warning">
+                                        <strong>Tipo de Cuota</strong> Indique el Tipo de Cuota que aplica de forma general.
+                                    </div>
+
                                     @Html.LabelFor(model => model.IDTipoCuota, "IDTipoCuota", htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
-                                        @Html.DropDownList("IDTipoCuota", null, htmlAttributes: new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.IDTipoCuota, "", new { @class = "text-danger" })
+                                        <!-- Dropdownl list de acuerdo a Nave seleccionada -->
+                                        @Html.DropDownList("IDTipoCuota", new SelectList(""), "-Seleccione Tipo Cuota-", new { @class = "form-control" })
+
                                     </div>
                                 </div>
                             </div>
+
                             <div class="col-md-6">
+                                <!-- tamaño-->
                                 <div class="form-group">
+                                    <div class="alert alert-warning">
+                                        <strong>Dimensiones del Local</strong>Indique las medidas del Local.
+                                    </div>
                                     @Html.LabelFor(model => model.MFrente, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
                                         @Html.EditorFor(model => model.MFrente, new { htmlAttributes = new { @class = "form-control" } })
                                         @Html.ValidationMessageFor(model => model.MFrente, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
-
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.MFondo, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
                                         @Html.EditorFor(model => model.MFondo, new { htmlAttributes = new { @class = "form-control" } })
                                         @Html.ValidationMessageFor(model => model.MFondo, "", new { @class = "text-danger" })
                                     </div>
-                                </div>
-
+                                </div>                                
+                                <!-- num locales para cobro / por metraje -->
                                 <div class="form-group">
+                                    <div class="alert alert-warning">
+                                        <strong>Metraje</strong> Indique si la cuota se relaciona con el numero de locales para cobro.
+                                    </div>
                                     @Html.LabelFor(model => model.PorMetraje, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
                                         @Html.EditorFor(model => model.PorMetraje, new { htmlAttributes = new { @class = "form-control" } })
                                         @Html.ValidationMessageFor(model => model.PorMetraje, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
-
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.NumLocParaCobro, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
                                         @Html.EditorFor(model => model.NumLocParaCobro, new { htmlAttributes = new { @class = "form-control" } })
                                         @Html.ValidationMessageFor(model => model.NumLocParaCobro, "", new { @class = "text-danger" })
+
                                     </div>
                                 </div>
-
                                 <div class="form-group">
+                                    <div class="alert alert-warning">
+                                        <strong>Cuota de renta</strong> Indique la cuota base de renta, sin el Adicional.
+                                    </div>
                                     @Html.LabelFor(model => model.ImporteRenta, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
                                         @Html.EditorFor(model => model.ImporteRenta, new { htmlAttributes = new { @class = "form-control" } })
                                         @Html.ValidationMessageFor(model => model.ImporteRenta, "", new { @class = "text-danger" })
                                     </div>
-                                </div>
+                                </div>                                
                             </div>
                         </div>
 
