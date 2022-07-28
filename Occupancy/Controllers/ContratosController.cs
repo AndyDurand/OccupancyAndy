@@ -906,6 +906,7 @@ namespace Occupancy.Controllers
         [Authorize(Roles = "SuperAdmin, AdminArea, FuncionarioA")]
         public ActionResult Edit(int? id)
         {
+            //Editar Giro, tipo de ocupaci´´on, nombre comecial, fechas, observaciones
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -915,10 +916,29 @@ namespace Occupancy.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.IDGiro = new SelectList(db.Giros, "IDGiro", "Giro", contratos.IDGiro);
-            ViewBag.IDLocal = new SelectList(db.Locales, "IDLocal", "Local", contratos.IDLocal);
-            ViewBag.IDPersona = new SelectList(db.Personas, "IDPersona", "Nombre", contratos.IDPersona);
-            ViewBag.IDTipoOcupacionUso = new SelectList(db.TipoOcupacionUso, "IDTipoOcupacionUso", "OcupacionUso", contratos.IDTipoOcupacionUso);
+            Personas persona = db.Personas.Find(contratos.IDPersona);
+            if (persona == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.IDPersona = persona.IDPersona;
+            TempData["PersonaID"] = persona.IDPersona;
+            ViewBag.nombrePersona = persona.Nombre + " " + persona.APaterno + " " + persona.AMaterno;
+            // no edición de Persona del Contrato
+            int IDDeptoUser = (int)Session["ID_Area"];
+            var girosQry = from g in db.Giros
+                           orderby g.Giro
+                           select g;
+            ViewBag.IDGiro = new SelectList(girosQry.AsNoTracking(), "IDGiro", "Giro");           
+
+            var localesQry = from l in db.Locales
+                             orderby l.Local
+                             where (l.Ocupado == false && l.IDEspacio == IDDeptoUser)
+                             select l;
+            ViewBag.IDLocal = new SelectList(localesQry.AsNoTracking(), "IDLocal", "Local");
+
+            ViewBag.IDTipoOcupacionUso = new SelectList(db.TipoOcupacionUso, "IDTipoOcupacionUso", "OcupacionUso");
+
             return View(contratos);
         }
 
@@ -926,10 +946,14 @@ namespace Occupancy.Controllers
         [Authorize(Roles = "SuperAdmin, AdminArea, FuncionarioA")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IDContrato,IDPersona,IDLocal,IDGiro,IDTipoOcupacionUso,NombreComercial,EsContrato,Activo,FechaContrato,FechaInicio,FechaVencim,NombreFiador,DiaFijoPago,NumYearsVigencia,IDUser,Observaciones")] Contratos contratos)
+        public ActionResult Edit([Bind(Include = "")] Contratos contratos)
         {
             if (ModelState.IsValid)
             {
+                // Relación usuario edita
+                contratos.IDUser = (int)Session["ID_User"];
+                // Relación Persona                
+
                 db.Entry(contratos).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

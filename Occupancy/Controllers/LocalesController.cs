@@ -299,7 +299,7 @@ namespace Occupancy.Controllers
         [Authorize(Roles = "SuperAdmin, AdminArea, FuncionarioA")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IDLocal,IDEspacio,IDNave,IDSeccion,IDTipoCuota,Ocupado,Local,MFrente,MFondo,MCuadTotales,NumLocParaCobro,ImporteRenta")] Locales locales)
+        public ActionResult Edit([Bind(Include = "")] Locales locales)
         {
             if (ModelState.IsValid)
             {
