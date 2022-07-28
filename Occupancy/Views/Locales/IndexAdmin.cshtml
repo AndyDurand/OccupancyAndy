@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Occupancy.Models.Locales>
+@{
+    ViewBag.Title = "Locales";
+}
+
+<head>
+
+</head>
+<body>
+    <div class="container">
+
+
+        @foreach (var item in Model)
+        {
+            <div class="row">
+                <br />
+                @if (item.Ocupado)
+                {
+                <div class="col-md-3">
+                    <div class="panel-info text-white bg-info" style="max-width:auto">
+                        <div class="panel-heading text-center"><strong>@Html.DisplayFor(modelItem => item.Local)</strong> </div>
+                        <div class="panel-body">
+                            <p>Ocupado</p>
+                        </div>
+                        <div class="panel-footer">
+                            acciones
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+                }
+                else
+                {
+                <div class="col-md-3">
+                    <div class="panel-success text-white bg-success" style="max-width:auto">
+                        <div class="panel-heading text-center"><strong>@Html.DisplayFor(modelItem => item.Local)</strong> </div>
+                        <div class="panel-body">
+                            <p>Desocupado</p>
+                        </div>
+                        <div class="panel-footer">
+                            acciones
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+                }
+            </div>
+
+        }
+    </div>
+</body>
+

@@ -249,6 +249,7 @@ namespace Occupancy.Controllers
         public ActionResult AddBalance(float importe, string obs, string tipoSaldo)
         {
             // Session["ID_User"]
+
             // Ya tengo  Session["ID_Contrato"]
             // IDTipoMovimiento, Importe y Observaciones son los campos leidos
             // idUser, idContrato, fechas System.DateTime.Now;            
@@ -267,6 +268,7 @@ namespace Occupancy.Controllers
                 {
                     Movimientos mov = new Movimientos();                    
                     mov.IDContrato = contrato.IDContrato;  
+
                     if (tipoSaldo == "SALDO INICIAL REZAGO")
                     {
                         mov.IDTipoMovimiento = 1;
@@ -281,8 +283,10 @@ namespace Occupancy.Controllers
                         mov.FechaVencimiento = new System.DateTime(nYearNow, nMonthNow, System.DateTime.DaysInMonth(nYearNow,nMonthNow));
                         obs = obs + ". SALDO INICIAL CORRIENTE";
                     }
-                    //mov.IDUser = (int)Session["ID_User"];
-                    mov.IDUser = 1;
+                    // saldo inicial a Favor 27/07/22
+                    // ..
+                    // 
+                    mov.IDUser = (int)Session["ID_User"];
                     mov.ImporteTotal = importe;
                     mov.FechaEmision = System.DateTime.Now;   
                     mov.Observaciones = obs;
@@ -563,7 +567,7 @@ namespace Occupancy.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AddMonth( string obs, string sMes)
         {
-            // Session["ID_User"]
+            
             // Ya tengo  Session["ID_Contrato"]            
             Contratos contrato = db.Contratos.Find(Session["ID_Contrato"]);
             int idC = 0;
@@ -579,7 +583,7 @@ namespace Occupancy.Controllers
                 float fTotal, fRedondeo, fCorriente, fAdicional, fRecargos, fRezago,fAdicionalRezago, fRecargoRezago ;
                 fTotal = fRedondeo = fCorriente = fAdicional = fRecargos = fRezago = fAdicionalRezago = fRecargoRezago = 0;
                 int nTotal = 0;
-                int nTipoMov = 3;
+                int nTipoMov = 3; // Renta del Mes
                 DateTime dVencim = System.DateTime.Now;
 
                 // Solo son meses del año actual, lo de los años anteriores debe ser Saldo Inicial Rezago
@@ -668,8 +672,8 @@ namespace Occupancy.Controllers
                 mov.IDContrato = contrato.IDContrato;
                 mov.IDTipoMovimiento = nTipoMov;
                 mov.Pagado = false;
-                //mov.IDUser = (int)Session["ID_User"];
-                mov.IDUser = 1;
+                mov.IDUser = (int)Session["ID_User"];
+                
 
                 // -- Redondeo, hasta el final
                 nTotal = (int)fTotal; //parte entera

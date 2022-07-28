@@ -164,11 +164,7 @@ namespace Occupancy.Models
         public Nullable<float> AdicionalRezago;
 
         [Display(Name = "Recargo Rezago")]
-        public Nullable<float> RecargoRezago;
-
-        [Display(Name = "Año")]
-        public int Year;
-
+        public Nullable<float> RecargoRezago;       
 
 
     }
