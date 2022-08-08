@@ -4,7 +4,14 @@
     ViewBag.Title = "Locales";
 }
 <head>    
-
+    <style>
+        .coloroccupied {
+            background-color: #cc9900;
+        }
+        .colorfree {
+            background-color: #40bf80;
+        }
+    </style>         
 </head>
 <body>
     <br />
@@ -43,58 +50,48 @@
         </div>
         <br />
         <table id="miTabla" class="table table-striped table-bordered" style="width:100%">
-            @*<table id="miTabla" class="display nowrap" style="" width:100%">*@
+            @*<table id="miTabla" class="display" style="" width:100%">*@
             <thead>
                 <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.IDLocal)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Local)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Espacios.Espacio)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Ocupado)
-                    </th>
+                    <th>@Html.DisplayNameFor(model => model.IDLocal)</th>
+                    <th>@Html.DisplayNameFor(model => model.Local)</th>
+                    <th>@Html.DisplayNameFor(model => model.Espacios.Espacio)</th>
+                    <th>@Html.DisplayNameFor(model => model.Ocupado)</th>
                     <!-- -->
-                    <th>
-                        @Html.DisplayNameFor(model => model.ImporteRenta)
-                    </th>
+                    <th>@Html.DisplayNameFor(model => model.ImporteRenta)</th>
                     <!-- -->
-                    <th>
-                        @Html.DisplayNameFor(model => model.Naves.Nave)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Secciones.Seccion)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.TipoCuotas.TipoCuota)
-                    </th>
+                    <th>@Html.DisplayNameFor(model => model.Naves.Nave)</th>
+                    <th>@Html.DisplayNameFor(model => model.Secciones.Seccion)</th>
+                    <th>@Html.DisplayNameFor(model => model.TipoCuotas.TipoCuota)</th>
                     <!-- -->
-                    
-                    <th>
-                        @Html.DisplayNameFor(model => model.MFrente)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.MFondo)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.MCuadTotales)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.NumLocParaCobro)
-                    </th>
-
-
-
+                    <th>@Html.DisplayNameFor(model => model.MFrente)</th>
+                    <th>@Html.DisplayNameFor(model => model.MFondo)</th>
+                    <th>@Html.DisplayNameFor(model => model.MCuadTotales)</th>
+                    <th>@Html.DisplayNameFor(model => model.NumLocParaCobro)</th>
                     <th>Acciones</th>
                 </tr>
-
             </thead>
+            <tfoot>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.IDLocal)</th>
+                    <th>@Html.DisplayNameFor(model => model.Local)</th>
+                    <th>@Html.DisplayNameFor(model => model.Espacios.Espacio)</th>
+                    <th>@Html.DisplayNameFor(model => model.Ocupado)</th>
+                    <!-- -->
+                    <th>@Html.DisplayNameFor(model => model.ImporteRenta)</th>
+                    <!-- -->
+                    <th>@Html.DisplayNameFor(model => model.Naves.Nave)</th>
+                    <th>@Html.DisplayNameFor(model => model.Secciones.Seccion)</th>
+                    <th>@Html.DisplayNameFor(model => model.TipoCuotas.TipoCuota)</th>
+                    <!-- -->
+                    <th>@Html.DisplayNameFor(model => model.MFrente)</th>
+                    <th>@Html.DisplayNameFor(model => model.MFondo)</th>
+                    <th>@Html.DisplayNameFor(model => model.MCuadTotales)</th>
+                    <th>@Html.DisplayNameFor(model => model.NumLocParaCobro)</th>
+                    <th>Acciones</th>
+                </tr>
+            </tfoot>
             <tbody>
-
                 @foreach (var item in Model)
                 {
                     <tr>
@@ -106,18 +103,19 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Espacios.Espacio)
-                        </td>                        
+                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Ocupado)
-                            @{ if (item.Ocupado)
-                              {
-                                <strong>Ocupado</strong> 
-                              }
-                              else
-                              {
-                                <strong>Disponible</strong>
-                              } 
-                              }
+                            @{
+                                if (item.Ocupado)
+                                {
+                                    <strong style="background-color:bisque">Ocupado</strong> 
+                                }
+                                else
+                                {
+                                    <strong style="background-color:darkseagreen">Disponible</strong> 
+                                } 
+                             }
                         </td>
                         <td>
                             <p style="text-align:center;"><strong>@Html.DisplayFor(modelItem => item.ImporteRenta)</strong></p>
@@ -145,14 +143,14 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.NumLocParaCobro)
-                        </td>                                               
-                        
+                        </td>
+
                         <td>
                             @*@Html.ActionLink("Editar", "Edit", new { id = item.IDLocal }, new { @class = "btn btn-info glyphicon glyphicon-edit" })*@
                             @Html.ActionLink(" ", "Edit", new { id = item.IDLocal }, new { @class = "glyphicon glyphicon-edit" })
                         </td>
                     </tr>
-                 }
+}
             </tbody>
         </table>
 

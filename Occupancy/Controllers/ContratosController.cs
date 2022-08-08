@@ -906,7 +906,7 @@ namespace Occupancy.Controllers
         [Authorize(Roles = "SuperAdmin, AdminArea, FuncionarioA")]
         public ActionResult Edit(int? id)
         {
-            //Editar Giro, tipo de ocupaci´´on, nombre comecial, fechas, observaciones
+            //Editar Giro, tipo de ocupacion, nombre comercial, fechas, observaciones
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
