@@ -310,7 +310,8 @@ namespace Occupancy.Controllers
         public void AddMonth(int? id)
         {
             ViewBag.algotxt = "desde AddMonth";
-            // Añadir solo meses del año actual
+            // Añadir solo meses del año actual 
+            // Del mes actual en adelante
             if (id == null)
             {
                 //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -331,7 +332,8 @@ namespace Occupancy.Controllers
 
                 ViewBag.Year = nYearNow;
 
-                // Armar el List con los meses que no tiene cargados
+                // Armar el List con los meses que no tiene cargados, pero mayores que el mes actual
+
                 List<SelectListItem> listMonth= new List<SelectListItem>();
                 SelectListItem itemMonth; 
                 // mes actual,el mes es el indice [índice - 1], la columna 1 no la utilizo por ahora
@@ -348,11 +350,13 @@ namespace Occupancy.Controllers
                                     // itemMonth = new SelectListItem { Text = "ENERO", Value = "01", Disabled = true };
                                 }
                                 else
-                                {
-                                    itemMonth = new SelectListItem { Text = "ENERO", Value = "01", Disabled = false };
-                                    listMonth.Add(itemMonth);
-                                }
-                                
+                                {                                     
+                                    if (nMonthNow < 1)  // solo se consideraría mes por adelantado
+                                    {
+                                        itemMonth = new SelectListItem { Text = "ENERO", Value = "01", Disabled = false };
+                                        listMonth.Add(itemMonth);
+                                    }                                    
+                                }                                
                                 break;
                             case 1:
                                 if (arrayMonth[n, 0] == 1) // encontrado en Movimientos
@@ -361,8 +365,11 @@ namespace Occupancy.Controllers
                                 }
                                 else
                                 {
-                                    itemMonth = new SelectListItem { Text = "FEBRERO", Value = "02", Disabled = false };
-                                    listMonth.Add(itemMonth);
+                                    if (nMonthNow < 2)  // solo se consideraría mes por adelantado
+                                    {
+                                        itemMonth = new SelectListItem { Text = "FEBRERO", Value = "02", Disabled = false };
+                                        listMonth.Add(itemMonth);
+                                    }                                        
                                 }                                
                                 break;
                             case 2:
@@ -372,8 +379,11 @@ namespace Occupancy.Controllers
                                 }
                                 else
                                 {
-                                    itemMonth = new SelectListItem { Text = "MARZO", Value = "03", Disabled = false };
-                                    listMonth.Add(itemMonth);
+                                    if (nMonthNow < 3)  // solo se consideraría mes por adelantado
+                                    {
+                                        itemMonth = new SelectListItem { Text = "MARZO", Value = "03", Disabled = false };
+                                        listMonth.Add(itemMonth);
+                                    }                                        
                                 }                                
                                 break;
                             case 3:
@@ -383,10 +393,13 @@ namespace Occupancy.Controllers
                                 }
                                 else
                                 {
-                                    itemMonth = new SelectListItem { Text = "ABRIL", Value = "04", Disabled = false };
-                                    listMonth.Add(itemMonth);
-                                }
-                                
+                                    if (nMonthNow < 4)  // solo se consideraría mes por adelantado
+                                    {
+                                        itemMonth = new SelectListItem { Text = "ABRIL", Value = "04", Disabled = false };
+                                        listMonth.Add(itemMonth);
+                                    }
+                                        
+                                }                                
                                 break;
                             case 4:
                                 if (arrayMonth[n, 0] == 1) // encontrado en Movimientos
@@ -395,88 +408,105 @@ namespace Occupancy.Controllers
                                 }
                                 else
                                 {
-                                    itemMonth = new SelectListItem { Text = "MAYO", Value = "05", Disabled = false };
-                                    listMonth.Add(itemMonth);
-                                }
-                                
+                                    if (nMonthNow < 5)  // solo se consideraría mes por adelantado
+                                    {
+                                        itemMonth = new SelectListItem { Text = "MAYO", Value = "05", Disabled = false };
+                                        listMonth.Add(itemMonth);
+                                    }                                        
+                                }                                
                                 break;
                             case 5:
                                 if (arrayMonth[n, 0] == 1) // encontrado en Movimientos
                                 {
-                                    //itemMonth = new SelectListItem { Text = "JUNIO", Value = "06", Disabled = true };
                                 }
                                 else
                                 {
-                                    itemMonth = new SelectListItem { Text = "JUNIO", Value = "06", Disabled = false };
-                                    listMonth.Add(itemMonth);
+                                    if (nMonthNow < 6)  // solo se consideraría mes por adelantado
+                                    {
+                                        itemMonth = new SelectListItem { Text = "JUNIO", Value = "06", Disabled = false };
+                                        listMonth.Add(itemMonth);
+                                    }
+                                        
                                 }                                
                                 break;
                             case 6:
                                 if (arrayMonth[n, 0] == 1) // encontrado en Movimientos
-                                {
-                                    //itemMonth = new SelectListItem { Text = "JULIO", Value = "07", Disabled = true };
+                                {                                    
                                 }
                                 else
                                 {
-                                    itemMonth = new SelectListItem { Text = "JULIO", Value = "07", Disabled = false };
-                                    listMonth.Add(itemMonth);
+                                    if (nMonthNow < 7)  // solo se consideraría mes por adelantado
+                                    {
+                                        itemMonth = new SelectListItem { Text = "JULIO", Value = "07", Disabled = false };
+                                        listMonth.Add(itemMonth);
+                                    }                                        
                                 }                                
                                 break;
                             case 7:
                                 if (arrayMonth[n, 0] == 1) // encontrado en Movimientos
-                                {
-                                    //itemMonth = new SelectListItem { Text = "AGOSTO", Value = "08", Disabled = true };
+                                {                                    
                                 }
                                 else
                                 {
-                                    itemMonth = new SelectListItem { Text = "AGOSTO", Value = "08", Disabled = false };
-                                    listMonth.Add(itemMonth);
+                                    if (nMonthNow < 8)  // solo se consideraría mes por adelantado
+                                    {
+                                        itemMonth = new SelectListItem { Text = "AGOSTO", Value = "08", Disabled = false };
+                                        listMonth.Add(itemMonth);
+                                    }
+                                        
                                 }
                                 
                                 break;
                             case 8:
                                 if (arrayMonth[n, 0] == 1) // encontrado en Movimientos
                                 {
-                                    //itemMonth = new SelectListItem { Text = "SEPTIEMBRE", Value = "09", Disabled = true };
                                 }
                                 else
                                 {
-                                    itemMonth = new SelectListItem { Text = "SEPTIEMBRE", Value = "09", Disabled = false };
-                                    listMonth.Add(itemMonth);
-                                }
-                                
+                                    if (nMonthNow < 9)  // solo se consideraría mes por adelantado
+                                    {
+                                        itemMonth = new SelectListItem { Text = "SEPTIEMBRE", Value = "09", Disabled = false };
+                                        listMonth.Add(itemMonth);
+                                    }                                        
+                                }                                
                                 break;
                             case 9:
                                 if (arrayMonth[n, 0] == 1) // encontrado en Movimientos
-                                {
-                                    //itemMonth = new SelectListItem { Text = "OCTUBRE", Value = "10", Disabled = true };
+                                {                                    
                                 }
                                 else
                                 {
-                                    itemMonth = new SelectListItem { Text = "OCTUBRE", Value = "10", Disabled = false };
-                                    listMonth.Add(itemMonth);
+                                    if (nMonthNow < 10)  // solo se consideraría mes por adelantado
+                                    {
+                                        itemMonth = new SelectListItem { Text = "OCTUBRE", Value = "10", Disabled = false };
+                                        listMonth.Add(itemMonth);
+                                    }                                        
                                 }                                
                                 break;
                             case 10:
                                 if (arrayMonth[n, 0] == 1) // encontrado en Movimientos
-                                {
-                                    //itemMonth = new SelectListItem { Text = "NOVIEMBRE", Value = "11", Disabled = true };
+                                {                                    
                                 }
                                 else
                                 {
-                                    itemMonth = new SelectListItem { Text = "NOVIEMBRE", Value = "11", Disabled = false };
-                                    listMonth.Add(itemMonth);
+                                    if (nMonthNow < 11)  // solo se consideraría mes por adelantado
+                                    {
+                                        itemMonth = new SelectListItem { Text = "NOVIEMBRE", Value = "11", Disabled = false };
+                                        listMonth.Add(itemMonth);
+                                    }                                        
                                 }                                
                                 break;
                             case 11:
                                 if (arrayMonth[n, 0] == 1) // encontrado en Movimientos
-                                {
-                                    //itemMonth = new SelectListItem { Text = "DICIEMBRE", Value = "12", Disabled = true };
+                                {                                    
                                 }
                                 else
                                 {
-                                    itemMonth = new SelectListItem { Text = "DICIEMBRE", Value = "12", Disabled = false };
-                                    listMonth.Add(itemMonth);
+                                    if (nMonthNow < 12)  // solo se consideraría mes por adelantado
+                                    {
+                                        itemMonth = new SelectListItem { Text = "DICIEMBRE", Value = "12", Disabled = false };
+                                        listMonth.Add(itemMonth);
+                                    }                                        
                                 }                                
                                 break;
                         }                       
@@ -592,11 +622,11 @@ namespace Occupancy.Controllers
                     nTipoMov = 3;
                     // Dias del mes seleccionado, debe ser de sMes
                     dVencim = new System.DateTime(nYearNow, int.Parse(sMes), System.DateTime.DaysInMonth(nYearNow, int.Parse(sMes)));
-                    obs = obs + ". MES " + MonthName(int.Parse(sMes)) + " " + nYearNow.ToString() + " CON RECARGOS.";
+                    obs = obs + ".CARGO DE MES " + MonthName(int.Parse(sMes)) + " " + nYearNow.ToString() + " CON RECARGOS.";
                     // Derechos --
-                    if (contrato.Locales.PorMetraje == true)
-                    {
-                        if (contrato.Locales.NumLocParaCobro != null)
+                    //if (contrato.Locales.PorMetraje == true)  // 
+                    //{
+                        if (contrato.Locales.NumLocParaCobro != null  || contrato.Locales.NumLocParaCobro != 0)
                         {
                             fRezago = (float)(contrato.Locales.ImporteRenta * contrato.Locales.NumLocParaCobro); // el no. de locales
                         }                                        
@@ -604,8 +634,8 @@ namespace Occupancy.Controllers
                         {
                             fRezago = (float)(contrato.Locales.ImporteRenta); // por omisión, 1
                         }
-                    }                        
-                    else fRezago = (float)(contrato.Locales.ImporteRenta); // la cuota                     
+                    //}                        
+                    //else fRezago = (float)(contrato.Locales.ImporteRenta); // la cuota                     
                     // Adicional rezago --
                     if (contrato.Locales.TipoCuotas.PorcentajeAdicional != null )
                     {
@@ -626,9 +656,9 @@ namespace Occupancy.Controllers
                 else if ((nMes == nMonthNow) || (nMes > nMonthNow)) // -- Mes actual o mes adelantado 
                 {                 
                     // Derechos
-                    if (contrato.Locales.PorMetraje == true)
-                    {
-                        if (contrato.Locales.NumLocParaCobro != null)
+                    //if (contrato.Locales.PorMetraje == true)
+                    //{
+                        if (contrato.Locales.NumLocParaCobro != null || contrato.Locales.NumLocParaCobro != 0)
                         {
                             fCorriente = (float)(contrato.Locales.ImporteRenta * contrato.Locales.NumLocParaCobro); // el no. de locales 
                         }
@@ -636,8 +666,8 @@ namespace Occupancy.Controllers
                         {
                             fCorriente = (float)(contrato.Locales.ImporteRenta); // por omisión, 1
                         }
-                    }
-                    else fCorriente = (float)(contrato.Locales.ImporteRenta);
+                    //}
+                    //else fCorriente = (float)(contrato.Locales.ImporteRenta);
                     // Adicional corriente
                     if (contrato.Locales.TipoCuotas.PorcentajeAdicional != null)
                     {
@@ -713,12 +743,104 @@ namespace Occupancy.Controllers
             return RedirectToAction("EditMovs", "Contratos", new { id = idC });
         }
 
+        //
+        // --  GET  Agregar  Saldo DEUDOR con número de meses - -- -- -- -- -- -- -- -- -- -- AddMonthsDebitBalance() GET  -- -- -- -- -- -- -- -- -- -- --       
+        [Authorize(Roles = "SuperAdmin, AdminArea, FuncionarioA")]
+        public ActionResult AddMonthsDebitBalance(int? id)
+        {
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Contratos contratos = db.Contratos.Find(id);
+            if (contratos == null)
+            {
+                return HttpNotFound();
+            }
+            return View();
+        }
+
+        // --  POST  Agregar Saldo Inicial -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- AddBalance(importe, obs, tipoSaldo) POST  -- -- -- --     
+        [Authorize(Roles = "SuperAdmin, AdminArea, FuncionarioA")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddMonthsDebitBalance(float importe, string obs, string tipoSaldo)
+        {
+            // Session["ID_User"]
+
+            // Ya tengo  Session["ID_Contrato"]
+            // IDTipoMovimiento, Importe y Observaciones son los campos leidos
+            // idUser, idContrato, fechas System.DateTime.Now;            
+            Contratos contrato = db.Contratos.Find(Session["ID_Contrato"]);
+            int idC = 0;
+            if (contrato == null)
+            {
+                return HttpNotFound();
+            }
+            if ((ModelState.IsValid))
+            {
+                idC = contrato.IDContrato;
+
+                // Crear si importe es diferente de cero
+                if (importe != 0)
+                {
+                    Movimientos mov = new Movimientos();
+                    mov.IDContrato = contrato.IDContrato;
+
+                    if (tipoSaldo == "SALDO INICIAL REZAGO")
+                    {
+                        mov.IDTipoMovimiento = 1;
+                        // Fecha vencimiento hoy, ya que que es un saldo de Rezago
+                        mov.FechaVencimiento = System.DateTime.Now;
+                        obs = obs + ". SALDO INICIAL REZAGO";
+                    }
+                    else if (tipoSaldo == "SALDO INICIAL CORRIENTE")
+                    {
+                        mov.IDTipoMovimiento = 2;
+                        // Fecha vencimiento, fin de este mes
+                        mov.FechaVencimiento = new System.DateTime(nYearNow, nMonthNow, System.DateTime.DaysInMonth(nYearNow, nMonthNow));
+                        obs = obs + ". SALDO INICIAL CORRIENTE";
+                    }
+                    // saldo inicial a Favor 27/07/22
+                    // ..
+                    // 
+                    mov.IDUser = (int)Session["ID_User"];
+                    mov.ImporteTotal = importe;
+                    mov.FechaEmision = System.DateTime.Now;
+                    mov.Observaciones = obs;
+                    mov.Estatus = "ACTIVO";
+                    // pendiente cómo desgloso el Saldo Inicial, sea de Corriente o de Rezago, ya que puede tener accesorios
+                    mov.Corriente = mov.Adicional = mov.Recargos = mov.Rezago = mov.AdicionalRezago = mov.RecargoRezago = 0;
+                    mov.Multa = mov.Honorarios = mov.Ejecucion = 0;
+                    // El periodo no aplica aquí
+                    // Agregar movimiento saldo
+                    db.Movimientos.Add(mov);
+                    db.SaveChanges();
+                }
+            }
+            return RedirectToAction("EditMovs", "Contratos", new { id = idC });
+
+        }
+
+
+
+
+
+
+
+
+
+
+
         //-- GET -- -- -- -- -- -- -- POST -- -- -- -- -- -- -- -- -- -- -- -- -- -- AddFullOrder()-- -- -- -- -- -- -- 
         [Authorize(Roles = "SuperAdmin, AdminArea, FuncionarioA")]
         public ActionResult AddFullOrden(int id)
         {
-            //int id = int.Parse(TempData["idmov"].ToString());
+            //int id = int.Parse(TempData["idmov"].ToString());            
             //TempData.Keep("idmov");
+
+            // el espacio, para filtrar en tbl CruceOrden
 
             Movimientos movimientos = db.Movimientos.Find(id);
             if (movimientos == null)
