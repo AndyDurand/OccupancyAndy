@@ -776,18 +776,25 @@ namespace Occupancy.Controllers
             int idC = 0;
             int nTipoMov = 3;
             string sPeriodo = "";
+
             int numMesesCorriente = 0; 
             int numMesesRezago = 0;
+            int numMesesRezagoOtro = 0;
+
             DateTime dVencim = System.DateTime.Now;
+
             // Array de cálculo para meses corrientes 
             // [0, 0] Corriente //  [0, 1] Adicional //  [0, 2] Porc Recargo // [0, 3] Recargos // [0, 4] Total importe // [0, 5] Periodo
             float[,] aRecargosCorriente = new float[12, 6];
             // Array de cálculo para meses de Rezago, 
             // [0, 0] Rezago //  [0, 1] Adicional //  [0, 2] Porc Recargo // [0, 3] Recargo Rezago // [0, 4] Total importe // [0, 5] Periodo
             float[,] aRecargosRezago = new float[12, 6];
+            float[,] aRecargosRezagoOtro = new float[12, 6];
 
             InitArrayDebit(aRecargosCorriente, 12, 6);
             InitArrayDebit(aRecargosRezago, 12, 6);
+            InitArrayDebit(aRecargosRezagoOtro, 12, 6);
+
             //nYearNow     nMonthNow    nDayNow 
             // nYearNow = System.DateTime.Now.Year;
             // nMonthNow = System.DateTime.Now.Month;
@@ -800,37 +807,46 @@ namespace Occupancy.Controllers
             if ((ModelState.IsValid))
             {
                 idC = contrato.IDContrato;
-                // //  Saldo deudor Corriente; calcular cuántos meses; nMeses 4; 12; 13; 15  (5 años = 60 meses)
-                // Evalúo el nMeses - - - - - 
-                
-                if (nMeses == nMonthNow ) // son todos corriente
+                // -- 1.-  Evalúo el número de Meses a cargar --
+                if (nMeses == nMonthNow ) // son todos Corriente
                 {
                     numMesesCorriente = nMeses;
-                    // nYearNow formará el sPeriodo, es por mes que se añade
-
-
-
-                }
-                //else if ()
-                //{
-
-                //}
-
-                if (nMeses <= 12)
-                {
-                    numMesesCorriente = nMeses; //12; 12
-                }                
-                else if (nMeses > 12)
-                {
-                    numMesesCorriente = 12;
-                    numMesesRezago = nMeses - 12; // 15;  3
-
+                    numMesesRezago = 0;
+                    // nYearNow formará el sPeriodo, es por mes que se añade; el periodo formado por el año actual
 
                 }
-                
+                else if (nMeses < nMonthNow) // son meses Corriente
+                {
+                    numMesesCorriente = nMeses;
+                    numMesesRezago = 0;
+                    // sPeriodo, el periodo formado por el año actual
+                }
+                else if (nMeses > nMonthNow) // tiene meses de Rezago..         //* 15; 1
+                {
+                    numMesesCorriente = nMonthNow;  // sPeriodo del año actual  //* 1         // 9  15;   9   //     5;  10     // nMontNow 2; nMeses 15  =2 //  7; 15  = 7 
+                    numMesesRezago = nMeses - nMonthNow;                        //* 14      // 15- 9 = 6   //     10-5=5    //  15-2 = 13 // 15-7= 8;
+                    if (numMesesRezago <= 12)     //  15-1 = 14                        // 15  1;  1 //  15-1 = 14
+                    {                        
+                        numMesesRezago = nMeses - nMonthNow; // me quedo con ese num de meses de rezago
+                        // sPeriodo, el periodo formado por el año actual - 1 
 
-                // Saldo deudor Rezago
+                    }
+                    else  //  15 - 1=14
+                    {
+                        // no creo q deba añadir más mese de rezago serian ya 2 años de rezago?             
+                        numMesesRezagoOtro = numMesesRezago - 12;   // 14-12 = 2
+                        numMesesRezago = 12;                        // 12    
+                        // sPeriodo, el periodo formado por el año actual -1 y -2
+                    }
 
+                }
+                // -- 2.- Generar los movimientos en los los arrays
+                // [0, 0] Corriente //  [0, 1] Adicional //  [0, 2] Porc Recargo // [0, 3] Recargos // [0, 4] Total importe // [0, 5] Periodo
+                //float[,] aRecargosCorriente = new float[12, 6];
+
+
+
+                // -- 3.- Recorrer arrays para añadir Movimientos..
                 // Crear si importe es diferente de cero
                 if (nMeses != 0)    /// ----------------------*****  nMeses.   si el contrato es por metraje (locales.NumLocParaCobro >=1; locales.PorMetraje == True), es decir n numeros de locales se les cobra
                     // se calculan Recargos, si no lo es, no se calcularán recargos
