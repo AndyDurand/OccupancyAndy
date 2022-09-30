@@ -743,11 +743,7 @@ namespace Occupancy.Controllers
             return RedirectToAction("EditMovs", "Contratos", new { id = idC });
         }
 
-        // 
-        void public InitArrayDebit(float array, int fil, int col)
-        {
-
-        }
+      
 
 
         // --  GET  Agregar  Saldo DEUDOR con número de meses - -- -- -- -- -- -- -- -- -- -- AddMonthsDebitBalance() GET  -- -- -- -- -- -- -- -- -- -- --   * * *   
@@ -815,9 +811,10 @@ namespace Occupancy.Controllers
 
 
                 }
-                else if{
+                //else if ()
+                //{
 
-                }
+                //}
 
                 if (nMeses <= 12)
                 {
@@ -886,13 +883,19 @@ namespace Occupancy.Controllers
 
         }
 
+        // 
+        private void InitArrayDebit(float[,] array, int fil, int col)
+        {
+            for (int i= 0; i < fil; i++)
+            {
+                for (int j= 0; j < col; j++)
+                {
+                    array[i, j] = 0;
+                }
+            }
+            return;
 
-
-
-
-
-
-
+        }
 
 
 
