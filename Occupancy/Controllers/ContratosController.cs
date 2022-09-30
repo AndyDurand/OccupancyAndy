@@ -743,8 +743,14 @@ namespace Occupancy.Controllers
             return RedirectToAction("EditMovs", "Contratos", new { id = idC });
         }
 
-        //
-        // --  GET  Agregar  Saldo DEUDOR con número de meses - -- -- -- -- -- -- -- -- -- -- AddMonthsDebitBalance() GET  -- -- -- -- -- -- -- -- -- -- --       
+        // 
+        void public InitArrayDebit(float array, int fil, int col)
+        {
+
+        }
+
+
+        // --  GET  Agregar  Saldo DEUDOR con número de meses - -- -- -- -- -- -- -- -- -- -- AddMonthsDebitBalance() GET  -- -- -- -- -- -- -- -- -- -- --   * * *   
         [Authorize(Roles = "SuperAdmin, AdminArea, FuncionarioA")]
         public ActionResult AddMonthsDebitBalance(int? id)
         {
@@ -761,19 +767,36 @@ namespace Occupancy.Controllers
             return View();
         }
 
-        // --  POST  Agregar Saldo Inicial -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- AddBalance(importe, obs, tipoSaldo) POST  -- -- -- --     
+        // --  POST  Agregar Saldo Saldo DEUDOR con número de meses - -- -- -- -- -- -- -- -- -- -- AddMonthsDebitBalance() POST  * * *   
         [Authorize(Roles = "SuperAdmin, AdminArea, FuncionarioA")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddMonthsDebitBalance(float importe, string obs, string tipoSaldo)
+        public ActionResult AddMonthsDebitBalance(int nMeses, string tipoSaldo)
         {
-            // Session["ID_User"]
-
-            // Ya tengo  Session["ID_Contrato"]
-            // IDTipoMovimiento, Importe y Observaciones son los campos leidos
-            // idUser, idContrato, fechas System.DateTime.Now;            
+            // solo me quedaré con nMeses; tipoSaldo;  puedo identificarlo como "SALDO DEUDOR" o "SALDO A FAVOR"
+            // Numero de Meses que se deben sea en Corriente o en Rezago; nMeses validado en el input del form, min 1,  max 15, por ahora
+            string obs = " ";
             Contratos contrato = db.Contratos.Find(Session["ID_Contrato"]);
             int idC = 0;
+            int nTipoMov = 3;
+            string sPeriodo = "";
+            int numMesesCorriente = 0; 
+            int numMesesRezago = 0;
+            DateTime dVencim = System.DateTime.Now;
+            // Array de cálculo para meses corrientes 
+            // [0, 0] Corriente //  [0, 1] Adicional //  [0, 2] Porc Recargo // [0, 3] Recargos // [0, 4] Total importe // [0, 5] Periodo
+            float[,] aRecargosCorriente = new float[12, 6];
+            // Array de cálculo para meses de Rezago, 
+            // [0, 0] Rezago //  [0, 1] Adicional //  [0, 2] Porc Recargo // [0, 3] Recargo Rezago // [0, 4] Total importe // [0, 5] Periodo
+            float[,] aRecargosRezago = new float[12, 6];
+
+            InitArrayDebit(aRecargosCorriente, 12, 6);
+            InitArrayDebit(aRecargosRezago, 12, 6);
+            //nYearNow     nMonthNow    nDayNow 
+            // nYearNow = System.DateTime.Now.Year;
+            // nMonthNow = System.DateTime.Now.Month;
+            // nDayNow = System.DateTime.Now.Day;
+
             if (contrato == null)
             {
                 return HttpNotFound();
@@ -781,9 +804,39 @@ namespace Occupancy.Controllers
             if ((ModelState.IsValid))
             {
                 idC = contrato.IDContrato;
+                // //  Saldo deudor Corriente; calcular cuántos meses; nMeses 4; 12; 13; 15  (5 años = 60 meses)
+                // Evalúo el nMeses - - - - - 
+                
+                if (nMeses == nMonthNow ) // son todos corriente
+                {
+                    numMesesCorriente = nMeses;
+                    // nYearNow formará el sPeriodo, es por mes que se añade
+
+
+
+                }
+                else if{
+
+                }
+
+                if (nMeses <= 12)
+                {
+                    numMesesCorriente = nMeses; //12; 12
+                }                
+                else if (nMeses > 12)
+                {
+                    numMesesCorriente = 12;
+                    numMesesRezago = nMeses - 12; // 15;  3
+
+
+                }
+                
+
+                // Saldo deudor Rezago
 
                 // Crear si importe es diferente de cero
-                if (importe != 0)
+                if (nMeses != 0)    /// ----------------------*****  nMeses.   si el contrato es por metraje (locales.NumLocParaCobro >=1; locales.PorMetraje == True), es decir n numeros de locales se les cobra
+                    // se calculan Recargos, si no lo es, no se calcularán recargos
                 {
                     Movimientos mov = new Movimientos();
                     mov.IDContrato = contrato.IDContrato;
@@ -806,14 +859,24 @@ namespace Occupancy.Controllers
                     // ..
                     // 
                     mov.IDUser = (int)Session["ID_User"];
-                    mov.ImporteTotal = importe;
+                    mov.ImporteTotal = 0;  //// importe;  //// -***** 
                     mov.FechaEmision = System.DateTime.Now;
                     mov.Observaciones = obs;
                     mov.Estatus = "ACTIVO";
                     // pendiente cómo desgloso el Saldo Inicial, sea de Corriente o de Rezago, ya que puede tener accesorios
                     mov.Corriente = mov.Adicional = mov.Recargos = mov.Rezago = mov.AdicionalRezago = mov.RecargoRezago = 0;
                     mov.Multa = mov.Honorarios = mov.Ejecucion = 0;
-                    // El periodo no aplica aquí
+                    // 
+                    //// Accesorios los tengo en 0´s ..
+                    //mov.Multa = mov.Honorarios = mov.Ejecucion = 0;
+                    //mov.FechaEmision = System.DateTime.Now;
+                    //// Fecha vencimiento
+                    //mov.FechaVencimiento = dVencim;
+                    //mov.Observaciones = obs;
+                    //mov.Estatus = "ACTIVO";
+                    //// Periodo
+                    //mov.Periodo = nYearNow.ToString() + sMes;
+                    // Agregar movimiento mes
                     // Agregar movimiento saldo
                     db.Movimientos.Add(mov);
                     db.SaveChanges();
@@ -882,11 +945,11 @@ namespace Occupancy.Controllers
                     //nYearNow  nMonthNow  nDayNow
                     idC = contrato.IDContrato;
                     //int nMes = int.Parse(sMes); //el Mes, parámetro del SelectList
-                    float fTotal, fRedondeo, fCorriente, fAdicional, fRecargos, fRezago, fAdicionalRezago, fRecargoRezago;
-                    fTotal = fRedondeo = fCorriente = fAdicional = fRecargos = fRezago = fAdicionalRezago = fRecargoRezago = 0;
-                    int nTotal = 0;
-                    int nTipoMov = 3;
-                    DateTime dVencim = System.DateTime.Now;
+                    //float fTotal, fRedondeo, fCorriente, fAdicional, fRecargos, fRezago, fAdicionalRezago, fRecargoRezago;
+                    //fTotal = fRedondeo = fCorriente = fAdicional = fRecargos = fRezago = fAdicionalRezago = fRecargoRezago = 0;
+                    //int nTotal = 0;
+                    //int nTipoMov = 3;
+                    //DateTime dVencim = System.DateTime.Now;
                     // a Movimientos y a Ordenes
                 }
 
@@ -918,11 +981,11 @@ namespace Occupancy.Controllers
                     //nYearNow  nMonthNow  nDayNow
                     idC = contrato.IDContrato;
                     //int nMes = int.Parse(sMes); //el Mes, parámetro del SelectList
-                    float fTotal, fRedondeo, fCorriente, fAdicional, fRecargos, fRezago, fAdicionalRezago, fRecargoRezago;
-                    fTotal = fRedondeo = fCorriente = fAdicional = fRecargos = fRezago = fAdicionalRezago = fRecargoRezago = 0;
-                    int nTotal = 0;
-                    int nTipoMov = 3;
-                    DateTime dVencim = System.DateTime.Now;
+                    //float fTotal, fRedondeo, fCorriente, fAdicional, fRecargos, fRezago, fAdicionalRezago, fRecargoRezago;
+                    //fTotal = fRedondeo = fCorriente = fAdicional = fRecargos = fRezago = fAdicionalRezago = fRecargoRezago = 0;
+                    //int nTotal = 0;
+                    //int nTipoMov = 3;
+                    //DateTime dVencim = System.DateTime.Now;
                     // a Movimientos y a Ordenes
                 }
 
