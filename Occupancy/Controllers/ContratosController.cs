@@ -17,14 +17,20 @@ namespace Occupancy.Controllers
     {
         private OccupancyEntities db = new OccupancyEntities(); // no puedo tenerlo en readOnly
         int nYearNow, nMonthNow, nDayNow;
+        string sPeriodNow;
         // -- Constructor con la fecha actual en numero
         public ContratosController()
         {
             nYearNow = System.DateTime.Now.Year;
             nMonthNow = System.DateTime.Now.Month;
             nDayNow = System.DateTime.Now.Day;
+            sPeriodNow = "";
+            if (nMonthNow < 10)            
+                sPeriodNow = nYearNow.ToString() + "0" + nMonthNow;            
+            else            
+                sPeriodNow = nYearNow.ToString() + nMonthNow;
+                        
         }
-
         // GET: Contratos
         [Authorize(Roles = "SuperAdmin, AdminAuditor, AdminConsulta, AdminArea, FuncionarioA")]
         public ActionResult Index()
@@ -546,7 +552,7 @@ namespace Occupancy.Controllers
         }
 
         // -- Regresar el nombre del mes, recibe número del mes
-        public string MonthName(int n)
+        private string MonthName(int n)
         {
             string sMonthName = "";
             switch (n)
@@ -589,6 +595,15 @@ namespace Occupancy.Controllers
                     break;
             }
             return sMonthName;
+        }
+
+        // -- Regresar el string periodo, recibe número de mes
+        public string PeriodName(int n, int y)
+        {
+            if (n < 10)
+                return  y.ToString() + "0" + nMonthNow;
+            else
+                return y.ToString() + nMonthNow;
         }
 
         // --  POST AddMonth  -- -- -- -- -- -- -- -- -- -- -- -- -- -- --AddMonth() POST -- -- -- -- -- -- -- 
@@ -742,8 +757,43 @@ namespace Occupancy.Controllers
             }
             return RedirectToAction("EditMovs", "Contratos", new { id = idC });
         }
+        //
+        // -- 
+        private void InitArrayDebit(float[,] array, int fil, int col)
+        {
+            for (int i = 0; i < fil; i++)
+            {
+                for (int j = 0; j < col; j++)
+                {
+                    array[i, j] = 0;
+                }
+            }
+            return;
+        }
+        // --
+        private void InitArrayObsPer(string[,] array, int fil, int col)
+        {
+            for (int i = 0; i < fil; i++)
+            {
+                for (int j = 0; j < col; j++)
+                {
+                    array[i, j] = "";
+                }
+            }
+            return;
+        }
+        //
+        private void GeneraArrayDebitMonths(float[,] array)
+        {
+            return;
+        }
+        //
 
-      
+        private void ProcesaArrayDebitMonths(float[,] array)
+        {
+            return;
+        }
+
 
 
         // --  GET  Agregar  Saldo DEUDOR con número de meses - -- -- -- -- -- -- -- -- -- -- AddMonthsDebitBalance() GET  -- -- -- -- -- -- -- -- -- -- --   * * *   
@@ -776,48 +826,67 @@ namespace Occupancy.Controllers
             int idC = 0;
             int nTipoMov = 3;
             string sPeriodo = "";
-
+            float fPorcRec;
             int numMesesCorriente = 0; 
             int numMesesRezago = 0;
             int numMesesRezagoOtro = 0;
 
             DateTime dVencim = System.DateTime.Now;
 
-            // Array de cálculo para meses corrientes 
-            // [0, 0] Corriente //  [0, 1] Adicional //  [0, 2] Porc Recargo // [0, 3] Recargos // [0, 4] Total importe // [0, 5] Periodo
-            float[,] aRecargosCorriente = new float[12, 6];
+            // Array de cálculo para meses corrientes, pero van con Recargo
+            // [0, 0] Corriente //  [0, 1] Adicional //  [0, 2] Porc Recargo // [0, 3] Recargos // [0, 4] Redondeo // [0, 5] Total importe // [0, 6] Mes // [0, 7] Año
+            int nCol = 8;
+            float[,] aRecargosCorriente = new float[12, nCol];
             // Array de cálculo para meses de Rezago, 
-            // [0, 0] Rezago //  [0, 1] Adicional //  [0, 2] Porc Recargo // [0, 3] Recargo Rezago // [0, 4] Total importe // [0, 5] Periodo
-            float[,] aRecargosRezago = new float[12, 6];
-            float[,] aRecargosRezagoOtro = new float[12, 6];
+            // [0, 0] Rezago //  [0, 1] Adicional //  [0, 2] Porc Recargo // [0, 3] Recargo Rezago //  [0, 4] Redondeo //  [0, 5] Total importe // [0, 6] Mes // [0, 7] Año
+            float[,] aRecargosRezago = new float[12, nCol];
+            float[,] aRecargosRezagoOtro = new float[12, nCol];
+            // Arrays Obs y Periodos
+            // [0, 0] Observaciones //  [0, 1] Periodo
+            string[,] aObsPer = new string[12, 2];
 
-            InitArrayDebit(aRecargosCorriente, 12, 6);
-            InitArrayDebit(aRecargosRezago, 12, 6);
-            InitArrayDebit(aRecargosRezagoOtro, 12, 6);
 
-            //nYearNow     nMonthNow    nDayNow 
-            // nYearNow = System.DateTime.Now.Year;
-            // nMonthNow = System.DateTime.Now.Month;
-            // nDayNow = System.DateTime.Now.Day;
+            InitArrayDebit(aRecargosCorriente, 12, nCol);
+            InitArrayDebit(aRecargosRezago, 12, nCol);
+            InitArrayDebit(aRecargosRezagoOtro, 12, nCol);
+            InitArrayObsPer(aObsPer, 12, 2);
 
+            //nYearNow     nMonthNow    nDayNow            
             if (contrato == null)
             {
                 return HttpNotFound();
             }
+
+            if (tipoSaldo == "SALDO DEUDOR")
+            {
+                // ok, primero el saldo deudor
+            }
+                        
             if ((ModelState.IsValid))
             {
                 idC = contrato.IDContrato;
-                // -- 1.-  Evalúo el número de Meses a cargar --
-                if (nMeses == nMonthNow ) // son todos Corriente
+
+                if (contrato.Locales.TipoCuotas.PorcentajeRecargoMensual != null)
+                {
+                    fPorcRec = (float)contrato.Locales.TipoCuotas.PorcentajeRecargoMensual;
+                }
+                else
+                {
+                    return HttpNotFound();
+                }
+
+
+                // -- 1.-  Evalúo el número de Meses a cargar de saldo deudor --
+                if (nMeses == nMonthNow ) // los meses a cargar son todos Corriente, se asumen los meses inmediatos anteriores
                 {
                     numMesesCorriente = nMeses;
                     numMesesRezago = 0;
                     // nYearNow formará el sPeriodo, es por mes que se añade; el periodo formado por el año actual
 
                 }
-                else if (nMeses < nMonthNow) // son meses Corriente
+                else if (nMeses < nMonthNow) // son meses Corriente  --
                 {
-                    numMesesCorriente = nMeses;
+                    numMesesCorriente = nMeses; 
                     numMesesRezago = 0;
                     // sPeriodo, el periodo formado por el año actual
                 }
@@ -831,7 +900,7 @@ namespace Occupancy.Controllers
                         // sPeriodo, el periodo formado por el año actual - 1 
 
                     }
-                    else  //  15 - 1=14
+                    else  //  15 - 1=14  * -- * -- OJO
                     {
                         // no creo q deba añadir más mese de rezago serian ya 2 años de rezago?             
                         numMesesRezagoOtro = numMesesRezago - 12;   // 14-12 = 2
@@ -840,18 +909,86 @@ namespace Occupancy.Controllers
                     }
 
                 }
-                // -- 2.- Generar los movimientos en los los arrays
-                // [0, 0] Corriente //  [0, 1] Adicional //  [0, 2] Porc Recargo // [0, 3] Recargos // [0, 4] Total importe // [0, 5] Periodo
-                //float[,] aRecargosCorriente = new float[12, 6];
+                // -- 2.- Generar los movimientos en los arrays
+                // [0, 0] Corriente //  [0, 1] Adicional //  [0, 2] Porc Recargo // [0, 3] Recargos // [0, 4] Redondeo // [0, 5] Total importe // [0, 6] Mes // [0, 7] Año                
+                // 150% son 5 años = 60 meses
+                float fPorcentajeR = (float)contrato.Locales.TipoCuotas.PorcentajeRecargoMensual; // primer valor de porc de recargos, 2.5               
+                int nMesAgrega = 0;
+                int nTotalParteEntera;
+                float fTotal, fRedondeo;
 
+                if (numMesesCorriente != 0 && numMesesRezago == 0)
+                {
+                    nMesAgrega = nMonthNow - 1;                 // -- -- -- -- --    
+                    for (int i = 0; i < numMesesCorriente; i++)
+                    {                                               
+                        
+                        // -- Derechos.                [0, 0] Corriente
+                        if (contrato.Locales.NumLocParaCobro != null || contrato.Locales.NumLocParaCobro != 0)  //contrato.Locales.PorMetraje == true, dato que primero podria validar
+                        {
+                            aRecargosCorriente[i, 0] = (float)(contrato.Locales.ImporteRenta * contrato.Locales.NumLocParaCobro); // el no. de locales 
+                        }
+                        else
+                        {
+                            aRecargosCorriente[i, 0] = (float)(contrato.Locales.ImporteRenta); // por omisión, 1
+                        }
+                        // -- Adicional corriente.     [0, 1] Adicional
+                        if (contrato.Locales.TipoCuotas.PorcentajeAdicional != null)
+                        {
+                            aRecargosCorriente[i, 1] = (float)((aRecargosCorriente[i, 0] * contrato.Locales.TipoCuotas.PorcentajeAdicional) / 100);
+                        }
+                        else aRecargosCorriente[i, 1] = 0;
+                        // -- Porcentaje Recargos.     [0, 2] Porc Recargo  -- -- --                        
+                        if (i == 0) // primer mes que se añade
+                            aRecargosCorriente[i, 2] = fPorcentajeR;
+                        else
+                            aRecargosCorriente[i, 2] = aRecargosCorriente[i, 2] + fPorcentajeR;
+                        //                          [0, 3] Recargos
+                        // -- Recargos: siempre sobre el importe total de corriente más el adicional, va con redondeo
+                        aRecargosCorriente[i, 3] = (aRecargosCorriente[i, 0] + aRecargosCorriente[i, 1]) * aRecargosCorriente[i, 2] /100;
+                        aRecargosCorriente[i, 3] = (float)Math.Round(aRecargosCorriente[i, 3], 2);
+
+                        //  -- Total importe: corriente + adic +  recargo
+                        //                           [0, 4] Redondeo // [0, 5] Total importe 
+                        fTotal = aRecargosCorriente[i, 0] + aRecargosCorriente[i, 1] + aRecargosCorriente[i, 3];
+                        nTotalParteEntera = (int) fTotal;
+                        fRedondeo = (float)Math.Round(fTotal - nTotalParteEntera, 2);
+                        if (fRedondeo > 0.6)
+                        {
+                            nTotalParteEntera++;
+                        }
+                        aRecargosCorriente[i, 4] = fRedondeo;
+                        aRecargosCorriente[i, 5] = nTotalParteEntera;
+                        //
+                        // -- Año, Mes      // [0, 6] Mes // [0, 7] Año
+                        aRecargosCorriente[i, 6] = nMesAgrega;
+                        aRecargosCorriente[i, 7] = nYearNow;
+
+                        // aObsPer          // [0, 0] Observaciones //  [0, 1] Periodo
+                        aObsPer[i, 0] = "SALDO DEUDOR. MES CON RECARGOS: " + MonthName(nMesAgrega) + " " + nYearNow.ToString();
+                        aObsPer[i, 1] = PeriodName( (int) aRecargosCorriente[i, 6], (int) aRecargosCorriente[i, 7] );
+                        // nTipoMov = 3;
+                        // dVencim = new System.DateTime(nYearNow, nMonthNow, System.DateTime.DaysInMonth(nYearNow, nMonthNow));
+                        
+                        //
+                        nMesAgrega--;                    
+                }
+                if (numMesesCorriente == 0 && numMesesRezago != 0)
+                {
+
+                }                
 
 
                 // -- 3.- Recorrer arrays para añadir Movimientos..
+
+                
                 // Crear si importe es diferente de cero
-                if (nMeses != 0)    /// ----------------------*****  nMeses.   si el contrato es por metraje (locales.NumLocParaCobro >=1; locales.PorMetraje == True), es decir n numeros de locales se les cobra
+                if (nMeses != 0)    /// -----------****  nMeses.   si el contrato es por metraje (locales.NumLocParaCobro >=1; locales.PorMetraje == True), es decir n numeros de locales se les cobra
                     // se calculan Recargos, si no lo es, no se calcularán recargos
                 {
-                    Movimientos mov = new Movimientos();
+                    
+                        
+                        Movimientos mov = new Movimientos();
                     mov.IDContrato = contrato.IDContrato;
 
                     if (tipoSaldo == "SALDO INICIAL REZAGO")
@@ -899,20 +1036,7 @@ namespace Occupancy.Controllers
 
         }
 
-        // 
-        private void InitArrayDebit(float[,] array, int fil, int col)
-        {
-            for (int i= 0; i < fil; i++)
-            {
-                for (int j= 0; j < col; j++)
-                {
-                    array[i, j] = 0;
-                }
-            }
-            return;
-
-        }
-
+        
 
 
         //-- GET -- -- -- -- -- -- -- POST -- -- -- -- -- -- -- -- -- -- -- -- -- -- AddFullOrder()-- -- -- -- -- -- -- 
