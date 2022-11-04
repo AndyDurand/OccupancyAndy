@@ -148,6 +148,28 @@
                 </div>
             </div>
         </div>
+        <br />
+        <br />
+         <!-- las acciones generales  -->
+        <div class="row">
+            <div class="col-md-2">
+                @Html.ActionLink("Regresar a Contratos ", "IndexAdmin")
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addMovModal">Cargar Saldo Deudor -nou</button>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addMonthsDebitBalance">Saldo Inicial Deudor  -ok</button>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addMonthsAFavorBalance">Saldo Inicial a Favor -test</button>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addMonthModal">Cargar Mes Adelantado-ok</button>
+            </div>
+            <div class="col-md-2">
+            </div>
+        </div>
         <!-- Row 3 Datatable Movimientos asociados al Contrato el iCollection miembro del objeto Contrato del Modelo -->
         <div class="row">
             <br />
@@ -177,8 +199,8 @@
                         </th>
                         <!--Nou -->
                         @*<th>
-            @Html.DisplayNameFor(model => model.Movimientos.ToList().First().TipoMovimiento.NombreCorto)
-        </th>*@
+                            @Html.DisplayNameFor(model => model.Movimientos.ToList().First().TipoMovimiento.NombreCorto)
+                            </th>*@
                         <th>
                             Tipo Movimiento
                             @*@Html.DisplayNameFor(model => model.Movimientos.ToList().First().TipoMovimiento.TipoMovimiento1)*@
@@ -232,8 +254,8 @@
                         <td>@Html.DisplayFor(modelItem => item.ImporteTotal)</td>
                         <!-- -->
                         @*<td>
-            @Html.DisplayFor(modelItem => item.TipoMovimiento.NombreCorto)
-        </td>*@
+                            @Html.DisplayFor(modelItem => item.TipoMovimiento.NombreCorto)
+                        </td>*@
                         <td>@Html.DisplayFor(modelItem => item.TipoMovimiento.TipoMovimiento1)</td>
                         <td>@Html.DisplayFor(modelItem => item.TipoMovimiento.Naturaleza)</td>
                         <!-- -->
@@ -268,27 +290,7 @@
                 </tbody>
             </table>
         </div>
-        <!-- las acciones generales  -->
-        <div class="row">
-            <div class="col-md-2">
-                @Html.ActionLink("Regresar a Contratos ", "IndexAdmin")
-            </div>
-            <div class="col-md-2">
-                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addMovModal">Cargar Saldo Deudor -nou</button>
-            </div>
-            <div class="col-md-2">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addMonthsDebitBalance">Saldo Inicial Deudor  -ok</button>
-            </div>
-            <div class="col-md-2">
-                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addMonthsAFavorBalance">Saldo Inicial a Favor -test</button>
-            </div>
-            <div class="col-md-2">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addMonthModal">Cargar Mes Adelantado-ok</button>
-            </div>
-            <div class="col-md-2">
-            </div>
-
-        </div>
+       
         <br />
         <br />
         <!-- Definición del Modal AddBalance .                                                                                   modal   AddBalance  -->
@@ -713,7 +715,7 @@
             @Html.AntiForgeryToken()
             <!-- Modal --- fade-->
             <!-- Podría incluir un cálculo de número de meses vencidos, sea Corriente o Rezago-->
-            <div class="modal fade" id="addMonthsDebitBalance" role="dialog">
+            <div class="modal fade" id="addMonthsAFavorBalance" role="dialog">
                 <div class="modal-dialog">
                     <!-- Modal content-->
                     <div class="modal-content">
@@ -756,7 +758,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <p>Número de meses cargar que integran el Saldo a Favor (máximo 11 meses) </p>
+                                        <p>Número de meses a cargar que integran el Saldo a Favor (máximo 11 meses) </p>
                                         <label for="nMeses"> Número de Meses</label>
                                         <input type="number" class="form-control" style="width:auto" id="nMeses" name="nMeses" min="1" max="11">
                                     </div>

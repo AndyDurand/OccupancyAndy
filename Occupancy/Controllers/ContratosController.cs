@@ -143,6 +143,28 @@ namespace Occupancy.Controllers
             return;
         }
 
+        // -- Obtener el saldo de la cuenta -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- float SaldoAccount(IEnumerable<Movimientos>)  -- -- --    
+        public float SaldoAccount(IEnumerable<Movimientos> listMovs)
+        {
+            // En los movimientos de Abono, debo considerar que tengan Folio de Recibo y Fecha de Pago
+            float sumaC, sumaA;
+            sumaC = sumaA = 0;
+            foreach (var objM in listMovs)
+            {
+                if (objM.Estatus == "ACTIVO")
+                    if (objM.TipoMovimiento.Naturaleza.Contains("CARGO"))
+                    {
+                        sumaC += objM.ImporteTotal;
+                    }
+                    else if (objM.TipoMovimiento.Naturaleza.Contains("ABONO") && objM.Pagado == true && objM.FechaPago != null)
+                    {
+                        // Considerar el abono solo si está pagado                        
+                        sumaA += objM.ImporteTotal;
+                    }
+            }
+            return sumaC - sumaA;
+        }
+
         // -- GET EditMovs desde Contratos y relaciones ejecutamos operaciones sobre Movimientos -- -- -- -- -- -- -- EditMovs(int) GET-- -- -- -- --
         [Authorize(Roles = "SuperAdmin, AdminAuditor, AdminConsulta, AdminArea, FuncionarioA")]
         public ActionResult EditMovs(int? id)
@@ -174,27 +196,6 @@ namespace Occupancy.Controllers
         }
 
 
-        // -- Obtener el saldo de la cuenta -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- float SaldoAccount(IEnumerable<Movimientos>)  -- -- --    
-        public float SaldoAccount(IEnumerable<Movimientos> listMovs)
-        {
-            // En los movimientos de Abono, debo considerar que tengan Folio de Recibo y Fecha de Pago
-            float sumaC, sumaA;
-            sumaC = sumaA = 0;
-            foreach (var objM in listMovs)
-            {
-                if (objM.Estatus  == "ACTIVO")
-                    if (objM.TipoMovimiento.Naturaleza.Contains("CARGO"))
-                    {
-                        sumaC += objM.ImporteTotal;                                     
-                    }
-                    else if (objM.TipoMovimiento.Naturaleza.Contains("ABONO") && objM.Pagado == true && objM.FechaPago != null)
-                    {
-                        // Considerar el abono solo si está pagado                        
-                        sumaA += objM.ImporteTotal;
-                    }
-            }
-            return sumaC - sumaA;            
-        }
         // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- Boolean IdentificarMeses(IEnumerable<Movimientos> listMovs, int[,] monthArray)
         public Boolean IdentificarMeses(IEnumerable<Movimientos> listMovs, int[,] monthArray)
         {
@@ -253,12 +254,9 @@ namespace Occupancy.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AddBalance(float importe, string obs, string tipoSaldo)
-        {
-            // Session["ID_User"]
-
-            // Ya tengo  Session["ID_Contrato"]
-            // IDTipoMovimiento, Importe y Observaciones son los campos leidos
-            // idUser, idContrato, fechas System.DateTime.Now;            
+        {            
+            // -- lo descarto, no puede quedarse con un importe como saldo, se precisan los movimientos
+            // IDTipoMovimiento, Importe y Observaciones son los campos leidos            
             Contratos contrato = db.Contratos.Find(Session["ID_Contrato"]);
             int idC = 0;
             if (contrato == null)
@@ -881,20 +879,23 @@ namespace Occupancy.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AddMonthsDebitBalance(int nMeses, string tipoSaldo)
         {
-            // solo me quedaré con nMeses; tipoSaldo;  puedo identificarlo como "SALDO DEUDOR" o "SALDO A FAVOR"
-            // Numero de Meses que se deben sea en Corriente o en Rezago; nMeses validado en el input del form, min 1,  max 24
+            // Agregar Saldo inicial deudor.- Movimientos tipo cargo por saldo inicial corriente y saldo inicial rezago
+            // tipo salfo "SALDO DEUDOR" o "SALDO A FAVOR"; separo los módulos
+            // nMeses.- umero de Meses que adeuda, sea en Corriente o en Rezago; nMeses validado en el input del form, min 1, max 24
             Contratos contrato = db.Contratos.Find(Session["ID_Contrato"]);
             int idC = 0;
             float fPorcRec;
             int numMesesCorriente = 0; 
             int numMesesRezago = 0;
-            int numMesesRezagoOtro = 0;            
+            int numMesesRezagoOtro = 0;
+            int nMesInicial = 0;
+            int nresul;
 
             // Array de cálculo para meses corrientes, pero van con Recargo
             // [0, 0] Corriente //  [0, 1] Adicional //  [0, 2] Porc Recargo // [0, 3] Recargos // [0, 4] Redondeo // [0, 5] Total importe // [0, 6] Mes // [0, 7] Año
             int nCol = 8;
             float[,] aRecargosCorriente = new float[12, nCol];
-            // Array de cálculo para meses de Rezago, 
+            // Array de cálculo para meses de Rezago, con Recargo
             // [0, 0] Rezago //  [0, 1] Adicional //  [0, 2] Porc Recargo // [0, 3] Recargo Rezago //  [0, 4] Redondeo //  [0, 5] Total importe // [0, 6] Mes // [0, 7] Año
             float[,] aRecargosRezago = new float[12, nCol];
             float[,] aRecargosRezagoOtro = new float[12, nCol];
@@ -924,9 +925,7 @@ namespace Occupancy.Controllers
                     return HttpNotFound();
                 }
                 
-                fPorcentajeR = (float)contrato.Locales.TipoCuotas.PorcentajeRecargoMensual; // primer valor de porc de recargos, 2.5               
-                int nMesInicial = 0;
-                int nresul;
+                fPorcentajeR = (float)contrato.Locales.TipoCuotas.PorcentajeRecargoMensual; // primer valor de porc de recargos, 2.5                               
                 nMesInicial = nMonthNow - 1;
 
                 // ok, primero el saldo deudor, hacer los cargos de los n meses
@@ -1008,11 +1007,11 @@ namespace Occupancy.Controllers
                 {
                     for (int i = 0; i < numMesesCorriente; i++)
                     {
-                        //aRecargosCorriente[] saldo inicial corriente
+                        //aRecargosCorriente[] .-2. saldo inicial corriente
                         Movimientos mov = new Movimientos();
                         mov.Estatus = "ACTIVO";
                         mov.IDContrato = contrato.IDContrato;
-                        mov.IDTipoMovimiento = 2;
+                        mov.IDTipoMovimiento = 2;  
                         mov.FechaEmision = System.DateTime.Now;
                         mov.FechaVencimiento = System.DateTime.Now;
                         mov.IDUser = (int)Session["ID_User"];
@@ -1033,7 +1032,7 @@ namespace Occupancy.Controllers
                 {
                     for (int i = 0; i < numMesesRezago; i++)
                     {
-                        //aRecargosRezago[] saldo inicial rezago
+                        //aRecargosRezago[] .-1. saldo inicial rezago
                         Movimientos mov = new Movimientos();
                         mov.Estatus = "ACTIVO";
                         mov.IDContrato = contrato.IDContrato;
@@ -1058,7 +1057,7 @@ namespace Occupancy.Controllers
                 {
                     for (int i = 0; i < numMesesRezagoOtro; i++)
                     {
-                        //aRecargosRezagoOtro[] saldo inicial rezago
+                        //aRecargosRezagoOtro[] .-1. saldo inicial rezago
                         Movimientos mov = new Movimientos();
                         mov.Estatus = "ACTIVO";
                         mov.IDContrato = contrato.IDContrato;
@@ -1136,7 +1135,7 @@ namespace Occupancy.Controllers
                 array[i, 7] = nYear;
 
                 // aObsPer          // [0, 0] Observaciones //  [0, 1] Periodo   ------------ otro array obs
-                arrayOP[i, 0] = "MES ADELANTADO: " + MonthName(nMesInicia) + " " + nYear.ToString();
+                arrayOP[i, 0] = "SALDO A FAVOR. MES PAGADO POR ADELANTADO: " + MonthName(nMesInicia) + " " + nYear.ToString();
                 arrayOP[i, 1] = PeriodName((int)array[i, 6], (int)array[i, 7]);
 
                 // son meses hacia adelante
@@ -1169,23 +1168,21 @@ namespace Occupancy.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AddMonthsAFavorBalance(int nMeses, string tipoSaldo)
         {
-            // Numero de Meses que se agregarán en Corriente; nMeses validado en el input del form, min 1,  max 11, por ahora // solo son del año actual, porque debe ser corriente
-            Contratos contrato = db.Contratos.Find(Session["ID_Contrato"]);
+            // Agregar Saldo inicial a favor.- Movimientos tipo cargo por renta mes, meses que pagaron por adelantado.
+            // Numero de Meses que se agregarán en Corriente; nMeses validado en el input del form, min 1,  max 11, por ahora 
+
             int idC = 0;
-            float fPorcRec;
+            Contratos contrato = db.Contratos.Find(Session["ID_Contrato"]);
             int numMesesCorriente = 0;
-            int numMesesCorrienteSig = 0;
 
             // Array de cálculo para meses corrientes, pero van con Recargo
             // [0, 0] Corriente //  [0, 1] Adicional //  [0, 2] Porc Recargo // [0, 3] Recargos // [0, 4] Redondeo // [0, 5] Total importe // [0, 6] Mes // [0, 7] Año
             int nCol = 8;
             float[,] aAFavorCorriente = new float[12, nCol];
-
             string[,] aObsPerCorriente = new string[12, 2]; 
-            float fPorcentajeR;
-            int nMesInicial = 0;
+            int nMesInicial;
+            int nresul;
 
-            //nYearNow     nMonthNow    nDayNow            
             if (contrato == null)
             {
                 return HttpNotFound();
@@ -1194,19 +1191,7 @@ namespace Occupancy.Controllers
             if ((ModelState.IsValid))
             {
                 idC = contrato.IDContrato;
-
-                if (contrato.Locales.TipoCuotas.PorcentajeRecargoMensual != null)
-                {
-                    fPorcRec = (float)contrato.Locales.TipoCuotas.PorcentajeRecargoMensual;
-                }
-                else
-                {
-                    return HttpNotFound();
-                }            
-                
-                int nresul;
-                nMesInicial = nMonthNow + 1; // mes hacia adelante
-               // del año actual, el mes actual se cargó en normal, posterior se debería emitir la orden 
+                nMesInicial = nMonthNow + 1; // mes hacia adelante             
                 // agrego los movimientos de cargo y de abono, de los meses a favor 
                 // un mov como tipo 3 y como tipo 4, el tipo 3 pagado true
                 InitArrayDebit(aAFavorCorriente, 12, nCol);
@@ -1234,11 +1219,12 @@ namespace Occupancy.Controllers
                 {
                     for (int i = 0; i < numMesesCorriente; i++)
                     {
-                        //aRecargosCorriente[] saldo inicial corriente
+                        //aRecargosCorriente[]
+                        // Tipo movimiento 3, cargo renta mes
                         Movimientos mov = new Movimientos();
                         mov.Estatus = "ACTIVO";
                         mov.IDContrato = contrato.IDContrato;
-                        mov.IDTipoMovimiento = 2;
+                        mov.IDTipoMovimiento = 3;
                         mov.FechaEmision = System.DateTime.Now;
                         mov.FechaVencimiento = System.DateTime.Now;
                         mov.FechaPago = System.DateTime.Now;
@@ -1254,11 +1240,28 @@ namespace Occupancy.Controllers
                         mov.Observaciones = aObsPerCorriente[i, 0];
                         mov.Periodo = aObsPerCorriente[i, 1];
                         db.Movimientos.Add(mov);
+                        //4
+                        mov = new Movimientos();
+                        mov.Estatus = "ACTIVO";
+                        mov.IDContrato = contrato.IDContrato;
+                        mov.IDTipoMovimiento = 4;
+                        mov.FechaEmision = System.DateTime.Now;
+                        mov.FechaVencimiento = null;
+                        mov.FechaPago = System.DateTime.Now;
+                        mov.IDUser = (int)Session["ID_User"];
+                        mov.Corriente = aAFavorCorriente[i, 0];
+                        mov.Adicional = aAFavorCorriente[i, 1];
+                        mov.Recargos = aAFavorCorriente[i, 3];
+                        mov.Redondeo = aAFavorCorriente[i, 4];
+                        mov.ImporteTotal = aAFavorCorriente[i, 5];
+                        mov.Recargos = mov.Rezago = mov.AdicionalRezago = mov.RecargoRezago = 0;
+                        mov.Multa = mov.Honorarios = mov.Ejecucion = 0;
+                        mov.Observaciones = "MES PAGADO POR ADELANTADO. " + MonthName((int)aAFavorCorriente[i, 6]) + " " + ((int)aAFavorCorriente[i, 7]).ToString();
+                        mov.Periodo = aObsPerCorriente[i, 1];
+                        db.Movimientos.Add(mov);
                     }
                     db.SaveChanges();
                 }                            
-
-
             }
             return RedirectToAction("EditMovs", "Contratos", new { id = idC });
 
