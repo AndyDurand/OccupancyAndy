@@ -180,39 +180,55 @@
                 <thead>
                     <tr>                        
                         <th>
-                            Periodo                            
+                            Periodo
+                            @* @Html.DisplayNameFor(model => model.Movimientos.ToList().First().Periodo)*@
                         </th>
                         <!-- -->
                         <th>
-                            Importe                            
-                        </th>                        
+                            Importe
+                            @* @Html.DisplayNameFor(model => model.Movimientos.ToList().First().ImporteTotal)*@
+                        </th>
+                        <!--Nou -->
+                        @*<th>
+                            @Html.DisplayNameFor(model => model.Movimientos.ToList().First().TipoMovimiento.NombreCorto)
+                            </th>*@
                         <th>
-                            Naturaleza                            
+                            Tipo Movimiento
+                            @*@Html.DisplayNameFor(model => model.Movimientos.ToList().First().TipoMovimiento.TipoMovimiento1)*@
                         </th>
                         <th>
                             Descripción. Observaciones
+                            @* @Html.DisplayNameFor(model => model.Movimientos.ToList().First().Observaciones)*@
                         </th>
                         <th>
-                            Tipo Movimiento
+                            Naturaleza
+                            @*@Html.DisplayNameFor(model => model.Movimientos.ToList().First().TipoMovimiento.Naturaleza)*@
                         </th>
                         <!-- -->
                         <th>
                             Fecha Emisión
+                            @*  @Html.DisplayNameFor(model => model.Movimientos.ToList().First().FechaEmision)*@
+
                         </th>
                         <th>
                             Fecha Vencimiento
+                            @*@Html.DisplayNameFor(model => model.Movimientos.ToList().First().FechaVencimiento)*@
                         </th>
                         <th>
                             Num. Orden
+                            @*@Html.DisplayNameFor(model => model.Movimientos.ToList().First().IDOrden)*@
                         </th>
                         <th>
                             Pagado?
+                            @*@Html.DisplayNameFor(model => model.Movimientos.ToList().First().Pagado)*@
                         </th>
                         <th>
                             Folio Recibo
+                            @*@Html.DisplayNameFor(model => model.Movimientos.ToList().First().FolioRecibo)*@
                         </th>
                         <th>
                             Fecha de Pago
+                            @* @Html.DisplayNameFor(model => model.Movimientos.ToList().First().FechaPago)*@
                         </th>
                         
                         <th>@Html.DisplayNameFor(model => model.Movimientos.ToList().First().Corriente)</th>
@@ -228,107 +244,58 @@
                 <tbody>
                     @foreach (var item in Model.Movimientos)
                     {
-                        if (item.TipoMovimiento.Naturaleza.Contains("CARGO"))
-                        {
-                            <tr class="info">                                
-                                <td>
-                                    <strong>@Html.DisplayFor(modelItem => item.Periodo)</strong>
-                                </td>
-                                <!-- -->                                
-                                @if (item.Pagado == true)
+                         @{if (item.TipoMovimiento.Naturaleza.Contains("CARGO"))
                                 {
-                                    <td><span class="text-success"><strong>@Html.DisplayFor(modelItem => item.ImporteTotal)</strong></span></td>
+                                        <!--<td><span class="label-info">@Html.DisplayFor(modelItem => item.TipoMovimiento.Naturaleza)</span></td>-->
                                 }
-                                else
-                                {
-                                    <td><span class="text-danger"><strong>@Html.DisplayFor(modelItem => item.ImporteTotal)</strong></span></td>
-                                } 
-                                <!-- -->
-                                <td>@Html.DisplayFor(modelItem => item.TipoMovimiento.Naturaleza)</td>                                
-                                <td><p class="text-info"><strong>@Html.DisplayFor(modelItem => item.Observaciones)</strong></p></td>
-                                <!-- -->
-                                <td><small>@Html.DisplayFor(modelItem => item.TipoMovimiento.TipoMovimiento1)</small></td>
-                                <td>@Html.DisplayFor(modelItem => item.FechaEmision)</td>
-                                <td><strong>@Html.DisplayFor(modelItem => item.FechaVencimiento)</strong></td>
-                                <td><strong>@Html.DisplayFor(modelItem => item.IDOrden)</strong></td>
-                                @if (item.Pagado == true)
-                                {
-                                    <td><span class="text-success"><strong>Si</strong></span></td>
-                                }
-                                else
-                                {
-                                    <td><span class="text-danger"><strong>No</strong></span></td>
-                                } 
-                                <!-- <td>@Html.DisplayFor(modelItem => item.Pagado)</td>  -->
-                                <td>@Html.DisplayFor(modelItem => item.FolioRecibo)</td>
-                                <td><strong>@Html.DisplayFor(modelItem => item.FechaPago)</strong></td>
-                                <!-- -->
-                                <td> @Html.DisplayFor(modelItem => item.Corriente)</td>
-                                <td> @Html.DisplayFor(modelItem => item.Adicional)</td>
-                                <td> @Html.DisplayFor(modelItem => item.Recargos)</td>
-                                <td> @Html.DisplayFor(modelItem => item.Rezago)</td>
-                                <td> @Html.DisplayFor(modelItem => item.AdicionalRezago)</td>
-                                <td> @Html.DisplayFor(modelItem => item.RecargoRezago)</td>
-                                <td> @Html.DisplayFor(modelItem => item.Redondeo)</td>
-                                <td>
-                                    @{ if (item.TipoMovimiento.Naturaleza.Contains("CARGO") && (item.Pagado == false || item.Pagado == null) && item.FechaPago == null) //SI
-                                        {
-                                            <div>@Html.ActionLink("Orden de Pago Abonar", "AddPartialOrder", "Contratos", new { id = item.IDMovimiento }, new { @class = "btn btn-primary" })</div>
-                                            <br />
-                                            <div>@Html.ActionLink("Orden de Pago Liquidar", "AddFullOrder", "Contratos", new { id = item.IDMovimiento }, new { @class = "btn btn-primary" })</div> 
-                                        } }
-                                </td>
-                            </tr>
-                        }
-                        else
-                        {
-                            <tr class="success">
-                                <td>
-                                    <strong>@Html.DisplayFor(modelItem => item.Periodo)</strong>
-                                </td>
-                                <!-- -->
-                                <td><p class="text-success"><strong>@Html.DisplayFor(modelItem => item.ImporteTotal)</strong></p></td>
-                                <!-- -->
-                                @if (item.TipoMovimiento.Naturaleza.Contains("CARGO"))
-                                {
-                                    <td>@Html.DisplayFor(modelItem => item.TipoMovimiento.Naturaleza)</td>
-                                }
-                                else
-                                {
-                                    <td>@Html.DisplayFor(modelItem => item.TipoMovimiento.Naturaleza)</td>
-
+                                else 
+                                { 
+                                        <!--<td><span class="label-success">@Html.DisplayFor(modelItem => item.TipoMovimiento.Naturaleza)</span></td> -->
                                 }                                
-                                <td><p class="text-success"><strong>@Html.DisplayFor(modelItem => item.Observaciones)</strong></p></td>
-                                <!-- -->
-                                <td><small>@Html.DisplayFor(modelItem => item.TipoMovimiento.TipoMovimiento1)</small></td>
-                                <td><strong>@Html.DisplayFor(modelItem => item.FechaEmision)</strong></td>
-                                <td><strong>@Html.DisplayFor(modelItem => item.FechaVencimiento)</strong></td>
-                                <td>@Html.DisplayFor(modelItem => item.IDOrden)</td>                                
-                                @if (item.Pagado == true)
-                                {
-                                    <td><span class="text-success"><strong>Si</strong></span></td>
-                                }
-                                else
-                                {
-                                    <td><span class="text-danger"><strong>No</strong></span></td>
-                                } 
-                                <td><strong>@Html.DisplayFor(modelItem => item.FolioRecibo)</strong></td>
-                                <td><strong>@Html.DisplayFor(modelItem => item.FechaPago)</strong></td>
-                                <!-- -->
-                                <td> @Html.DisplayFor(modelItem => item.Corriente)</td>
-                                <td> @Html.DisplayFor(modelItem => item.Adicional)</td>
-                                <td> @Html.DisplayFor(modelItem => item.Recargos)</td>
-                                <td> @Html.DisplayFor(modelItem => item.Rezago)</td>
-                                <td> @Html.DisplayFor(modelItem => item.AdicionalRezago)</td>
-                                <td> @Html.DisplayFor(modelItem => item.RecargoRezago)</td>
-                                <td> @Html.DisplayFor(modelItem => item.Redondeo)</td>
-                                <td></td>
-                            </tr>
-                        }
+                             }  
+                        <tr>
+                            <td>
+                                <strong>@Html.DisplayFor(modelItem => item.Periodo)</strong>
+                            </td>
+                            <!-- -->
+                            <td>@Html.DisplayFor(modelItem => item.ImporteTotal)</td>
+                            <!-- -->
+                            <td>@Html.DisplayFor(modelItem => item.TipoMovimiento.TipoMovimiento1)</td>
+                            <td><strong>@Html.DisplayFor(modelItem => item.Observaciones)</strong></td>
+                            <!-- -->
+                            <td>@Html.DisplayFor(modelItem => item.FechaEmision)</td>
+                            <td><strong>@Html.DisplayFor(modelItem => item.FechaVencimiento)</strong></td>
+
+                            <td>@Html.DisplayFor(modelItem => item.IDOrden)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Pagado)</td>
+                            <td>@Html.DisplayFor(modelItem => item.FolioRecibo)</td>
+                            <td>@Html.DisplayFor(modelItem => item.FechaPago)</td>
+                            <!-- -->                        
+                            <td> @Html.DisplayFor(modelItem => item.Corriente)</td>
+                            <td> @Html.DisplayFor(modelItem => item.Adicional)</td>
+                            <td> @Html.DisplayFor(modelItem => item.Recargos)</td>
+                            <td> @Html.DisplayFor(modelItem => item.Rezago)</td>
+                            <td> @Html.DisplayFor(modelItem => item.AdicionalRezago)</td>
+                            <td> @Html.DisplayFor(modelItem => item.RecargoRezago)</td>
+                            <td> @Html.DisplayFor(modelItem => item.Redondeo)</td>
+                            <td>
+                                @*@Html.ActionLink("Oorden de Pago", "Details", new { id = item.IDMovimiento }) |*@
+                                @*@Html.ActionLink("Detalle", "Details", new { id = item.IDMovimiento })*@
+                                @{ if (item.TipoMovimiento.Naturaleza.Contains("CARGO") && (item.Pagado == false || item.Pagado == null) && item.FechaPago == null) //SI
+                                    { @*<div><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addPartialOrden">Abonar</button></div>
+                                        <br />
+                                        <div><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addFullOrden">Liquidar </button></div>*@
+                                        <div>@Html.ActionLink("Orden de Pago Abonar", "AddPartialOrder", "Contratos", new { id = item.IDMovimiento }, new { @class = "btn btn-primary" })</div>
+                                        <br />
+                                        <div>@Html.ActionLink("Orden de Pago Liquidar", "AddFullOrder", "Contratos", new { id = item.IDMovimiento }, new { @class = "btn btn-primary" })</div> } }
+                                @* @Html.ActionLink("Delete", "Delete", new { id = item.IDMovimiento })*@
+                            </td>
+                        </tr>
                      }
                 </tbody>
             </table>
-        </div>       
+        </div>
+       
         <br />
         <br />       
         <!-- Definición del Modal AddMonth  .                                                                                   modal   AddMonth  -->
@@ -712,7 +679,21 @@
                                         <input type="number" class="form-control" style="width:auto" id="nMeses" name="nMeses" min="1" max="11">
                                     </div>
                                 </div>                                
-                            </div>                            
+                            </div>
+                            <!--  
+                            <div class="form-group">
+                                <label for="tipoM"> Tipo de Saldo Inicial</label>
+                                <div class="col-md-10">
+                                    <div class="editor-field">
+                                        <select class="form-control" id="tipoSaldo" name="tipoSaldo" style="width:auto" disabled>
+                                            <option>SALDO DEUDOR</option>
+                                            <option>SALDO A FAVOR</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+                            </div>
+                                -->
                             <br />
                             <br />
                             <!-- </form> form="formAddB" -->
@@ -751,7 +732,7 @@
                         [10, 25, 50, -1],
                         ['Ver 10 Filas', 'Ver 25 Filas', 'Ver 50 Filas', 'Ver Todo']
                     ],
-                    "order": [[0, "asc"]],
+                    "order": [[2, "asc"]],
                     responsive: true,
                     "language": {
                         "sProcessing": "Procesando...",

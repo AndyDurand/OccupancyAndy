@@ -163,6 +163,11 @@ namespace Occupancy.Controllers
                     }
             }
             return sumaC - sumaA;
+
+            // saldos parciales por periodo, <!---- --!> como llevo los saldos por periodo
+
+
+
         }
 
         // -- GET EditMovs desde Contratos y relaciones ejecutamos operaciones sobre Movimientos -- -- -- -- -- -- -- EditMovs(int) GET-- -- -- -- --
@@ -184,7 +189,7 @@ namespace Occupancy.Controllers
             // Si no tiene movimientos, ni saldo inicial, debo mostrar la tabla aún así
             if (contrato.Movimientos.Count() > 0     ) //   != null)   
             {
-                // Recorrer los movimientos para obtener el saldo de la cuenta
+                // Recorrer los movimientos para obtener el saldo de la cuenta  // <-- 
                 ViewBag.Saldo = SaldoAccount(contrato.Movimientos.ToList());
             }
             else ViewBag.Saldo = 0;
@@ -1248,6 +1253,7 @@ namespace Occupancy.Controllers
                         mov.FechaEmision = System.DateTime.Now;
                         mov.FechaVencimiento = null;
                         mov.FechaPago = System.DateTime.Now;
+                        mov.Pagado = true;
                         mov.IDUser = (int)Session["ID_User"];
                         mov.Corriente = aAFavorCorriente[i, 0];
                         mov.Adicional = aAFavorCorriente[i, 1];

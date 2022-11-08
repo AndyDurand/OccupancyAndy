@@ -159,14 +159,33 @@ namespace Occupancy.Models
         [Display(Name = "Num. Orden")]
         public Nullable<int> IDOrden;
 
+        [Display(Name = "Corriente")]
+        [DataType(DataType.Currency)]
+        public Nullable<float> Corriente;
+
+        [Display(Name = "Adicional")]
+        [DataType(DataType.Currency)]
+        public Nullable<float> Adicional;
+
+        [Display(Name = "Recargos")]
+        [DataType(DataType.Currency)]
+        public Nullable<float> Recargos;
+
+        [Display(Name = "Rezago")]
+        [DataType(DataType.Currency)]
+        public Nullable<float> Rezago;
 
         [Display(Name = "Adicional Rezago")]
+        [DataType(DataType.Currency)]
         public Nullable<float> AdicionalRezago;
 
         [Display(Name = "Recargo Rezago")]
-        public Nullable<float> RecargoRezago;       
+        [DataType(DataType.Currency)]
+        public Nullable<float> RecargoRezago;
 
-
+        [Display(Name = "Redondeo")]
+        [DataType(DataType.Currency)]
+        public Nullable<float> Redondeo;
     }
 
     public class NavesMetadata
