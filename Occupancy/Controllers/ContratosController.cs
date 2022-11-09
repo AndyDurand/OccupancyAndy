@@ -1025,6 +1025,7 @@ namespace Occupancy.Controllers
                         mov.Recargos = aRecargosCorriente[i, 3];
                         mov.Redondeo = aRecargosCorriente[i, 4];
                         mov.ImporteTotal = aRecargosCorriente[i, 5];
+                        mov.Saldo = mov.ImporteTotal;
                         mov.Rezago = mov.AdicionalRezago = mov.RecargoRezago = 0;
                         mov.Multa = mov.Honorarios = mov.Ejecucion = 0;
                         mov.Observaciones = aObsPerCorriente[i, 0];
@@ -1050,6 +1051,7 @@ namespace Occupancy.Controllers
                         mov.RecargoRezago = aRecargosRezago[i, 3];
                         mov.Redondeo = aRecargosRezago[i, 4];
                         mov.ImporteTotal = aRecargosRezago[i, 5];
+                        mov.Saldo = mov.ImporteTotal;
                         mov.Corriente = mov.Adicional = mov.Recargos = 0;
                         mov.Multa = mov.Honorarios = mov.Ejecucion = 0;
                         mov.Observaciones = aObsPerRezago[i, 0];
@@ -1075,6 +1077,7 @@ namespace Occupancy.Controllers
                         mov.RecargoRezago = aRecargosRezagoOtro[i, 3];
                         mov.Redondeo = aRecargosRezagoOtro[i, 4];
                         mov.ImporteTotal = aRecargosRezagoOtro[i, 5];
+                        mov.Saldo = mov.ImporteTotal;
                         mov.Corriente = mov.Adicional = mov.Recargos = 0;
                         mov.Multa = mov.Honorarios = mov.Ejecucion = 0;
                         mov.Observaciones = aObsPerRezagoOtro[i, 0];
@@ -1240,6 +1243,7 @@ namespace Occupancy.Controllers
                         mov.Recargos = aAFavorCorriente[i, 3];
                         mov.Redondeo = aAFavorCorriente[i, 4];
                         mov.ImporteTotal = aAFavorCorriente[i, 5];
+                        mov.Saldo = 0;
                         mov.Recargos = mov.Rezago = mov.AdicionalRezago = mov.RecargoRezago = 0;
                         mov.Multa = mov.Honorarios = mov.Ejecucion = 0;
                         mov.Observaciones = aObsPerCorriente[i, 0];
@@ -1260,9 +1264,10 @@ namespace Occupancy.Controllers
                         mov.Recargos = aAFavorCorriente[i, 3];
                         mov.Redondeo = aAFavorCorriente[i, 4];
                         mov.ImporteTotal = aAFavorCorriente[i, 5];
+                        mov.Saldo = 0;
                         mov.Recargos = mov.Rezago = mov.AdicionalRezago = mov.RecargoRezago = 0;
                         mov.Multa = mov.Honorarios = mov.Ejecucion = 0;
-                        mov.Observaciones = "MES PAGADO POR ADELANTADO. " + MonthName((int)aAFavorCorriente[i, 6]) + " " + ((int)aAFavorCorriente[i, 7]).ToString();
+                        mov.Observaciones = "SALDO A FAVOR. MES PAGADO POR ADELANTADO. " + MonthName((int)aAFavorCorriente[i, 6]) + " " + ((int)aAFavorCorriente[i, 7]).ToString();
                         mov.Periodo = aObsPerCorriente[i, 1];
                         db.Movimientos.Add(mov);
                     }

@@ -39,6 +39,7 @@ namespace Occupancy.Models
         public string Observaciones { get; set; }
         public string Estatus { get; set; }
         public string Periodo { get; set; }
+        public Nullable<float> Saldo { get; set; }
     
         public virtual Contratos Contratos { get; set; }
         public virtual Ordenes Ordenes { get; set; }

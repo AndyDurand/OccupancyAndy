@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="OccupancyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="OccupancyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ArbitriosMov">
           <Key>
             <PropertyRef Name="IDArbitrioMov" />
@@ -118,6 +118,7 @@
           <Property Name="IDUser" Type="int" Nullable="false" />
           <Property Name="IDOrden" Type="int" />
           <Property Name="ImporteTotal" Type="real" Nullable="false" />
+          <Property Name="Saldo" Type="real" />
           <Property Name="FolioRecibo" Type="nvarchar" MaxLength="20" />
           <Property Name="FechaEmision" Type="date" />
           <Property Name="FechaVencimiento" Type="date" />
@@ -912,8 +913,7 @@
             <End Role="Vendedores" EntitySet="Vendedores" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="OccupancyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1085,6 +1085,7 @@
           <NavigationProperty Name="Permisos" Relationship="Self.FK_Movimientos_Permisos" FromRole="Movimientos" ToRole="Permisos" />
           <NavigationProperty Name="TipoMovimiento" Relationship="Self.FK_Movimientos_TipoMovimientos" FromRole="Movimientos" ToRole="TipoMovimiento" />
           <NavigationProperty Name="Users" Relationship="Self.FK_Movimientos_Users" FromRole="Movimientos" ToRole="Users" />
+          <Property Name="Saldo" Type="Single" />
         </EntityType>
         <EntityType Name="Naves">
           <Key>
@@ -2017,6 +2018,7 @@
           <EntitySetMapping Name="Movimientos">
             <EntityTypeMapping TypeName="OccupancyModel.Movimientos">
               <MappingFragment StoreEntitySet="Movimientos">
+                <ScalarProperty Name="Saldo" ColumnName="Saldo" />
                 <ScalarProperty Name="IDMovimiento" ColumnName="IDMovimiento" />
                 <ScalarProperty Name="IDContrato" ColumnName="IDContrato" />
                 <ScalarProperty Name="IDPermiso" ColumnName="IDPermiso" />

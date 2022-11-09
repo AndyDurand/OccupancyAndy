@@ -140,6 +140,10 @@ namespace Occupancy.Models
         [DataType(DataType.Currency)]
         public float ImporteTotal;
 
+        [Display(Name = "Saldo")]
+        [DataType(DataType.Currency)]
+        public float Saldo;
+
         //[StringLength(50)]
         [Display(Name = "Folio de Recibo")]
         public string FolioRecibo;
