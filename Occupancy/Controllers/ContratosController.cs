@@ -143,7 +143,7 @@ namespace Occupancy.Controllers
             return;
         }
 
-        // -- Obtener el saldo de la cuenta -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- float SaldoAccount(IEnumerable<Movimientos>)  -- -- --    
+        // -- Obtener el saldo de la cuenta, general -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- float SaldoAccount(IEnumerable<Movimientos>)  -- -- --    
         public float SaldoAccount(IEnumerable<Movimientos> listMovs)
         {
             // En los movimientos de Abono, debo considerar que tengan Folio de Recibo y Fecha de Pago
@@ -165,13 +165,48 @@ namespace Occupancy.Controllers
             return sumaC - sumaA;
 
             // saldos parciales por periodo, <!---- --!> como llevo los saldos por periodo
-
-
-
         }
 
-        // -- GET EditMovs desde Contratos y relaciones ejecutamos operaciones sobre Movimientos -- -- -- -- -- -- -- EditMovs(int) GET-- -- -- -- --
-        [Authorize(Roles = "SuperAdmin, AdminAuditor, AdminConsulta, AdminArea, FuncionarioA")]
+        // -- Actualizar el saldo de cada movimiento o "documento", de acuerdo a los pagos parciales -- -- -- -- -- -- -- -- -- -- --  -- -- --    
+        public void SaldoAccountReview(Contratos contrato)
+        {
+            // llamada solo para provisional
+            IEnumerable<Movimientos> listMovs = contrato.Movimientos.ToList();
+            float sumaC, sumaA, saldoDoc, sumaAbonosDoc;
+            sumaC = sumaA = saldoDoc = sumaAbonosDoc = 0;
+            string sPeriodCompare;
+            IEnumerable<Movimientos> listMovsPeriodo;
+
+            listMovs.OrderBy(objM => objM.Periodo).ThenBy(objM => objM.IDTipoMovimiento);            
+                       
+            foreach (var objM in listMovs)
+            {
+                // por periodo
+                sPeriodCompare = objM.Periodo; 
+                if (objM.Estatus == "ACTIVO")
+                {
+                    if (objM.TipoMovimiento.Naturaleza.Contains("CARGO"))
+                    {                        
+                        listMovsPeriodo = listMovs.Where( m=> m.Periodo == sPeriodCompare);                        
+                        foreach (var obj in listMovsPeriodo)
+                        {
+                            if (obj.TipoMovimiento.Naturaleza.Contains("ABONO") && objM.Pagado == true && objM.FechaPago != null)
+                            {
+                                sumaAbonosDoc += obj.ImporteTotal;
+                            }
+                        }
+                        saldoDoc = objM.ImporteTotal - sumaAbonosDoc;
+                        // Contratos contratos = db.Contratos.Find(id);                        
+
+
+                    }
+                }                
+            }
+            return;
+        }
+
+        // -- GET EditMovs desde Contratos  -- -- -- -- -- -- -- EditMovs(int) GET-- -- -- -- --
+        [Authorize(Roles = "SuperAdmin, AdminConsulta, AdminArea, FuncionarioA")]
         public ActionResult EditMovs(int? id)
         {
                        
@@ -186,10 +221,9 @@ namespace Occupancy.Controllers
             }
             // Info general 
             GeneralInfo(contrato);
-            // Si no tiene movimientos, ni saldo inicial, debo mostrar la tabla aún así
-            if (contrato.Movimientos.Count() > 0     ) //   != null)   
-            {
-                // Recorrer los movimientos para obtener el saldo de la cuenta  // <-- 
+            // Si no tiene movimientos, ni saldo inicial, debo mostrar la tabla vacía
+            if (contrato.Movimientos.Count() > 0     ) 
+            {                
                 ViewBag.Saldo = SaldoAccount(contrato.Movimientos.ToList());
             }
             else ViewBag.Saldo = 0;
@@ -197,6 +231,35 @@ namespace Occupancy.Controllers
             // Revisar movimientos tipo 3 Renta del Mes. Llenado de listMeses
             AddMonth(id); 
             // La vista EditMovs recibe un objeto Contrato
+            return View(contrato);
+        }
+
+        // -- GET MovsDetails desde Contratos, Estado de cuenta, detalle de movimientos  -- -- -- -- -- -- -- MovsDetails(int) GET-- -- -- -- --
+        [Authorize(Roles = "SuperAdmin, AdminConsulta, AdminArea, FuncionarioA")]
+        // AdminAuditor, AdminConsulta,
+        public ActionResult MovsDetails(int? id) 
+        {
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Contratos contrato = db.Contratos.Find(id);
+            if (contrato == null)
+            {
+                return HttpNotFound();
+            }
+            // Info general 
+            GeneralInfo(contrato);
+            // Si no tiene movimientos, ni saldo inicial, debo mostrar la tabla vacia
+            if (contrato.Movimientos.Count() > 0) 
+            {                
+                ViewBag.Saldo = SaldoAccount(contrato.Movimientos.ToList());
+                SaldoAccountReview(contrato);
+
+            }
+            else ViewBag.Saldo = 0;
+            
             return View(contrato);
         }
 
@@ -785,7 +848,6 @@ namespace Occupancy.Controllers
             }
             return;
         }
-
         
         // -- Calcular MESES de SALDO DEUDOR.- Por referencia los arrays, el numero de meses a agregar
         private int GeneraArrayDebitMonths(ref float[,] array, int numMeses, int col,  int nMesInicia, float porcRecInicial, int nYear, ref string[,] arrayOP )

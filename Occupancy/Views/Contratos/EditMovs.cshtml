@@ -2,7 +2,7 @@
  
  
 @{
-    ViewBag.Title = "Edo Cta";
+    ViewBag.Title = "Movs";
 }
 
 <head>   
@@ -22,29 +22,67 @@
                             <div class="panel-heading">
                                 <div style="text-align:center;">                                    
                                     <img src="~/Content/images/Logotipo 2022 - gris.png" width="60" height="60" />
-                                    <h4><strong>Estado de Cuenta - Edición</strong></h4>
-                                </div>
-                                <!-- <div class="panel-title"><span class="glyphicon glyphicon-list-alt" aria-hidden="true" style="font-size: 25px"></span> <strong>  Estado de Cuenta - Edición</strong></div>-->
+                                    <h4><strong>Estado de Cuenta - Saldos y Movimientos</strong></h4>
+                                </div>                                
                             </div>
                             <div class="panel-body">
                                 <p><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Revise o agregue movimientos relacionados con el Estado de Cuenta de un Contrato - Concesión.</p>
                                 <p><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Cargue los <strong>Saldos Iniciales</strong>, bien sea de <strong>Rezago o Corriente.</strong></p>
                                 <p><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Genere los <strong>meses de cargo por adelantado</strong> de los meses de renta, si la persona pagará por adelantado. </p>
-                                <p><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> 
-                                Genere las <strong>Ordenes de Pago</strong> para los movimientos que corresponda, una Orden de Pago podrá generarla por el <strong>importe completo o por abono parcial.</strong></p>
+                                @*<p><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>*@ 
+                                @*Genere las <strong>Ordenes de Pago</strong> para los movimientos que corresponda, una Orden de Pago podrá generarla por el <strong>importe completo o por abono parcial.</strong></p>*@
                             </div>
                         </div>
                     </div>
                     <!-- Col con panel Datos Persona-->
                     <div class="col-md-6">
+                        <!-- here new-->
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="panel panel-success">
+                                    <div class="panel-heading">
+                                        <div style="text-align:center;">
+                                            <img src="~/Content/images/account.png" width="35" height="35" />
+                                            <h4><strong>@ViewBag.personaNombre</strong></h4>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">Folio Padrón: @ViewBag.IDPersona</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">Nombre Comercial: @ViewBag.nombreComercial</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12"><h4>Folio Contrato / Concesión : <strong>@ViewBag.IDContrato</strong></h4></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="panel panel-success">
+                                    <div class="panel-heading">
+                                        <div style="text-align:center;">
+                                            <img src="~/Content/images/accounting.png" width="35" height="35" /><h3><strong>Saldo: $ @ViewBag.Saldo</strong></h3>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-sm-4">Local :</div>
+                                            <div class="col-sm-8"><strong> @ViewBag.localNombre</strong></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- here new ends-->
+                        <!-- 
                         <div class="panel panel-success">
                             <div class="panel-heading">
                                 <div style="text-align:center;">
                                     <img src="~/Content/images/account.png" width="35" height="35" />
                                     <h4><strong>@ViewBag.personaNombre</strong></h4>
                                 </div>
-                                <!-- <span class="glyphicon glyphicon-user"></span>
-                                <h4><strong>Nombre: @ViewBag.personaNombre</strong></h4>-->
                             </div>
                             <div class="panel-body">
                                 <div class="row">
@@ -54,10 +92,11 @@
                                     <div class="col-sm-12">Nombre Comercial: @ViewBag.nombreComercial</div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12">Folio Contrato / Concesión : <strong>@ViewBag.IDContrato</strong></div>
+                                    <div class="col-sm-12"><h4>Folio Contrato / Concesión : <strong>@ViewBag.IDContrato</strong></h4></div>
                                 </div>
                             </div>
                         </div>
+                            -->
                     </div>
                 </div>
             </div>
@@ -69,14 +108,12 @@
                 <div class="row">
                     <!-- Col con panel Info Espacio-Nave-Sección -->
                     <div class="col-md-6">
-                        <div class="panel panel-success">
+                        <div class="panel panel-info">
                             <div class="panel-heading">
                                 <div style="text-align:center;">
                                     <img src="~/Content/images/supermarket.png" width="35" height="35" />
                                     <h4><strong>@ViewBag.EspacioNombre</strong></h4>
                                 </div>
-                                <!-- <span class="glyphicon glyphicon-home"></span>
-                                <h4><strong>Espacio: @ViewBag.EspacioNombre</strong></h4>-->
                             </div>
                             <div class="panel-body">
                                 <div class="row">
@@ -88,22 +125,7 @@
                                     <div class="col-sm-8"><strong>@ViewBag.seccionNombre</strong></div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="panel panel-success">
-                            <div class="panel-heading">
-                                <div style="text-align:center;">
-                                    <img src="~/Content/images/accounting.png" width="35" height="35" /><h3><strong>Saldo: $ @ViewBag.Saldo</strong></h3>
-                                </div>
-                                <!-- <span class="glyphicon glyphicon-home"></span>-->
-                                <!-- <h3><strong>Saldo: $ @ViewBag.Saldo</strong></h3>-->
-                            </div>
-                            <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-sm-4">Local :</div>
-                                    <div class="col-sm-8"><strong> @ViewBag.localNombre</strong></div>
-                                </div>
-                            </div>
-                        </div>
+                        </div>                        
                     </div>
                     <!-- Col con panel Info Local, y datos para cobro  -->
                     <div class="col-md-6">
@@ -112,9 +134,7 @@
                                 <div style="text-align:center;">
                                     <img src="~/Content/images/food-stand.png" width="35" height="35" />
                                     <h3><strong>@ViewBag.localNombre</strong></h3>
-                                </div>
-                                <!-- <span class="glyphicon glyphicon-home"></span>
-                                <h3><strong>Local: @ViewBag.localNombre</strong></h3>-->
+                                </div>                               
                             </div>
                             <div class="panel-body">
                                 <div class="row">
@@ -150,26 +170,21 @@
         </div>
         <br />
         <br />
-         <!-- las acciones generales  -->
+         <!-- las acciones generales  -->        
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-3">
                 @Html.ActionLink("Regresar a Contratos ", "IndexAdmin")
             </div>
-            <div class="col-md-2">
-                
+            <div class="col-md-3">                 
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addMonthsDebitBalance">Meses Saldo Inicial Deudor</button>
             </div>
-            <div class="col-md-2">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addMonthsDebitBalance">Meses Saldo Inicial Deudor</button>
+            <div class="col-md-3">
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addMonthsAFavorBalance">Meses Saldo Inicial a Favor</button>
             </div>
-            <div class="col-md-2">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addMonthsAFavorBalance">Meses Saldo Inicial a Favor</button>
+            <div class="col-md-3">
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addMonthModal">Cargar Mes Adelantado</button>
             </div>
-            <div class="col-md-2">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addMonthModal">Cargar Mes Adelantado</button>
-            </div>
-            <div class="col-md-2">
-            </div>
-        </div>
+        </div>        
         <!-- Row 3 Datatable Movimientos asociados al Contrato el iCollection miembro del objeto Contrato del Modelo -->
         <div class="row">
             <br />
@@ -179,6 +194,8 @@
            <table id="miTabla" class="table table-striped table-bordered" style="width:100%">
                 <thead>
                     <tr>
+                        <th></th>
+                        <th></th>
                         <th>Periodo</th>
                         <!-- -->
                         <th>Importe</th>
@@ -209,6 +226,8 @@
                         if (item.TipoMovimiento.Naturaleza.Contains("CARGO"))
                         {
                             <tr class="info">                                
+                                <td></td>
+                                <td></td>
                                 <td>
                                     <strong>@Html.DisplayFor(modelItem => item.Periodo)</strong>
                                 </td>
@@ -252,18 +271,20 @@
                                 <td> @Html.DisplayFor(modelItem => item.RecargoRezago)</td>
                                 <td> @Html.DisplayFor(modelItem => item.Redondeo)</td>
                                 <td>
-                                    @{ if (item.TipoMovimiento.Naturaleza.Contains("CARGO") && (item.Pagado == false || item.Pagado == null) && item.FechaPago == null) //SI
+                                    @*@{ if (item.TipoMovimiento.Naturaleza.Contains("CARGO") && (item.Pagado == false || item.Pagado == null) && item.FechaPago == null) //SI
                                         {
                                             <div>@Html.ActionLink("Orden de Pago Abonar", "AddPartialOrder", "Contratos", new { id = item.IDMovimiento }, new { @class = "btn btn-primary" })</div>
                                             <br />
                                             <div>@Html.ActionLink("Orden de Pago Liquidar", "AddFullOrder", "Contratos", new { id = item.IDMovimiento }, new { @class = "btn btn-primary" })</div> 
-                                        } }
+                                        } }*@
                                 </td>
                             </tr>
                         }
                         else
                         {
                             <tr class="success">
+                                <td></td>
+                                <td></td>
                                 <td>
                                     <strong>@Html.DisplayFor(modelItem => item.Periodo)</strong>
                                 </td>
@@ -604,15 +625,16 @@
                                 </div>
                             </div>
                             <br />
+                            <hr />
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
-                                        <p>Número de meses cargar que integran el Saldo Deudor (máximo 24 meses) </p>
+                                        <p><strong>Número de meses cargar que integran el Saldo Deudor (máximo 24 meses)</strong></p>
                                         <label for="nMeses"> Número de Meses</label>
                                         <input type="number" class="form-control" style="width:auto" id="nMeses" name="nMeses" min="1" max="24">
                                     </div>
-                                </div>                                
-                            </div>
+                                </div>
+                            </div>                            
                             <!--  -->
                             <div class="form-group">
                                 <label for="tipoM"> Tipo de Saldo Inicial</label>
@@ -686,15 +708,28 @@
                                 </div>
                             </div>
                             <br />
+                            <hr />
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
-                                        <p>Número de meses a cargar que integran el Saldo a Favor (máximo 11 meses) </p>
+                                        <p><strong>Número de meses a cargar que integran el Saldo a Favor (máximo 11 meses)</strong></p>
                                         <label for="nMeses"> Número de Meses</label>
                                         <input type="number" class="form-control" style="width:auto" id="nMeses" name="nMeses" min="1" max="11">
                                     </div>
-                                </div>                                
-                            </div>                            
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="tipoM"> Tipo de Saldo Inicial</label>
+                                <div class="col-md-10">
+                                    <div class="editor-field">
+                                        <select class="form-control" id="tipoSaldo" name="tipoSaldo" style="width:auto" disabled>
+                                            <option>SALDO A FAVOR</option>
+                                            <option>SALDO DEUDOR</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+                            </div>
                             <br />
                             <br />
                             <!-- </form> form="formAddB" -->
@@ -714,8 +749,8 @@
 
     </div>
      @section scripts{
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.24/r-2.2.7/datatables.min.css" />
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css">
+       
+
         <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.24/r-2.2.7/datatables.min.js"></script>
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.bootstrap.min.js"></script>
@@ -725,17 +760,30 @@
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.colVis.min.js"></script>
+         @* esta *@
+         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/select/1.4.0/js/dataTables.select.min.js"></script>
+
+         
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.24/r-2.2.7/datatables.min.css" />
+         @* de datatables 1.12.1 min.css *@
+         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" />
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css">
+         @* esta *@
+         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.4.0/css/select.dataTables.min.css">
+
+
         <script>
             $(document).ready(function () {
                 $('#miTabla').DataTable({
-                    select: true,
+                    
                     dom: 'lfrtip',
                     lengthMenu: [
                         [10, 25, 50, -1],
                         ['Ver 10 Filas', 'Ver 25 Filas', 'Ver 50 Filas', 'Ver Todo']
                     ],
-                    "order": [[0, "asc"]],
-                    responsive: true,
+                    "order": [[2, "asc"]],
+                    responsive: true,                    
                     "language": {
                         "sProcessing": "Procesando...",
                         "sLengthMenu": " _MENU_ ",
@@ -764,7 +812,7 @@
                             "colvis": "Visibilidad"
                         }
                     },
-                    "pageLength": 10
+                    "pageLength": 10                   
 
                 });
                 table.buttons().container()

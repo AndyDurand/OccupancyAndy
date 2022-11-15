@@ -19,7 +19,7 @@
                 <div style="text-align:center;">
                     <img src="~/Content/images/group.png" width="50" height="50" />
                     <img src="~/Content/images/deal.png" width="50" height="50" />
-                    <h4><strong>Estados de Cuenta (Saldos y Movimientos) Locatarios</strong></h4>
+                    <h4><strong>Movimientos Locatarios</strong></h4>
                 </div>
 
 
@@ -168,12 +168,16 @@
                         </td>
                         <td>
                             <!-- Movimientos del Contrato, agregar Saldos iniciales, meses, desde Contratos Controller -->
-                            <div>@Html.ActionLink(" Saldos y Movim.", "EditMovs", new { id = item.IDContrato }, new { @class = "btn btn-success glyphicon glyphicon-edit" })</div>
+                            <div>@Html.ActionLink("  Saldos Iniciales", "EditMovs", new { id = item.IDContrato }, new { @class = "btn btn-success glyphicon glyphicon-edit" })</div>
+                            <br />
+                            <div>@Html.ActionLink(" Estado de Cuenta", "MovsDetails", new { id = item.IDContrato }, new { @class = "btn btn-success glyphicon glyphicon-list-alt" })</div>
+                            <br />
+                            <div>@Html.ActionLink("  Ordenes de Pago Corriente y Rezago", "", new { id = item.IDContrato }, new { @class = "btn btn-success glyphicon glyphicon-edit" })</div>
                             <br />
                             <br />
                             <div>@Html.ActionLink(" Ver Contrato", "Details", new { id = item.IDContrato }, new { @class = "btn btn-info glyphicon glyphicon-list-alt" })</div>
                             <br />
-                            <div>@Html.ActionLink(" Editar Contrato", "Edit", new { id = item.IDContrato }, new { @class = "btn btn-info glyphicon glyphicon-edit" })</div>                            
+                            <div>@Html.ActionLink(" Editar Contrato", "Edit", new { id = item.IDContrato }, new { @class = "btn btn-info glyphicon glyphicon-edit" })</div>
                         </td>
                     </tr>
                  }
@@ -183,6 +187,7 @@
     @section scripts{
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.24/r-2.2.7/datatables.min.css" />
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css">
+
         <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.24/r-2.2.7/datatables.min.js"></script>
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.bootstrap.min.js"></script>

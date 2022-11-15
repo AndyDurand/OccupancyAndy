@@ -490,6 +490,7 @@
     <Content Include="Views\Vendedores\Index.cshtml" />
     <Content Include="Views\Locales\IndexAdmin.cshtml" />
     <Content Include="Views\Locales\ViewLoc.cshtml" />
+    <Content Include="Views\Contratos\MovsDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
