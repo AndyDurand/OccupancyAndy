@@ -491,6 +491,7 @@
     <Content Include="Views\Locales\IndexAdmin.cshtml" />
     <Content Include="Views\Locales\ViewLoc.cshtml" />
     <Content Include="Views\Contratos\MovsDetails.cshtml" />
+    <Content Include="Views\Contratos\OPartialFull.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

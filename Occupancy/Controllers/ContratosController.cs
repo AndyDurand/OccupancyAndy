@@ -91,7 +91,7 @@ namespace Occupancy.Controllers
                 return RedirectToAction("InvalidProfile", "Home");
             }
         }
-        // -- Obtener info general en diccionario de datos
+        // -- Obtener info general en diccionario de datos  -- -- -- -- -- -- -- -- -- -- -- -- -- -- void GeneralInfo(Contratos contrato)  -- -- --    
         public void GeneralInfo(Contratos contrato)
         {
             Session["ID_Contrato"] = contrato.IDContrato;
@@ -163,22 +163,22 @@ namespace Occupancy.Controllers
                     }
             }
             return sumaC - sumaA;
-
-            // saldos parciales por periodo, <!---- --!> como llevo los saldos por periodo
         }
 
-        // -- Actualizar el saldo de cada movimiento o "documento", de acuerdo a los pagos parciales -- -- -- -- -- -- -- -- -- -- --  -- -- --    
+        // -- Actualizar el saldo de cada movimiento o "documento", de acuerdo a los pagos parciales  -- -- -- public void SaldoAccountReview(Contratos contrato) -- -- -- --    
         public void SaldoAccountReview(Contratos contrato)
         {
             // llamada solo para provisional
             IEnumerable<Movimientos> listMovs = contrato.Movimientos.ToList();
+            int idMov = 0;
             float sumaC, sumaA, saldoDoc, sumaAbonosDoc;
             sumaC = sumaA = saldoDoc = sumaAbonosDoc = 0;
             string sPeriodCompare;
             IEnumerable<Movimientos> listMovsPeriodo;
+            Movimientos mov;
+            // no están ordenados, pero los filtro y comparo en el foreach interno
+            listMovs.OrderBy(objM => objM.Periodo).ThenBy(objM => objM.IDTipoMovimiento);
 
-            listMovs.OrderBy(objM => objM.Periodo).ThenBy(objM => objM.IDTipoMovimiento);            
-                       
             foreach (var objM in listMovs)
             {
                 // por periodo
@@ -186,26 +186,38 @@ namespace Occupancy.Controllers
                 if (objM.Estatus == "ACTIVO")
                 {
                     if (objM.TipoMovimiento.Naturaleza.Contains("CARGO"))
-                    {                        
-                        listMovsPeriodo = listMovs.Where( m=> m.Periodo == sPeriodCompare);                        
-                        foreach (var obj in listMovsPeriodo)
+                    {
+                        idMov = objM.IDMovimiento;
+                        listMovsPeriodo = listMovs.Where( m=> m.Periodo == sPeriodCompare);   
+                        if (listMovsPeriodo.Count() > 0)
                         {
-                            if (obj.TipoMovimiento.Naturaleza.Contains("ABONO") && objM.Pagado == true && objM.FechaPago != null)
-                            {
-                                sumaAbonosDoc += obj.ImporteTotal;
+                            foreach (var obj in listMovsPeriodo)
+                            {   
+                                if (obj.TipoMovimiento.Naturaleza.Contains("ABONO") && obj.Pagado == true && obj.FechaPago != null && obj.Periodo == sPeriodCompare ) 
+                                {
+                                    sumaAbonosDoc += obj.ImporteTotal;
+                                }
                             }
-                        }
-                        saldoDoc = objM.ImporteTotal - sumaAbonosDoc;
-                        // Contratos contratos = db.Contratos.Find(id);                        
+                            saldoDoc = objM.ImporteTotal - sumaAbonosDoc;
+                            // 
+                            if (idMov != 0 && saldoDoc != objM.ImporteTotal )
+                            {
+                                mov = db.Movimientos.Find(idMov);
+                                if (mov != null)
+                                {
+                                    mov.Saldo = saldoDoc;
+                                    db.SaveChanges();
 
-
+                                }
+                            }
+                        }                        
                     }
                 }                
             }
             return;
         }
 
-        // -- GET EditMovs desde Contratos  -- -- -- -- -- -- -- EditMovs(int) GET-- -- -- -- --
+        // -- GET EditMovs desde Contratos  -- -- -- -- -- -- -- -- -- -- -- -- -- -- EditMovs(int) GET-- -- -- -- -- -- -- -- -- -- -- -- 
         [Authorize(Roles = "SuperAdmin, AdminConsulta, AdminArea, FuncionarioA")]
         public ActionResult EditMovs(int? id)
         {
@@ -228,7 +240,7 @@ namespace Occupancy.Controllers
             }
             else ViewBag.Saldo = 0;
 
-            // Revisar movimientos tipo 3 Renta del Mes. Llenado de listMeses
+            // Revisar movimientos tipo 3 Renta del Mes. Llenado de listMeses. El POST es con el botón Agregar el Mes en el Modal
             AddMonth(id); 
             // La vista EditMovs recibe un objeto Contrato
             return View(contrato);
@@ -253,9 +265,10 @@ namespace Occupancy.Controllers
             GeneralInfo(contrato);
             // Si no tiene movimientos, ni saldo inicial, debo mostrar la tabla vacia
             if (contrato.Movimientos.Count() > 0) 
-            {                
-                ViewBag.Saldo = SaldoAccount(contrato.Movimientos.ToList());
+            {               
+                
                 SaldoAccountReview(contrato);
+                ViewBag.Saldo = SaldoAccount(contrato.Movimientos.ToList());
 
             }
             else ViewBag.Saldo = 0;
@@ -679,7 +692,6 @@ namespace Occupancy.Controllers
         public ActionResult AddMonth( string obs, string sMes)
         {
             
-            // Ya tengo  Session["ID_Contrato"]            
             Contratos contrato = db.Contratos.Find(Session["ID_Contrato"]);
             int idC = 0;
             if (contrato == null)
@@ -1340,6 +1352,37 @@ namespace Occupancy.Controllers
 
         }
 
+        // -- GET EditMovs desde Contratos  -- -- -- -- -- -- -- -- -- -- -- -- -- -- OPartialFull(int) GET-- -- -- -- -- -- -- -- -- -- -- -- 
+        [Authorize(Roles = "SuperAdmin, AdminConsulta, AdminArea, FuncionarioA")]
+        public ActionResult OPartialFull(int? id)
+        {
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Contratos contrato = db.Contratos.Find(id);
+            if (contrato == null)
+            {
+                return HttpNotFound();
+            }
+            // Info general 
+            GeneralInfo(contrato);
+            // Si no tiene movimientos, ni saldo inicial, debo mostrar la tabla vacía
+            if (contrato.Movimientos.Count() > 0)
+            {
+                ViewBag.Saldo = SaldoAccount(contrato.Movimientos.ToList());
+            }
+            else ViewBag.Saldo = 0;
+
+            // Revisar movimientos tipo 3 Renta del Mes. Llenado de listMeses. El POST es con el botón Agregar el Mes en el Modal
+            AddMonth(id);
+            // Revisar movimientos documentos por cobrar
+
+            // La vista EditMovs recibe un objeto Contrato
+            return View(contrato);
+        }
+
 
         //-- GET -- -- -- -- -- -- -- POST -- -- -- -- -- -- -- -- -- -- -- -- -- -- AddFullOrder()-- -- -- -- -- -- -- 
         [Authorize(Roles = "SuperAdmin, AdminArea, FuncionarioA")]
@@ -1438,7 +1481,7 @@ namespace Occupancy.Controllers
             return RedirectToAction("EditMovs", "Contratos", new { id = idC });
         }
 
-
+        // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
         // GET: Contratos/Details/5 -- -- --- --- -- -- --- --- 
         [Authorize(Roles = "SuperAdmin, AdminArea, FuncionarioA")]
         public ActionResult Details(int? id)

@@ -75,28 +75,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- here new ends-->
-                        <!-- 
-                        <div class="panel panel-success">
-                            <div class="panel-heading">
-                                <div style="text-align:center;">
-                                    <img src="~/Content/images/account.png" width="35" height="35" />
-                                    <h4><strong>@ViewBag.personaNombre</strong></h4>
-                                </div>
-                            </div>
-                            <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-sm-12">Folio Padrón: @ViewBag.IDPersona</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12">Nombre Comercial: @ViewBag.nombreComercial</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12"><h4>Folio Contrato / Concesión : <strong>@ViewBag.IDContrato</strong></h4></div>
-                                </div>
-                            </div>
-                        </div>
-                            -->
                     </div>
                 </div>
             </div>
@@ -270,14 +248,7 @@
                                 <td> @Html.DisplayFor(modelItem => item.AdicionalRezago)</td>
                                 <td> @Html.DisplayFor(modelItem => item.RecargoRezago)</td>
                                 <td> @Html.DisplayFor(modelItem => item.Redondeo)</td>
-                                <td>
-                                    @*@{ if (item.TipoMovimiento.Naturaleza.Contains("CARGO") && (item.Pagado == false || item.Pagado == null) && item.FechaPago == null) //SI
-                                        {
-                                            <div>@Html.ActionLink("Orden de Pago Abonar", "AddPartialOrder", "Contratos", new { id = item.IDMovimiento }, new { @class = "btn btn-primary" })</div>
-                                            <br />
-                                            <div>@Html.ActionLink("Orden de Pago Liquidar", "AddFullOrder", "Contratos", new { id = item.IDMovimiento }, new { @class = "btn btn-primary" })</div> 
-                                        } }*@
-                                </td>
+                                <td> </td>
                             </tr>
                         }
                         else
@@ -418,167 +389,7 @@
                     </div>
                 </div>
             </div>
-        }
-        <!-- Definición del Modal AddPartialOrden .                                                                             modal   AddPartialOrden  -->
-        @using (Html.BeginForm("AddPartialOrden", "Contratos", FormMethod.Post))
-        {
-            @Html.AntiForgeryToken()
-            <!-- o-->
-            <div class="modal fade" id="addPartialOrden" role="dialog">
-                <div class="modal-dialog">
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header" style="padding:35px 50px;">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4><span class="glyphicon glyphicon-minus"></span> Abono. Orden de Pago Parcial</h4>
-                        </div>
-                        <div class="modal-body" style="padding:40px 50px;">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <h4><strong>Nombre: @ViewBag.personaNombre</strong></h4>
-                                </div>
-                                <div class="col-md-6">
-                                    <h4><strong>Espacio: @ViewBag.EspacioNombre</strong></h4>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    Nave: <strong>@ViewBag.naveNombre</strong>
-                                </div>
-                                <div class="col-md-6">
-                                    Local: <strong>@ViewBag.localNombre</strong>
-                                </div>
-                            </div>
-                            <hr />
-                            <div class="row">
-                                <div class="col-md-6">
-                                    Num. Locales para cobro: <strong>@ViewBag.localNumParaCobro</strong>
-                                </div>
-                                <div class="col-md-6">
-                                    Tipo Cuota: <strong>@ViewBag.localTipoCuota</strong>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="com-md-6">Cuota Renta: <strong>$ @ViewBag.localCuotaRenta</strong></div>
-                                <div class="col-md-6">Importe Renta Mensual: <strong>$ @ViewBag.localImporteRenta</strong></div>
-                            </div>
-                            <br />
-                            <hr />
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @*<label for="importe"> Importe</label>
-                                        <input type="number" class="form-control" style="width:auto" id="importe" name="importe" min="1">*@
-                                        <strong>@ViewBag.Year</strong>
-                                        <br />
-                                        <div class="form-group">
-                                            <!--  ViewBag.listMeses  ViewBag.sMes  -->
-                                            <label for="Meses">Meses a agregar</label>
-                                            @Html.DropDownList("sMes", new SelectList(ViewBag.listMeses, "Value", "Text"), "-Seleccione-")
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="obs">Observaciones</label>
-                                        <textarea class="form-control" rows="5" style="width:auto" id="obs" name="obs"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-
-                                </div>
-                                <div class="col-md-6">
-
-                                </div>
-                            </div>
-                            <br />
-                            <br />
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-success"> <span class="glyphicon glyphicon-save"></span> Grabar</button>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
-        <!-- Definición del Modal AddFullOrden .                                                                               modal   AddFullOrden  -->      
-        @using (Html.BeginForm("AddFullOrden", "Contratos", FormMethod.Post))
-        {
-            @Html.AntiForgeryToken()
-            <!--  -->
-            <div class="modal fade" id="addFullOrden" role="dialog">
-                <div class="modal-dialog">
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header" style="padding:35px 50px;">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4><span class="glyphicon glyphicon-minus"></span> Liquidar </h4>
-                        </div>
-                        <div class="modal-body" style="padding:40px 50px;">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <h4><strong>Nombre: @ViewBag.personaNombre</strong></h4>
-                                </div>
-                                <div class="col-md-6">
-                                    <h4><strong>Espacio: @ViewBag.EspacioNombre</strong></h4>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    Nave: <strong>@ViewBag.naveNombre</strong>
-                                </div>
-                                <div class="col-md-6">
-                                    Local: <strong>@ViewBag.localNombre</strong>
-                                </div>
-                            </div>
-                            <hr />
-                            <div class="row">
-                                <div class="col-md-6">
-                                    Num. Locales para cobro: <strong>@ViewBag.localNumParaCobro</strong>
-                                </div>
-                                <div class="col-md-6">
-                                    Tipo Cuota: <strong>@ViewBag.localTipoCuota</strong>
-                                </div>
-                            </div>
-
-                            <!-- int idMov, float partial, string obs-->
-                            <div class="row">
-                                <div class="com-md-6">Cuota Renta: <strong>$ @ViewBag.localCuotaRenta</strong></div>
-                                <div class="col-md-6">Importe Renta Mensual: <strong>$ @ViewBag.localImporteRenta</strong></div>
-                            </div>
-                            <br />
-                            <hr />
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <h3>Movimiento a Liquidar. Generar Orden de Pago</h3>
-                                    <div class="form-group">
-                                        <label>Tipo Movimiento: @ViewBag.tipoMovim</label>
-                                        <p><strong>Importe: $@ViewBag.totalMovim</strong></p>
-                                        <label></label>
-                                    </div>
-                                </div>
-                            </div>
-                            @*<div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="obs">Observaciones</label>
-                                    <textarea class="form-control" rows="5" style="width:auto" id="obs" name="obs"></textarea>
-                                </div>
-                            </div>*@
-                        </div>                        
-                        @*<br />
-                        <br />*@
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-success"> <span class="glyphicon glyphicon-save"></span> Grabar</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>
-                    </div>
-                </div>
-                
-            </div>
-        }
+        }        
         <!-- Definición del Modal Add Months Debit Balance .                                                                   modal   AddMonthsDebitBalance  -->
         @using (Html.BeginForm("AddMonthsDebitBalance", "Contratos", FormMethod.Post))
         {
