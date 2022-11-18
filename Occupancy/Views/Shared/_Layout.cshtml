@@ -7,6 +7,9 @@
     <title>@ViewBag.Title - OBIVP Web</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Html.C1().Styles()
+    @Html.C1().Scripts().Basic()
+    @Html.C1().Scripts().Basic(b => b.Grid().Chart())
 </head>
 <body>
     <!-- inverse  default    "navbar navbar-inverse navbar-fixed-top"-->

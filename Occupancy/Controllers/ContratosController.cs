@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Occupancy.Models;
+using C1.Web.Mvc.Grid;
+using C1.Web.Mvc.GridDetail;
 
 namespace Occupancy.Controllers
 {
@@ -1357,6 +1359,7 @@ namespace Occupancy.Controllers
         public ActionResult OPartialFull(int? id)
         {
 
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -1365,7 +1368,8 @@ namespace Occupancy.Controllers
             if (contrato == null)
             {
                 return HttpNotFound();
-            }
+            }            
+
             // Info general 
             GeneralInfo(contrato);
             // Si no tiene movimientos, ni saldo inicial, debo mostrar la tabla vacía
@@ -1377,7 +1381,11 @@ namespace Occupancy.Controllers
 
             // Revisar movimientos tipo 3 Renta del Mes. Llenado de listMeses. El POST es con el botón Agregar el Mes en el Modal
             AddMonth(id);
-            // Revisar movimientos documentos por cobrar
+            // Revisar movimientos documentos por cobrar, y el habilitar el botón de abonos en la vista solo si "el tipo de cuota es por Local"
+
+            // ------para la prueba del controlFlexGrid, IEnumerable<Movimientos> listMovs = contrato.Movimientos.ToList();
+            // && m => m.IDTipoMovimiento == 3  ||  1 || 2
+            ViewBag.Docs = contrato.Movimientos.ToList().Where(m =>  m.Pagado == false );
 
             // La vista EditMovs recibe un objeto Contrato
             return View(contrato);
