@@ -1,0 +1,26 @@
+﻿@using Occupancy.Models;
+@*@model Occupancy.Models.Contratos*@
+
+
+@{
+    ViewBag.Title = "PayOrder";
+}
+<head>
+
+</head>
+<body>
+    <div class="container">
+        <br />
+        <br />
+
+        @(Html.C1().FlexGrid<Movimientos>()
+            .AutoGenerateColumns(true)
+            .Id("theFlexGrid")
+            .IsReadOnly(true)
+            .Bind((IEnumerable<Movimientos>)ViewBag.Pendientes)
+            .OrderBy("Periodo")
+
+            )
+    </div>
+</body>
+

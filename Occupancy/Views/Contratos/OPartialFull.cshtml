@@ -1,10 +1,24 @@
 ﻿@using Occupancy.Models;
 @using C1.Web.Mvc;
-@model Occupancy.Models.Contratos
+@*@model Occupancy.Models.Movimientos*@
+
+@*@model IEnumerable<Occupancy.Models.Movimientos>*@
 
 @{ ViewBag.Title = "Pagar Abonar"; }
 
 <head>
+    @* @Html.C1().Styles()*@
+    <style>
+        .modal-header {
+            background-color: #0086b3;
+            color: white !important;
+            text-align: center;
+            font-size: 15px;
+        }
+        .modal-footer {
+            background-color: #f9f9f9;
+        }
+    </style>
 </head>
 <body>
     <br />
@@ -152,50 +166,120 @@
         </div>
         <br />
         <br />
+        <!-- Row 3 -->
         <!-- las acciones generales  -->
         <div class="row">
             <div class="col-md-4">
                 @Html.ActionLink("Regresar a Contratos ", "IndexAdmin")
             </div>
             <div class="col-md-4">
-                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addFullOrden">Recepcion de Pagos</button>
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addFullOrden">Orden de Pagos Liquidar</button>
             </div>
-            <div class="col-md-4">
-                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addPartialOrden">Recepcion de Pagos</button>
-            </div>
-
+            @if (ViewBag.localtipoCuota == "POR LOCAL")
+            {
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addPartialOrden">Orden de Pago Abono</button>
+                </div>
+            }
         </div>
-        <!-- Row 3 Datatable Movimientos asociados al Contrato el iCollection miembro del objeto Contrato del Modelo -->
+        <!-- Row 4 -->
         <br />
         <div class="row">
-            @*@(Html.C1)*@
-            @* @model Occupancy.Models.Contratos *@
-            @(Html.C1().FlexGrid<Movimientos>()
-                .AutoGenerateColumns(false)
-                .Id("flexgrid")
-                .CssClass("grid")
-                .IsReadOnly(true)
-                .Bind((IEnumerable<Movimientos>)ViewBag.Docs)
-                .OrderBy("Periodo")
-                .Columns(cls =>
-                {
-                    cls.Add(col => col.Binding("IDTipoMovimiento"));
-                    cls.Add(col => col.Binding("ImporteTotal"));
-                    cls.Add(col => col.Binding("Saldo"));
-                    cls.Add(col => col.Binding("FechaEmision"));
-                    cls.Add(col => col.Binding("Periodo"));
-                })
-                )
+            <div class="col-md-12">
 
-        </div>
+            </div>
+        </div>   
+          <!-- Definición del Modal AddFullOrden  .                                                                                    -->
+        @using (Html.BeginForm("AddFullOrden", "Contratos", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <!-- -->
+            <div class="modal fade" id="addFullOrden" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header" style="padding:35px 50px;">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4><span class="glyphicon glyphicon-pencil"></span> Orden de Pago Liquidar Mes</h4>
+                        </div>
+                        <div class="modal-body" style="padding:40px 50px;">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h4><strong>Nombre: @ViewBag.personaNombre</strong></h4>
+                                </div>
+                                <div class="col-md-6">
+                                    <h4><strong>Espacio: @ViewBag.EspacioNombre</strong></h4>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    Nave: <strong>@ViewBag.naveNombre</strong>
+                                </div>
+                                <div class="col-md-6">
+                                    Local: <strong>@ViewBag.localNombre</strong>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <div class="col-md-6">
+                                    Num. Locales para cobro: <strong>@ViewBag.localNumParaCobro</strong>
+                                </div>
+                                <div class="col-md-6">
+                                    Tipo Cuota: <strong>@ViewBag.localTipoCuota</strong>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="com-md-6">
+                                    Cuota Renta: <strong>$ @ViewBag.localCuotaRenta</strong>
+                                </div>
+                                <div class="col-md-6">
+                                    Importe Renta con Adic.: <strong>$@ViewBag.localCuotaRentaConAdic</strong>
+                                </div>
+                            </div>
+                            <br />
+                            <hr />
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @*<label for="importe"> Importe</label>
+                                        <input type="number" class="form-control" style="width:auto" id="importe" name="importe" min="1">*@
+                                        <strong>@ViewBag.Year Meses que adeuda:</strong>
+                                        <br />
+                                        <div class="form-group">
+                                            <!--  ViewBag.listMeses  ViewBag.sMes  -->
+                                            <label for="Meses">Mes a Pagar</label>
+                                            @Html.DropDownList("sMes", new SelectList(ViewBag.listMesesDebe, "Value", "Text"), "-Seleccione-")
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="obs">Observaciones</label>
+                                        <textarea class="form-control" rows="5" style="width:auto" id="obs" name="obs"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
 
-        <br />
+                                </div>
+                                <div class="col-md-6">
 
-
-
+                                </div>
+                            </div>
+                            <br />
+                            <br />
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success"> <span class="glyphicon glyphicon-save"></span> Agregar </button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }        
     </div>
-
-
-
 </body>
+
+
 

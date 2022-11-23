@@ -8,9 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Occupancy.Models;
-using C1.Web.Mvc;
 using C1.Web.Mvc.Grid;
-using C1.Web.Mvc.Serialization;
+using C1.Web.Mvc.GridDetail;
 
 namespace Occupancy.Controllers
 {
@@ -53,16 +52,20 @@ namespace Occupancy.Controllers
         [Authorize(Roles = "SuperAdmin, AdminAuditor, AdminConsulta, AdminArea, FuncionarioA")]
         public ActionResult IndexAdmin()
         {
+
+            //control para filtro
             using (Repositorio<Users> obj = new Repositorio<Users>())
             {
                 var u = User.Identity.GetUserId();
                 var value = obj.Retrive(x => x.IDASPNETUSER == u).IDUser;
                 var valueIdDepto = obj.Retrive(x => x.IDASPNETUSER == u).IDDepto;
                 Session["ID_User"] = value;
-                Session["ID_Area"] = valueIdDepto;                
+                Session["ID_Area"] = valueIdDepto;
+
             }
             int idArea = (int)Session["ID_Area"];
 
+            // Roles SuperAdmin, AdminAuditor 
             if (User.IsInRole("SuperAdmin") || User.IsInRole("AdminAuditor"))
             {                
                 // Para la Vista ListAdmin consultar solo los contratos Activos
@@ -94,7 +97,6 @@ namespace Occupancy.Controllers
         public void GeneralInfo(Contratos contrato)
         {
             Session["ID_Contrato"] = contrato.IDContrato;
-            Session["ID_Espacio"] = contrato.Locales.IDEspacio;
             ViewBag.IDContrato = contrato.IDContrato;
             ViewBag.IDPersona = contrato.IDPersona;
             ViewBag.Saldo = 0;
@@ -280,14 +282,14 @@ namespace Occupancy.Controllers
         // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- Boolean IdentificarMeses(IEnumerable<Movimientos> listMovs, int[,] monthArray)
         public Boolean IdentificarMeses(IEnumerable<Movimientos> listMovs, int[,] monthArray)
         {
-            // Recorrer Movimientos, revisar cargos por renta mes , identificar en el array bidimenssional qué meses están cargados
+            // Recorrer Movimientos, revisar cargos por renta mes, identificar en el array bidimenssional qué meses están cargados
             // [Mes, 0] (1) true or  (0) false
             Boolean existen = false;
             int nMes;
             string sYear, sMonth;          
             foreach (var objM in listMovs)
             {
-                if (objM.Estatus == "ACTIVO" && ( objM.IDTipoMovimiento == 3 || objM.IDTipoMovimiento == 2 || objM.IDTipoMovimiento == 1 ))
+                if (objM.Estatus == "ACTIVO" && objM.IDTipoMovimiento == 3)
                 {
                     // aquí el movimiento de Mes, no necesita estar pagado
                     //if (objM.Pagado == true && objM.FechaPago != null && objM.Periodo != null)
@@ -351,7 +353,7 @@ namespace Occupancy.Controllers
                 // Crear si importe es diferente de cero
                 if (importe != 0)
                 {
-                    Movimientos mov = new Movimientos();                   
+                    Movimientos mov = new Movimientos();                    
                     mov.IDContrato = contrato.IDContrato;  
 
                     if (tipoSaldo == "SALDO INICIAL REZAGO")
@@ -775,9 +777,8 @@ namespace Occupancy.Controllers
                         obs = obs + ". MES " + MonthName(int.Parse(sMes)) + " " + nYearNow.ToString() + " CON RECARGOS";
                         if (contrato.Locales.TipoCuotas.PorcentajeRecargoMensual != null)
                         {
-                            // expresado en porcentaje 2.5, sobre el importe total de corriente más el adicional,
-                            //fRecargos = (float)((fCorriente * contrato.Locales.TipoCuotas.PorcentajeRecargoMensual / 100));
-                            fRecargos = (float)((fCorriente + fAdicional) * contrato.Locales.TipoCuotas.PorcentajeRecargoMensual / 100);
+                            // expresado en porcentaje 2.5, 
+                            fRecargos = (float)((fCorriente * contrato.Locales.TipoCuotas.PorcentajeRecargoMensual / 100));
                             fRecargos = (float)Math.Round(fRecargos, 2);
                         }
                         else fRecargos = 0;
@@ -806,7 +807,6 @@ namespace Occupancy.Controllers
                     nTotal = nTotal + 1;
                 mov.ImporteTotal = nTotal;
                 mov.Redondeo = fRedondeo;
-                mov.Saldo = mov.ImporteTotal;
                 // Desglose
                 if (nMes < nMonthNow)
                 {
@@ -821,7 +821,7 @@ namespace Occupancy.Controllers
                     mov.Adicional = fAdicional;
                     mov.Recargos = fRecargos;
                     mov.Rezago = mov.AdicionalRezago = mov.RecargoRezago = 0;
-                }                   
+                }    
                 // Accesorios los tengo en 0´s ..
                 mov.Multa = mov.Honorarios = mov.Ejecucion = 0;
                 mov.FechaEmision = System.DateTime.Now;
@@ -839,17 +839,6 @@ namespace Occupancy.Controllers
         }
         //
         // -- 
-        private void InitArrayInt(int[,] array, int fil, int col)
-        {
-            for (int i = 0; i < fil; i++)
-            {
-                for (int j = 0; j < col; j++)
-                {
-                    array[i, j] = 0;
-                }
-            }
-            return;
-        }
         private void InitArrayDebit(float[,] array, int fil, int col)
         {
             for (int i = 0; i < fil; i++)
@@ -911,8 +900,8 @@ namespace Occupancy.Controllers
                 }
                 else array[i, 1] = 0;
                 // -- Porcentaje Recargos.     [0, 2] Porc Recargo  -- -- -- -- -- -- -- -- --                     
-                if (i == 0) // primer mes que se añade, porcRecInicial + fPorcentRec;
-                    array[i, 2] = fPorcentRec;
+                if (i == 0 ) // primer mes que se añade
+                    array[i, 2] = porcRecInicial + fPorcentRec;
                 else   
                     array[i, 2] = array[i-1, 2] + fPorcentRec;
 
@@ -1117,7 +1106,6 @@ namespace Occupancy.Controllers
                         mov.Multa = mov.Honorarios = mov.Ejecucion = 0;
                         mov.Observaciones = aObsPerCorriente[i, 0];
                         mov.Periodo = aObsPerCorriente[i, 1];
-                        mov.Pagado = false;
                         db.Movimientos.Add(mov);
                     }
                     db.SaveChanges();
@@ -1144,7 +1132,6 @@ namespace Occupancy.Controllers
                         mov.Multa = mov.Honorarios = mov.Ejecucion = 0;
                         mov.Observaciones = aObsPerRezago[i, 0];
                         mov.Periodo = aObsPerRezago[i, 1];
-                        mov.Pagado = false;
                         db.Movimientos.Add(mov);
                     }
                     db.SaveChanges();
@@ -1171,7 +1158,6 @@ namespace Occupancy.Controllers
                         mov.Multa = mov.Honorarios = mov.Ejecucion = 0;
                         mov.Observaciones = aObsPerRezagoOtro[i, 0];
                         mov.Periodo = aObsPerRezagoOtro[i, 1];
-                        mov.Pagado = false;
                         db.Movimientos.Add(mov);
                     }
                     db.SaveChanges();
@@ -1369,7 +1355,7 @@ namespace Occupancy.Controllers
         }
 
         // -- GET EditMovs desde Contratos  -- -- -- -- -- -- -- -- -- -- -- -- -- -- OPartialFull(int) GET-- -- -- -- -- -- -- -- -- -- -- -- 
-        [Authorize(Roles = "SuperAdmin, AdminArea, FuncionarioA")]
+        [Authorize(Roles = "SuperAdmin, AdminConsulta, AdminArea, FuncionarioA")]
         public ActionResult OPartialFull(int? id)
         {
 
@@ -1394,261 +1380,52 @@ namespace Occupancy.Controllers
             else ViewBag.Saldo = 0;
 
             // Revisar movimientos tipo 3 Renta del Mes. Llenado de listMeses. El POST es con el botón Agregar el Mes en el Modal
-            //AddMonth(id);
-
+            AddMonth(id);
             // Revisar movimientos documentos por cobrar, y el habilitar el botón de abonos en la vista solo si "el tipo de cuota es por Local"
-            // -------    ----------------  LlenaListDebeImporte(id);  // llenado con los meses que debe, con importes
-            // -------    ----------------  LlenaListDebeSaldo(id);  /// si es tipo cuota por local puede abonar
-            LlenaListDebeImporte(id);
 
-            // ------para la prueba del controlFlexGrid,
-            //IEnumerable<Movimientos> listMovs = contrato.Movimientos.ToList().Where(m => m.Pagado == false);
-
+            // ------para la prueba del controlFlexGrid, IEnumerable<Movimientos> listMovs = contrato.Movimientos.ToList();
             // && m => m.IDTipoMovimiento == 3  ||  1 || 2
-            ///ViewBag.Docs = contrato.Movimientos.ToList().Where(m =>  m.Pagado == false );
+            ViewBag.Docs = contrato.Movimientos.ToList().Where(m =>  m.Pagado == false );
 
             // La vista EditMovs recibe un objeto Contrato
             return View(contrato);
-            //  ahora recibo <Movimientos>
-            //return View(contrato.Movimientos); 
-            //return View();
-            //return View(listMovs);
-        }
-
-        //-- Revisar movimientos documentos por cobrar
-        [Authorize(Roles = "SuperAdmin, AdminArea, FuncionarioA")]
-        public void LlenaListDebeImporte(int? id)
-        {
-            
-            if (id == null)
-            {
-                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Contratos contratos = db.Contratos.Find(id);            
-            
-            if (contratos.Movimientos.Count() > 0)  
-            {
-                // Recorrer movimientos para tomar los meses con saldo, 
-                IEnumerable<Movimientos> listMovimientos = contratos.Movimientos.ToList();
-
-                //
-                string[,] arraySMonthCorr = new string[12, 2];
-                InitArrayObsPer(arraySMonthCorr, 12, 2);
-
-                // el mes?
-                //int[,] arrayMonthC = new int[12, 2];
-                //InitArrayInt(arrayMonthC, 12, 2);
-
-                // todos los datos?
-                //int nCol = 8;
-                //float[,] aMovDeudorCorriente = new float[12, nCol];
-                //float[,] aMovDeudorRezago = new float[12, nCol];
-                //// [0, 0] Corriente //  [0, 1] Adicional //  [0, 2] Porc Recargo // [0, 3] Recargos // [0, 4] Redondeo // [0, 5] Total importe // [0, 6] Mes // [0, 7] Año                                
-                //// [0, 0] Rezago //  [0, 1] Adicional //  [0, 2] Porc Recargo // [0, 3] Recargo Rezago //  [0, 4] Redondeo //  [0, 5] Total importe // [0, 6] Mes // [0, 7] Año
-
-                //InitArrayDebit(aMovDeudorCorriente, 12, nCol);
-                //InitArrayDebit(aMovDeudorRezago, 12, nCol);
-
-                ///-- aqui 
-                Boolean existen = false;
-                int nMes, i = 0;
-                string sYear, sMonth;
-                foreach (var objM in listMovimientos)
-                {
-                    if (objM.Estatus == "ACTIVO" && (objM.IDTipoMovimiento == 3 || objM.IDTipoMovimiento == 2 ) && objM.Pagado == false)
-                    {
-                        //objM.Periodo.Substring(5, 2).to
-
-                        //aMovDeudorCorriente[i, 0] = (float) objM.Corriente;
-                        //aMovDeudorCorriente[i, 1] = (float)objM.Adicional;
-                        //aMovDeudorCorriente[i, 3] = (float)objM.Recargos; 
-                        //aMovDeudorCorriente[i, 4] = (float)objM.Redondeo;
-                        //aMovDeudorCorriente[i, 5] = (float)objM.ImporteTotal;
-                        //aMovDeudorCorriente[i, 6] = (float)objM.Periodo.Substring(5, 2);
-                        //aMovDeudorCorriente[i, 7] = (float)objM.Periodo.Substring(1,4);
-
-                        // revisar Periodo de ese registro                        
-                        sYear = objM.Periodo.Substring(0, 4);
-                        sMonth = objM.Periodo.Substring(4, 2);
-                        nMes = int.Parse(sMonth);
-
-                        if (int.Parse(sYear) == nYearNow)  // corriente
-                        {
-                            arraySMonthCorr[nMes - 1, 0] = objM.Periodo;  // en la posicion del mes
-                            //arrayMonth[nMes - 1, 0] = 1; // en col 0:  marcar el mes [n-1, 0]
-                            //arrayMonth[nMes - 1, 1] = objM.ImporteTotal;
-                            existen = true;
-                        }
-                        //}
-                    }
-                }
-                //----- aqui
-                ViewBag.Year = nYearNow;
-                // Armar el List con los meses que debe
-
-                List<SelectListItem> listMonthDebe = new List<SelectListItem>();
-                SelectListItem itemMonth;
-                // mes actual,el mes es el indice [índice - 1], la columna 1 no la utilizo por ahora
-                if (existen)
-                {
-                    for (int n = 0; n < 12; n++)
-                    {
-                        switch (n)
-                        {
-                            case 0:
-                                if (arraySMonthCorr[n, 0] !=  "") 
-                                {
-                                    itemMonth = new SelectListItem { Text = "ENERO", Value = "01", Disabled = false };
-                                    listMonthDebe.Add(itemMonth);
-                                }                                
-                                break;
-                            case 1:
-                                if (arraySMonthCorr[n, 0] != "")
-                                {
-                                    itemMonth = new SelectListItem { Text = "FEBRERO", Value = "02", Disabled = false };
-                                    listMonthDebe.Add(itemMonth);
-                                }
-                                break;
-                            case 2:
-                                if (arraySMonthCorr[n, 0] != "")
-                                {
-                                    itemMonth = new SelectListItem { Text = "MARZO", Value = "03", Disabled = false };
-                                    listMonthDebe.Add(itemMonth);
-                                }
-                                break;
-                            case 3:
-                                if (arraySMonthCorr[n, 0] != "")
-                                {
-                                    itemMonth = new SelectListItem { Text = "ABRIL", Value = "04", Disabled = false };
-                                    listMonthDebe.Add(itemMonth);
-                                }
-                                break;
-                            case 4:
-                                if (arraySMonthCorr[n, 0] != "")
-                                {
-                                    itemMonth = new SelectListItem { Text = "MAYO", Value = "05", Disabled = false };
-                                    listMonthDebe.Add(itemMonth);
-                                }
-                                break;
-                            case 5:
-                                if (arraySMonthCorr[n, 0] != "")
-                                {
-                                    itemMonth = new SelectListItem { Text = "JUNIO", Value = "06", Disabled = false };
-                                    listMonthDebe.Add(itemMonth);
-                                }
-                                break;
-                            case 6:
-                                if (arraySMonthCorr[n, 0] != "")
-                                {
-                                    itemMonth = new SelectListItem { Text = "JULIO", Value = "07", Disabled = false };
-                                    listMonthDebe.Add(itemMonth);
-                                }
-                                break;
-                            case 7:
-                                if (arraySMonthCorr[n, 0] != "")
-                                {
-                                    itemMonth = new SelectListItem { Text = "AGOSTO", Value = "08", Disabled = false };
-                                    listMonthDebe.Add(itemMonth);
-                                }
-                                break;
-                            case 8:
-                                if (arraySMonthCorr[n, 0] != "")
-                                {
-                                    itemMonth = new SelectListItem { Text = "SEPTIEMBRE", Value = "09", Disabled = false };
-                                    listMonthDebe.Add(itemMonth);
-                                }
-                                break;
-                            case 9:
-                                if (arraySMonthCorr[n, 0] != "")
-                                {
-                                    itemMonth = new SelectListItem { Text = "OCTUBRE", Value = "10", Disabled = false };
-                                    listMonthDebe.Add(itemMonth);
-                                }
-                                break;
-                            case 10:
-                                if (arraySMonthCorr[n, 0] != "")
-                                {
-                                    itemMonth = new SelectListItem { Text = "NOVIEMBRE", Value = "11", Disabled = false };
-                                    listMonthDebe.Add(itemMonth);
-                                }
-                                break;
-                            case 11:
-                                if (arraySMonthCorr[n, 0] != "")
-                                {
-                                    itemMonth = new SelectListItem { Text = "DICIEMBRE", Value = "12", Disabled = false };
-                                    listMonthDebe.Add(itemMonth);
-                                }
-                                break;
-                        }
-                    }
-
-                    ViewBag.sMes = 1;   
-                    ViewBag.listMesesDebe = new SelectList(listMonthDebe, "Value", "Text", ViewBag.sMes);
-
-                }
-            }
-        }
-
-        // -------------
-        [Authorize(Roles = "SuperAdmin, AdminArea, FuncionarioA")]
-        public ActionResult PayOrder(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Contratos contrato = db.Contratos.Find(id);
-            if (contrato == null)
-            {
-                return HttpNotFound();
-            }
-
-            //FlexGridBase<Movimientos> model = contrato.Movimientos.Select()
-            //model
-
-
-            ViewBag.Pendientes = contrato.Movimientos.ToList().Where(m => m.Pagado == false);
-
-            return View();
         }
 
 
         //-- GET -- -- -- -- -- -- -- POST -- -- -- -- -- -- -- -- -- -- -- -- -- -- AddFullOrder()-- -- -- -- -- -- -- 
-        //[Authorize(Roles = "SuperAdmin, AdminArea, FuncionarioA")]
-        //public ActionResult AddFullOrden(int id)
-        //{
-        //    //int id = int.Parse(TempData["idmov"].ToString());            
-        //    //TempData.Keep("idmov");
+        [Authorize(Roles = "SuperAdmin, AdminArea, FuncionarioA")]
+        public ActionResult AddFullOrden(int id)
+        {
+            //int id = int.Parse(TempData["idmov"].ToString());            
+            //TempData.Keep("idmov");
 
-        //    // el espacio, para filtrar en tbl CruceOrden
+            // el espacio, para filtrar en tbl CruceOrden
 
-        //    Movimientos movimientos = db.Movimientos.Find(id);
-        //    if (movimientos == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    if (ModelState.IsValid)
-        //    {
-        //        ViewBag.tipoMovim = movimientos.TipoMovimiento;
-        //        ViewBag.totalMovim = movimientos.ImporteTotal;
+            Movimientos movimientos = db.Movimientos.Find(id);
+            if (movimientos == null)
+            {
+                return HttpNotFound();
+            }
+            if (ModelState.IsValid)
+            {
+                ViewBag.tipoMovim = movimientos.TipoMovimiento;
+                ViewBag.totalMovim = movimientos.ImporteTotal;
 
 
 
-        //    }
-        //    return View();
-        //}
+            }
+            return View();
+        }
         // --  POST Generar ---->  orden de Pago importe completo para      un Cargo listado en los Movimientos --POST -- --AddFullOrder() -- -- -- -- -- 
         [Authorize(Roles = "SuperAdmin, AdminArea, FuncionarioA")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddFullOrden(string obs, string sMes)
+        public ActionResult AddFullOrden(int idMov, float partial, string obs)
         {
+            // Session["ID_User"]
+            // Ya tengo  Session["ID_Contrato"]            
             Contratos contrato = db.Contratos.Find(Session["ID_Contrato"]);
-            int idC = 0, idArb, idEsp;
-            CruceOrden cruce;
-            Espacios espacio;
-            string periodo = nYearNow.ToString();
-
+            int idC = 0;
             if (contrato == null)
             {
                 return HttpNotFound();
@@ -1663,16 +1440,7 @@ namespace Occupancy.Controllers
                 {
                     //nYearNow  nMonthNow  nDayNow
                     idC = contrato.IDContrato;
-                    cruce = db.CruceOrden.Find(Session["ID_Espacio"]); // varios registris, Espacio y Id tipos de movimientos
-                    if (cruce == null)
-                    {
-                        return HttpNotFound();
-                    }
-                    /////////////////idArb = cruce.
-                    // ahora todos son de corriente, los pendientes de pago, pero 
-                        
                     //int nMes = int.Parse(sMes); //el Mes, parámetro del SelectList
-
                     //float fTotal, fRedondeo, fCorriente, fAdicional, fRecargos, fRezago, fAdicionalRezago, fRecargoRezago;
                     //fTotal = fRedondeo = fCorriente = fAdicional = fRecargos = fRezago = fAdicionalRezago = fRecargoRezago = 0;
                     //int nTotal = 0;
@@ -1682,7 +1450,7 @@ namespace Occupancy.Controllers
                 }
 
             }
-            return RedirectToAction("OPartialFull", "Contratos", new { id = idC });
+            return RedirectToAction("EditMovs", "Contratos", new { id = idC });
         }
         // --  POST Generar ---->  orden de Pago Parcial para      un Cargo listado en los Movimientos
         [Authorize(Roles = "SuperAdmin, AdminArea, FuncionarioA")]
