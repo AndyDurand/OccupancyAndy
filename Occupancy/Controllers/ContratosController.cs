@@ -20,6 +20,7 @@ namespace Occupancy.Controllers
     {
         private OccupancyEntities db = new OccupancyEntities(); // no puedo tenerlo en readOnly
         int nYearNow, nMonthNow, nDayNow;
+        int[,] arrayMonthD = new int[12, 2];
         string sPeriodNow;
         // -- Constructor con la fecha actual en numero
         public ContratosController()
@@ -27,7 +28,8 @@ namespace Occupancy.Controllers
             nYearNow = System.DateTime.Now.Year;
             nMonthNow = System.DateTime.Now.Month;
             nDayNow = System.DateTime.Now.Day;
-            sPeriodNow = "";
+            sPeriodNow = "";            
+            InitArrayInt(arrayMonthD, 12, 2);
             if (nMonthNow < 10)            
                 sPeriodNow = nYearNow.ToString() + "0" + nMonthNow;            
             else            
@@ -351,8 +353,13 @@ namespace Occupancy.Controllers
                 // Crear si importe es diferente de cero
                 if (importe != 0)
                 {
-                    Movimientos mov = new Movimientos();                   
-                    mov.IDContrato = contrato.IDContrato;  
+                    Movimientos mov = new Movimientos
+                    {
+                        IDContrato = contrato.IDContrato
+                    };
+                        
+                        //();                   
+                    //mov.IDContrato = contrato.IDContrato;  
 
                     if (tipoSaldo == "SALDO INICIAL REZAGO")
                     {
@@ -392,7 +399,7 @@ namespace Occupancy.Controllers
         // --  GET AddMonth  -- -- -- -- -- -- -- -- -- -- -- -- -- AddMonth() GET nou ya no es ActionResult, lo llamo desde el método GET de EditMovs()- -- -- -- -- -- --
         //public ActionResult AddMonth(int? id)     
         [Authorize(Roles = "SuperAdmin, AdminArea, FuncionarioA")]
-        public void AddMonth(int? id)
+        private void AddMonth(int? id)
         {
             ViewBag.algotxt = "desde AddMonth";
             // Añadir solo meses del año actual 
@@ -1100,24 +1107,26 @@ namespace Occupancy.Controllers
                     for (int i = 0; i < numMesesCorriente; i++)
                     {
                         //aRecargosCorriente[] .-2. saldo inicial corriente
-                        Movimientos mov = new Movimientos();
-                        mov.Estatus = "ACTIVO";
-                        mov.IDContrato = contrato.IDContrato;
-                        mov.IDTipoMovimiento = 2;  
-                        mov.FechaEmision = System.DateTime.Now;
-                        mov.FechaVencimiento = System.DateTime.Now;
-                        mov.IDUser = (int)Session["ID_User"];
-                        mov.Corriente = aRecargosCorriente[i, 0];
-                        mov.Adicional = aRecargosCorriente[i, 1];
-                        mov.Recargos = aRecargosCorriente[i, 3];
-                        mov.Redondeo = aRecargosCorriente[i, 4];
-                        mov.ImporteTotal = aRecargosCorriente[i, 5];
+                        Movimientos mov = new Movimientos
+                        {
+                            Estatus = "ACTIVO",
+                            IDContrato = contrato.IDContrato,
+                            IDTipoMovimiento = 2,
+                            FechaEmision = System.DateTime.Now,
+                            FechaVencimiento = System.DateTime.Now,
+                            IDUser = (int)Session["ID_User"],
+                            Corriente = aRecargosCorriente[i, 0],
+                            Adicional = aRecargosCorriente[i, 1],
+                            Recargos = aRecargosCorriente[i, 3],
+                            Redondeo = aRecargosCorriente[i, 4],
+                            ImporteTotal = aRecargosCorriente[i, 5],
+                            Rezago = 0,  AdicionalRezago = 0, RecargoRezago = 0,
+                            Multa = 0,  Honorarios = 0, Ejecucion = 0,
+                            Observaciones = aObsPerCorriente[i, 0],
+                            Periodo = aObsPerCorriente[i, 1],
+                            Pagado = false,
+                        };
                         mov.Saldo = mov.ImporteTotal;
-                        mov.Rezago = mov.AdicionalRezago = mov.RecargoRezago = 0;
-                        mov.Multa = mov.Honorarios = mov.Ejecucion = 0;
-                        mov.Observaciones = aObsPerCorriente[i, 0];
-                        mov.Periodo = aObsPerCorriente[i, 1];
-                        mov.Pagado = false;
                         db.Movimientos.Add(mov);
                     }
                     db.SaveChanges();
@@ -1399,6 +1408,7 @@ namespace Occupancy.Controllers
             // Revisar movimientos documentos por cobrar, y el habilitar el botón de abonos en la vista solo si "el tipo de cuota es por Local"
             // -------    ----------------  LlenaListDebeImporte(id);  // llenado con los meses que debe, con importes
             // -------    ----------------  LlenaListDebeSaldo(id);  /// si es tipo cuota por local puede abonar
+            // int [,] arrayMonthDebe =  new int[12, 2];                
             LlenaListDebeImporte(id);
 
             // ------para la prueba del controlFlexGrid,
@@ -1417,7 +1427,7 @@ namespace Occupancy.Controllers
 
         //-- Revisar movimientos documentos por cobrar
         [Authorize(Roles = "SuperAdmin, AdminArea, FuncionarioA")]
-        public void LlenaListDebeImporte(int? id)
+        private void LlenaListDebeImporte(int? id)
         {
             
             if (id == null)
@@ -1429,8 +1439,8 @@ namespace Occupancy.Controllers
             if (contratos.Movimientos.Count() > 0)  
             {
                 // Recorrer movimientos para tomar los meses con saldo, 
-                IEnumerable<Movimientos> listMovimientos = contratos.Movimientos.ToList();
-
+                IEnumerable<Movimientos> listMovimientos = contratos.Movimientos.ToList();                
+                //InitArrayInt(arrayMonthD, 12, 2);
                 //
                 string[,] arraySMonthCorr = new string[12, 2];
                 InitArrayObsPer(arraySMonthCorr, 12, 2);
@@ -1474,7 +1484,9 @@ namespace Occupancy.Controllers
 
                         if (int.Parse(sYear) == nYearNow)  // corriente
                         {
-                            arraySMonthCorr[nMes - 1, 0] = objM.Periodo;  // en la posicion del mes
+                            //arraySMonthCorr[nMes - 1, 0] = objM.Periodo;  // en la posicion del mes
+                            arrayMonthD[nMes - 1, 0] = 1;
+                            arrayMonthD[nMes - 1, 1] = objM.IDMovimiento; 
                             //arrayMonth[nMes - 1, 0] = 1; // en col 0:  marcar el mes [n-1, 0]
                             //arrayMonth[nMes - 1, 1] = objM.ImporteTotal;
                             existen = true;
@@ -1482,13 +1494,12 @@ namespace Occupancy.Controllers
                         //}
                     }
                 }
-                //----- aqui
                 ViewBag.Year = nYearNow;
-                // Armar el List con los meses que debe
-
+                // List con los meses que debe
                 List<SelectListItem> listMonthDebe = new List<SelectListItem>();
                 SelectListItem itemMonth;
-                // mes actual,el mes es el indice [índice - 1], la columna 1 no la utilizo por ahora
+                
+                // if (arraySMonthCorr[n, 0] !=  "") 
                 if (existen)
                 {
                     for (int n = 0; n < 12; n++)
@@ -1496,84 +1507,84 @@ namespace Occupancy.Controllers
                         switch (n)
                         {
                             case 0:
-                                if (arraySMonthCorr[n, 0] !=  "") 
+                                if (arrayMonthD[n, 0] == 1) 
                                 {
                                     itemMonth = new SelectListItem { Text = "ENERO", Value = "01", Disabled = false };
                                     listMonthDebe.Add(itemMonth);
                                 }                                
                                 break;
                             case 1:
-                                if (arraySMonthCorr[n, 0] != "")
+                                if (arrayMonthD[n, 0] == 1)
                                 {
                                     itemMonth = new SelectListItem { Text = "FEBRERO", Value = "02", Disabled = false };
                                     listMonthDebe.Add(itemMonth);
                                 }
                                 break;
                             case 2:
-                                if (arraySMonthCorr[n, 0] != "")
+                                if (arrayMonthD[n, 0] == 1)
                                 {
                                     itemMonth = new SelectListItem { Text = "MARZO", Value = "03", Disabled = false };
                                     listMonthDebe.Add(itemMonth);
                                 }
                                 break;
                             case 3:
-                                if (arraySMonthCorr[n, 0] != "")
+                                if (arrayMonthD[n, 0] == 1)
                                 {
                                     itemMonth = new SelectListItem { Text = "ABRIL", Value = "04", Disabled = false };
                                     listMonthDebe.Add(itemMonth);
                                 }
                                 break;
                             case 4:
-                                if (arraySMonthCorr[n, 0] != "")
+                                if (arrayMonthD[n, 0] == 1)
                                 {
                                     itemMonth = new SelectListItem { Text = "MAYO", Value = "05", Disabled = false };
                                     listMonthDebe.Add(itemMonth);
                                 }
                                 break;
                             case 5:
-                                if (arraySMonthCorr[n, 0] != "")
+                                if (arrayMonthD[n, 0] == 1)
                                 {
                                     itemMonth = new SelectListItem { Text = "JUNIO", Value = "06", Disabled = false };
                                     listMonthDebe.Add(itemMonth);
                                 }
                                 break;
                             case 6:
-                                if (arraySMonthCorr[n, 0] != "")
+                                if (arrayMonthD[n, 0] == 1)
                                 {
                                     itemMonth = new SelectListItem { Text = "JULIO", Value = "07", Disabled = false };
                                     listMonthDebe.Add(itemMonth);
                                 }
                                 break;
                             case 7:
-                                if (arraySMonthCorr[n, 0] != "")
+                                if (arrayMonthD[n, 0] == 1)
                                 {
                                     itemMonth = new SelectListItem { Text = "AGOSTO", Value = "08", Disabled = false };
                                     listMonthDebe.Add(itemMonth);
                                 }
                                 break;
                             case 8:
-                                if (arraySMonthCorr[n, 0] != "")
+                                if (arrayMonthD[n, 0] == 1)
                                 {
                                     itemMonth = new SelectListItem { Text = "SEPTIEMBRE", Value = "09", Disabled = false };
                                     listMonthDebe.Add(itemMonth);
                                 }
                                 break;
                             case 9:
-                                if (arraySMonthCorr[n, 0] != "")
+                                if (arrayMonthD[n, 0] == 1)
                                 {
                                     itemMonth = new SelectListItem { Text = "OCTUBRE", Value = "10", Disabled = false };
                                     listMonthDebe.Add(itemMonth);
                                 }
                                 break;
                             case 10:
-                                if (arraySMonthCorr[n, 0] != "")
+                                if (arrayMonthD[n, 0] == 1)
                                 {
                                     itemMonth = new SelectListItem { Text = "NOVIEMBRE", Value = "11", Disabled = false };
                                     listMonthDebe.Add(itemMonth);
                                 }
                                 break;
                             case 11:
-                                if (arraySMonthCorr[n, 0] != "")
+                                if (arrayMonthD[n, 0] == 1)
                                 {
                                     itemMonth = new SelectListItem { Text = "DICIEMBRE", Value = "12", Disabled = false };
                                     listMonthDebe.Add(itemMonth);
@@ -1584,6 +1595,7 @@ namespace Occupancy.Controllers
 
                     ViewBag.sMes = 1;   
                     ViewBag.listMesesDebe = new SelectList(listMonthDebe, "Value", "Text", ViewBag.sMes);
+                    /// 
 
                 }
             }
@@ -1645,9 +1657,11 @@ namespace Occupancy.Controllers
         {
             Contratos contrato = db.Contratos.Find(Session["ID_Contrato"]);
             int idC = 0, idArb, idEsp;
+            int idM;
             CruceOrden cruce;
             Espacios espacio;
             string periodo = nYearNow.ToString();
+            Ordenes orden = new Ordenes();
 
             if (contrato == null)
             {
@@ -1663,14 +1677,25 @@ namespace Occupancy.Controllers
                 {
                     //nYearNow  nMonthNow  nDayNow
                     idC = contrato.IDContrato;
+
+                    int nMes = int.Parse(sMes); //el Mes, parámetro del SelectList
+
                     cruce = db.CruceOrden.Find(Session["ID_Espacio"]); // varios registris, Espacio y Id tipos de movimientos
+                    idM = arrayMonthD[nMes - 1, 1];
+
                     if (cruce == null)
                     {
                         return HttpNotFound();
                     }
+                    orden.IDUser = 1;
+                    orden.ImporteTotal = 0;
+                    orden.FechaEmision = System.DateTime.Now;
+                    //ViewBag.listMesesDebe
+
+
                     /////////////////idArb = cruce.
                     // ahora todos son de corriente, los pendientes de pago, pero 
-                        
+
                     //int nMes = int.Parse(sMes); //el Mes, parámetro del SelectList
 
                     //float fTotal, fRedondeo, fCorriente, fAdicional, fRecargos, fRezago, fAdicionalRezago, fRecargoRezago;

@@ -1,5 +1,7 @@
 ﻿@using Occupancy.Models;
 @using C1.Web.Mvc;
+@model Occupancy.Models.Contratos
+
 @*@model Occupancy.Models.Movimientos*@
 
 @*@model IEnumerable<Occupancy.Models.Movimientos>*@
@@ -30,65 +32,100 @@
                 <div class="row">
                     <!-- Col con panel Info General-->
                     <div class="col-md-6">
-                        <div class="panel panel-success">
-                            <div class="panel-heading">
-                                <div style="text-align:center;">
-                                    <img src="~/Content/images/Logotipo 2022 - gris.png" width="60" height="60" />
-                                    <h4><strong>Ordenes de Pago. Recepción de Pagos y Abonos</strong></h4>
+                        <div class="row">
+                            <div class="panel panel-success">
+                                <div class="panel-heading">
+                                    <div style="text-align:center;">
+                                        <img src="~/Content/images/Logotipo 2022 - gris.png" width="60" height="60" />
+                                        <h5><strong>Ordenes de Pago. Recepción de Pagos y Abonos</strong></h5>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    <p>
+                                        <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
+                                        Genere las <strong>Ordenes de Pago</strong> para los movimientos que corresponda, una Orden de Pago podrá generarla por el <strong>importe completo, si el Tipo de Cuota es por Metraje.</strong>
+                                    </p>
+                                    <p>
+                                        <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
+                                        Genere las <strong>Ordenes de Pago</strong> para los movimientos que corresponda, una Orden de Pago podrá generarla por el <strong>
+                                            importe completo o por abono parcial, si el tipo
+                                            de cuota es por Local.
+                                        </strong>
+                                    </p>
                                 </div>
                             </div>
-                            <div class="panel-body">
-                                <p>
-                                    <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
-                                    Genere las <strong>Ordenes de Pago</strong> para los movimientos que corresponda, una Orden de Pago podrá generarla por el <strong>importe completo, si el Tipo de Cuota es por Metraje.</strong>
-                                </p>
-                                <p>
-                                    <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
-                                    Genere las <strong>Ordenes de Pago</strong> para los movimientos que corresponda, una Orden de Pago podrá generarla por el <strong>
-                                        importe completo o por abono parcial, si el tipo
-                                        de cuota es por Local.
-                                    </strong>
-                                </p>
-                            </div>
                         </div>
+                        <div class="row">
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <div style="text-align:center;">
+                                        <img src="~/Content/images/supermarket.png" width="25" height="25" />
+                                        <h5><strong>@ViewBag.EspacioNombre</strong></h5>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-sm-4">Nave :</div>
+                                        <div class="col-sm-8"><strong>@ViewBag.naveNombre</strong></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-4">Sección :</div>
+                                        <div class="col-sm-8"><strong>@ViewBag.seccionNombre</strong></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                        
                     </div>
                     <!-- Col con panel Datos Persona-->
                     <div class="col-md-6">
                         <!-- here new-->
                         <div class="col-md-12">
                             <div class="row">
-                                <div class="panel panel-success">
+                                <div class="panel panel-info">
                                     <div class="panel-heading">
                                         <div style="text-align:center;">
-                                            <img src="~/Content/images/account.png" width="35" height="35" />
+                                            <img src="~/Content/images/account.png" width="25" height="25" />
                                             <h4><strong>@ViewBag.personaNombre</strong></h4>
+                                            <img src="~/Content/images/food-stand.png" width="25" height="25" />
+                                            <h4><strong>@ViewBag.localNombre   Saldo: $ @ViewBag.Saldo</strong></h4>
                                         </div>
                                     </div>
                                     <div class="panel-body">
                                         <div class="row">
-                                            <div class="col-sm-12">Folio Padrón: @ViewBag.IDPersona</div>
+                                            <div class="col-sm-6">Folio Padrón: @ViewBag.IDPersona</div>
+                                            <div class="col-sm-6"><h4>Folio Contrato / Concesión : <strong>@ViewBag.IDContrato</strong></h4></div>
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-12">Nombre Comercial: @ViewBag.nombreComercial</div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-sm-12"><h4>Folio Contrato / Concesión : <strong>@ViewBag.IDContrato</strong></h4></div>
+                                            <div class="col-md-6">Metros Cuadrados:</div>
+                                            <div class="col-md-6"><strong>@ViewBag.localMcuadrados m2</strong></div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="panel panel-success">
-                                    <div class="panel-heading">
-                                        <div style="text-align:center;">
-                                            <img src="~/Content/images/accounting.png" width="35" height="35" /><h3><strong>Saldo: $ @ViewBag.Saldo</strong></h3>
-                                        </div>
-                                    </div>
-                                    <div class="panel-body">
                                         <div class="row">
-                                            <div class="col-sm-4">Local :</div>
-                                            <div class="col-sm-8"><strong> @ViewBag.localNombre</strong></div>
+                                            <div class="col-md-6">Tipo Cuota:</div>
+                                            <div class="col-md-6"><strong>@ViewBag.localTipoCuota</strong></div>
                                         </div>
+                                        <br />
+                                        <div class="row">
+                                            <div class="col-md-6">Cuota Renta:<strong>$@ViewBag.localCuotaRenta</strong></div>
+                                            <div class="col-md-6">Cuota Renta con Adic.: <strong>$@ViewBag.localCuotaRentaConAdic</strong></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">Num. Locales para cobro:</div>
+                                            <div class="col-md-6"><strong>@ViewBag.localNumParaCobro</strong></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">Importe Renta Mensual:</div>
+                                            <div class="col-md-6"><strong>$@ViewBag.localImporteRenta</strong></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">Importe Renta Mensual con Adicional:</div>
+                                            <div class="col-md-6"><strong>$@ViewBag.localImporteRentaconAdic</strong></div>
+                                        </div>
+                                        <br />
+                                        <br />
+                                        <br />
                                     </div>
                                 </div>
                             </div>
@@ -96,84 +133,15 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>        
         <!-- Row 2 -->
-        <!-- Row con dos panels Datos Espacio y Datos del Local-->
-        <div class="row">
-            <div class="col-md-12">
-                <div class="row">
-                    <!-- Col con panel Info Espacio-Nave-Sección -->
-                    <div class="col-md-6">
-                        <div class="panel panel-info">
-                            <div class="panel-heading">
-                                <div style="text-align:center;">
-                                    <img src="~/Content/images/supermarket.png" width="35" height="35" />
-                                    <h4><strong>@ViewBag.EspacioNombre</strong></h4>
-                                </div>
-                            </div>
-                            <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-sm-4">Nave :</div>
-                                    <div class="col-sm-8"><strong>@ViewBag.naveNombre</strong></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-4">Sección :</div>
-                                    <div class="col-sm-8"><strong>@ViewBag.seccionNombre</strong></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Col con panel Info Local, y datos para cobro  -->
-                    <div class="col-md-6">
-                        <div class="panel panel-success">
-                            <div class="panel-heading">
-                                <div style="text-align:center;">
-                                    <img src="~/Content/images/food-stand.png" width="35" height="35" />
-                                    <h3><strong>@ViewBag.localNombre</strong></h3>
-                                </div>
-                            </div>
-                            <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-md-6">Metros Cuadrados:</div>
-                                    <div class="col-md-6"><strong>@ViewBag.localMcuadrados m2</strong></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">Num. Locales para cobro:</div>
-                                    <div class="col-md-6"><strong>@ViewBag.localNumParaCobro</strong></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">Tipo Cuota:</div>
-                                    <div class="col-md-6"><strong>@ViewBag.localTipoCuota</strong></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">Cuota Renta:<strong>$@ViewBag.localCuotaRenta</strong></div>
-                                    <div class="col-md-6">Cuota Renta con Adic.: <strong>$@ViewBag.localCuotaRentaConAdic</strong></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">Importe Renta Mensual:</div>
-                                    <div class="col-md-6"><strong>$@ViewBag.localImporteRenta</strong></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">Importe Renta Mensual con Adicional:</div>
-                                    <div class="col-md-6"><strong>$@ViewBag.localImporteRentaconAdic</strong></div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <br />
-        <br />
-        <!-- Row 3 -->
         <!-- las acciones generales  -->
         <div class="row">
             <div class="col-md-4">
                 @Html.ActionLink("Regresar a Contratos ", "IndexAdmin")
             </div>
             <div class="col-md-4">
-                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addFullOrden">Orden de Pagos Liquidar</button>
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addFullOrden">Agregar Meses a Pagar</button>
             </div>
             @if (ViewBag.localtipoCuota == "POR LOCAL")
             {
@@ -182,14 +150,61 @@
                 </div>
             }
         </div>
-        <!-- Row 4 -->
+        <!-- Row 3  Orden -->
+        <br />
+        <div class="row">
+            @*<div class="col-md-4"></div>*@
+            @*<div class="col-md-4"></div>*@
+            @*<div class="col-md-4"></div>*@
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Movimientos.ToList().First().IDOrden)                            
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Movimientos.ToList().First().IDOrden)
+                        </dd>
+
+                        <dt>
+                            @*@Html.DisplayNameFor(model => model.FechaEmision)*@
+                            Fecha Emisión
+                        </dt>
+
+                        <dd>
+                            @*@Html.DisplayFor(model => model.FechaEmision)*@
+                        </dd>
+
+                        <dt>
+                            @*@Html.DisplayNameFor(model => model.ImporteTotal)*@
+                            Importe Total
+                        </dt>
+
+                        <dd>
+                            @*@Html.DisplayFor(model => model.ImporteTotal)*@
+
+                        </dd>                       
+
+                        <dt>
+                            @*@Html.DisplayNameFor(model => model.Observaciones)*@
+                        </dt>
+
+                        <dd>
+                            @*@Html.DisplayFor(model => model.Observaciones)*@
+                        </dd>
+
+                    </dl>
+                </div>                
+            </div>            
+        </div>
+        <!-- Row 4  orden detalle -->
         <br />
         <div class="row">
             <div class="col-md-12">
 
             </div>
         </div>   
-          <!-- Definición del Modal AddFullOrden  .                                                                                    -->
+        <!-- Definición del Modal AddFullOrden  .                                                                                    -->
         @using (Html.BeginForm("AddFullOrden", "Contratos", FormMethod.Post))
         {
             @Html.AntiForgeryToken()
@@ -241,8 +256,6 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        @*<label for="importe"> Importe</label>
-                                        <input type="number" class="form-control" style="width:auto" id="importe" name="importe" min="1">*@
                                         <strong>@ViewBag.Year Meses que adeuda:</strong>
                                         <br />
                                         <div class="form-group">
@@ -259,16 +272,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-
-                                </div>
-                                <div class="col-md-6">
-
-                                </div>
-                            </div>
-                            <br />
-                            <br />
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-success"> <span class="glyphicon glyphicon-save"></span> Agregar </button>
