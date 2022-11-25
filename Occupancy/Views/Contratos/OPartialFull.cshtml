@@ -165,34 +165,24 @@
                         <dd>
                             @Html.DisplayFor(model => model.Movimientos.ToList().First().IDOrden)
                         </dd>
-
                         <dt>
-                            @*@Html.DisplayNameFor(model => model.FechaEmision)*@
                             Fecha Emisión
                         </dt>
-
                         <dd>
-                            @*@Html.DisplayFor(model => model.FechaEmision)*@
+                            @Html.DisplayFor(model => model.Movimientos.ToList().First().Ordenes.FechaEmision)
                         </dd>
-
                         <dt>
-                            @*@Html.DisplayNameFor(model => model.ImporteTotal)*@
                             Importe Total
                         </dt>
-
                         <dd>
-                            @*@Html.DisplayFor(model => model.ImporteTotal)*@
-
-                        </dd>                       
-
+                            @Html.DisplayFor(model => model.Movimientos.ToList().First().Ordenes.ImporteTotal)
+                        </dd>
                         <dt>
                             @*@Html.DisplayNameFor(model => model.Observaciones)*@
                         </dt>
-
                         <dd>
                             @*@Html.DisplayFor(model => model.Observaciones)*@
                         </dd>
-
                     </dl>
                 </div>                
             </div>            
@@ -204,6 +194,7 @@
 
             </div>
         </div>   
+        <!--    -->
         <!-- Definición del Modal AddFullOrden  .                                                                                    -->
         @using (Html.BeginForm("AddFullOrden", "Contratos", FormMethod.Post))
         {
